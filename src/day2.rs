@@ -1,7 +1,7 @@
 pub fn day2a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let state = move_submarine(input);
     let answer = state.hpos * state.depth;
-    ("day2a", answer as i32)
+    ("day2a", answer)
 }
 
 fn move_submarine(_input: impl Iterator<Item=String>) -> SubState {
