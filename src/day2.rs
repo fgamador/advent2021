@@ -1,10 +1,10 @@
 pub fn day2a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let state = move_submarine();
+    let state = move_submarine(_input);
     let answer = state.hpos * state.depth;
     ("day2a", answer as i32)
 }
 
-fn move_submarine() -> SubState {
+fn move_submarine(_input: impl Iterator<Item=String>) -> SubState {
     SubState::new(3, 5)
 }
 
