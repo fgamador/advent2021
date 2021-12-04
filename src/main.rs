@@ -3,7 +3,7 @@ mod day1;
 mod day2;
 
 fn main() {
-    let (day, answer) = day1::day1b(util::read_input_file());
+    let (day, answer) = day2::day2a(util::read_input_file());
     println!("{} answer: {}", day, answer);
 }
 

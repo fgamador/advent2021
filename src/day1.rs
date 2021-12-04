@@ -9,7 +9,7 @@ pub fn _day1a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     ("day1a", answer as i32)
 }
 
-pub fn day1b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
+pub fn _day1b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let answer = input
         .map(|line| line.parse::<u32>().unwrap())
         .tuple_windows::<(_, _, _)>()
@@ -62,6 +62,6 @@ mod tests {
             "260",
             "263",
         ]);
-        assert_eq!(day1b(input), ("day1b", 5));
+        assert_eq!(_day1b(input), ("day1b", 5));
     }
 }
