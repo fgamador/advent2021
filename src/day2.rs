@@ -5,9 +5,10 @@ pub fn day2a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 }
 
 fn move_submarine(_input: impl Iterator<Item=String>) -> SubState {
-    SubState::new(3, 5)
+    SubState::new(5, 3)
 }
 
+#[derive(Debug, PartialEq)]
 struct SubState {
     pub hpos: i32,
     pub depth: i32,
@@ -26,6 +27,15 @@ impl SubState {
 mod tests {
     use crate::day2::*;
     use crate::util::to_string_iter;
+
+    #[test]
+    fn move_submarine_forward_and_down() {
+        let input = to_string_iter(vec![
+            "forward 5",
+            "down 3",
+        ]);
+        assert_eq!(move_submarine(input), SubState::new(5, 3));
+    }
 
     #[test]
     fn day2a_forward_and_down() {
