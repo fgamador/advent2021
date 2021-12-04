@@ -1,5 +1,5 @@
-pub fn day2a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let state = move_submarine(_input);
+pub fn day2a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
+    let state = move_submarine(input);
     let answer = state.hpos * state.depth;
     ("day2a", answer as i32)
 }
