@@ -9,6 +9,7 @@ pub fn read_input_file() -> impl Iterator<Item=String> {
     lines.map(|line| line.unwrap())
 }
 
+#[cfg(test)]
 pub fn to_string_iter(strs: Vec<&'static str>) -> impl Iterator<Item=String> {
     strs.into_iter().map(|str| String::from(str)).into_iter()
 }
