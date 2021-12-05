@@ -19,6 +19,8 @@ fn command_to_delta(command: &str) -> SubState {
         SubState::new(0, 0, arg as i32)
     } else if split[0] == "forward" {
         SubState::new(arg as i32, 0, 0)
+    } else if split[0] == "up" {
+        SubState::new(0, 0, -(arg as i32))
     } else {
         panic!("Unknown command {}", split[0]);
     }
@@ -54,6 +56,11 @@ mod tests {
     #[test]
     fn forward_command_to_delta() {
         assert_eq!(command_to_delta("forward 3"), SubState::new(3, 0, 0));
+    }
+
+    #[test]
+    fn up_command_to_delta() {
+        assert_eq!(command_to_delta("up 2"), SubState::new(0, 0, -2));
     }
 
     #[test]
