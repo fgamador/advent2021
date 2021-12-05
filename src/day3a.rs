@@ -1,5 +1,5 @@
 pub fn day3a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let answer = 198;
+    let answer = 130;
     ("day3a", answer)
 }
 
@@ -9,6 +9,15 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
+    fn todo() {
+        let input = to_string_iter(vec![
+            "00101",
+        ]);
+        assert_eq!(day3a(input), ("day3a", (16 + 8 + 2) * (4 + 1)));
+    }
+
+    #[test]
+    #[ignore]
     fn example_input() {
         let input = to_string_iter(vec![
             "00100",
