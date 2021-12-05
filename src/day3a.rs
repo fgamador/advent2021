@@ -1,7 +1,6 @@
 pub fn day3a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let (gamma, epsilon) = (5, 26);
-    let answer = gamma * epsilon;
-    ("day3a", answer)
+    ("day3a", gamma * epsilon)
 }
 
 #[cfg(test)]
