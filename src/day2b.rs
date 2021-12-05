@@ -1,9 +1,15 @@
 //use itertools::Itertools;
 
-pub fn day2b(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let state = SubState::new(3, 6);
+pub fn day2b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
+    let state = move_submarine(input);
     let answer = state.hpos * state.depth;
     ("day2b", answer)
+}
+
+fn move_submarine(input: impl Iterator<Item=String>) -> SubState {
+    input;
+    let state = SubState::new(3, 6);
+    state
 }
 
 struct SubState {
