@@ -17,8 +17,13 @@ fn calc_gamma(input: impl Iterator<Item=String>) -> i32 {
 }
 
 fn count_ones(input: impl Iterator<Item=String>) -> Vec<i32> {
-    input.map(|bitstr| vec![0, 1, 0, 1, 1])
+    input.map(|bitstr| parse_bitstr(&bitstr))
         .next().unwrap()
+}
+
+fn parse_bitstr(bitstr: &str) -> Vec<i32> {
+    bitstr;
+    vec![0, 1, 0, 1, 1]
 }
 
 #[cfg(test)]
