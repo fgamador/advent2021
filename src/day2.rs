@@ -97,4 +97,17 @@ mod tests {
         ]);
         assert_eq!(day2a(input), ("day2a", 15));
     }
+
+    #[test]
+    fn day2a_example_input() {
+        let input = to_string_iter(vec![
+            "forward 5",
+            "down 5",
+            "forward 8",
+            "up 3",
+            "down 8",
+            "forward 2",
+        ]);
+        assert_eq!(day2a(input), ("day2a", 150));
+    }
 }
