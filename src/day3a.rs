@@ -1,5 +1,5 @@
 pub fn day3a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let (gamma, epsilon) = (5, 26);
+    let (gamma, epsilon) = (26, 5);
     ("day3a", gamma * epsilon)
 }
 
@@ -11,7 +11,7 @@ mod tests {
     #[test]
     fn day3a_single_input() {
         let input = to_string_iter(vec![
-            "00101",
+            "11010",
         ]);
         assert_eq!(day3a(input), ("day3a", (16 + 8 + 2) * (4 + 1)));
     }
