@@ -5,7 +5,11 @@ pub fn day2a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 }
 
 fn move_submarine(_input: impl Iterator<Item=String>) -> SubState {
-    SubState::new(5, 3)
+    vec![SubState::new(5, 0), SubState::new(0, 3)].into_iter()
+        .fold(SubState::new(0, 0), |state, delta| SubState {
+            hpos: state.hpos + delta.hpos,
+            depth: state.depth + delta.depth,
+        })
 }
 
 #[derive(Debug, PartialEq)]
