@@ -6,10 +6,8 @@ pub fn day2b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     ("day2b", answer)
 }
 
-fn move_submarine(input: impl Iterator<Item=String>) -> SubState {
-    input;
-    let state = SubState::new(3, 0);
-    state
+fn move_submarine(_input: impl Iterator<Item=String>) -> SubState {
+    SubState::new(3, 0)
 }
 
 #[derive(Debug, PartialEq)]
