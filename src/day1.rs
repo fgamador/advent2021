@@ -1,6 +1,7 @@
 use itertools::Itertools;
 
-pub fn _day1a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
+#[allow(dead_code)]
+pub fn day1a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let answer = input
         .map(|line| line.parse::<u32>().unwrap())
         .tuple_windows()
@@ -9,7 +10,8 @@ pub fn _day1a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     ("day1a", answer as i32)
 }
 
-pub fn _day1b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
+#[allow(dead_code)]
+pub fn day1b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let answer = input
         .map(|line| line.parse::<u32>().unwrap())
         .tuple_windows::<(_, _, _)>()
@@ -28,7 +30,7 @@ mod tests {
     #[test]
     fn day1a_empty_input() {
         let input = to_string_iter(vec![]);
-        assert_eq!(_day1a(input), ("day1a", 0));
+        assert_eq!(day1a(input), ("day1a", 0));
     }
 
     #[test]
@@ -45,7 +47,7 @@ mod tests {
             "260",
             "263",
         ]);
-        assert_eq!(_day1a(input), ("day1a", 7));
+        assert_eq!(day1a(input), ("day1a", 7));
     }
 
     #[test]
@@ -62,6 +64,6 @@ mod tests {
             "260",
             "263",
         ]);
-        assert_eq!(_day1b(input), ("day1b", 5));
+        assert_eq!(day1b(input), ("day1b", 5));
     }
 }
