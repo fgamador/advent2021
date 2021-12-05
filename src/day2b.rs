@@ -9,7 +9,9 @@ pub fn day2b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 fn move_submarine(input: impl Iterator<Item=String>) -> SubState {
     input
         .map(|command| command_to_delta(&command))
-        .next().unwrap()
+        .fold(SubState::new(0, 0, 0), |state, delta| SubState::new(
+            state.hpos + delta.hpos, 0, 0,
+        ))
 }
 
 fn command_to_delta(command: &str) -> SubState {
@@ -69,6 +71,15 @@ mod tests {
             "forward 3",
         ]);
         assert_eq!(move_submarine(input), SubState::new(3, 0, 0));
+    }
+
+    #[test]
+    fn move_submarine_forward_twice() {
+        let input = to_string_iter(vec![
+            "forward 3",
+            "forward 4",
+        ]);
+        assert_eq!(move_submarine(input), SubState::new(7, 0, 0));
     }
 
     #[test]
