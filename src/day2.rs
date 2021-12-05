@@ -5,7 +5,7 @@ pub fn day2a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 }
 
 fn move_submarine(_input: impl Iterator<Item=String>) -> SubState {
-    vec![SubState::new(5, 0), SubState::new(0, 3)].into_iter()
+    vec![SubState::new(6, 0), SubState::new(0, 4)].into_iter()
         .fold(SubState::new(0, 0), |state, delta| SubState {
             hpos: state.hpos + delta.hpos,
             depth: state.depth + delta.depth,
@@ -35,18 +35,18 @@ mod tests {
     #[test]
     fn move_submarine_forward_and_down() {
         let input = to_string_iter(vec![
-            "forward 5",
-            "down 3",
+            "forward 6",
+            "down 4",
         ]);
-        assert_eq!(move_submarine(input), SubState::new(5, 3));
+        assert_eq!(move_submarine(input), SubState::new(6, 4));
     }
 
     #[test]
     fn day2a_forward_and_down() {
         let input = to_string_iter(vec![
-            "forward 5",
-            "down 3",
+            "forward 6",
+            "down 4",
         ]);
-        assert_eq!(day2a(input), ("day2a", 15));
+        assert_eq!(day2a(input), ("day2a", 24));
     }
 }
