@@ -9,7 +9,11 @@ fn calc_gamma_and_epsilon(input: impl Iterator<Item=String>) -> (i32, i32) {
 }
 
 fn calc_gamma(_input: impl Iterator<Item=String>) -> i32 {
-    26
+    vec![0, 1, 0, 1, 1].into_iter()
+        .enumerate()
+        .fold(0, |gamma, (index, count)| {
+            gamma + count * (1 << index)
+        })
 }
 
 #[cfg(test)]
