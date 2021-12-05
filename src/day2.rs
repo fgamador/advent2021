@@ -1,8 +1,8 @@
 use itertools::Itertools;
 
 pub fn day2a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let _state = move_submarine(input);
-    let answer = 0; // state.hpos * state.depth;
+    let state = move_submarine(input);
+    let answer = state.hpos * state.depth;
     ("day2a", answer)
 }
 
@@ -83,7 +83,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn day2a_forward_and_down() {
         let input = to_string_iter(vec![
             "forward 5",
