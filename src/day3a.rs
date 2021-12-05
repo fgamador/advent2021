@@ -26,6 +26,14 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
+    fn ones_count_single_input() {
+        let input = to_string_iter(vec![
+            "11010",
+        ]);
+        assert_eq!(count_ones(input), vec![0, 1, 0, 1, 1]);
+    }
+
+    #[test]
     fn gamma_single_input() {
         let input = to_string_iter(vec![
             "11010",
