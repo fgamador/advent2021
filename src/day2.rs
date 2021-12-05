@@ -46,6 +46,11 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
+    fn forward_command_to_delta() {
+        assert_eq!(command_to_delta("forward 6"), SubState::new(6, 0));
+    }
+
+    #[test]
     fn move_submarine_forward() {
         let input = to_string_iter(vec![
             "forward 6",
