@@ -1,3 +1,5 @@
+use itertools::Itertools;
+
 pub fn day2a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let _state = move_submarine(input);
     let answer = 0; // state.hpos * state.depth;
@@ -9,12 +11,18 @@ fn move_submarine(input: impl Iterator<Item=String>) -> SubState {
         .map(|line| command_to_delta(&line))
         .fold(SubState::new(0, 0), |state, delta| SubState {
             hpos: state.hpos + delta.hpos,
-            depth: 0 // state.depth + delta.depth,
+            depth: 0, // state.depth + delta.depth,
         })
 }
 
-fn command_to_delta(_command: &str) -> SubState {
-    SubState::new(6, 0)
+fn command_to_delta(command: &str) -> SubState {
+    let split = command.split_whitespace().collect_vec();
+    let arg: u32 = String::from(split[1]).parse().unwrap();
+    if split[0] == "forward" {
+        SubState::new(arg as i32, 0)
+    } else {
+        panic!("Unknown command {}", split[0]);
+    }
 }
 
 #[derive(Debug, PartialEq)]
@@ -50,7 +58,7 @@ mod tests {
     fn move_submarine_forward_and_down() {
         let input = to_string_iter(vec![
             "forward 5",
-            "down 3"
+            "down 3",
         ]);
         assert_eq!(move_submarine(input), SubState::new(5, 3));
     }
@@ -68,7 +76,7 @@ mod tests {
     fn day2a_forward_and_down() {
         let input = to_string_iter(vec![
             "forward 5",
-            "down 3"
+            "down 3",
         ]);
         assert_eq!(day2a(input), ("day2a", 15));
     }
