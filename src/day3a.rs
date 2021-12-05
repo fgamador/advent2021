@@ -15,6 +15,14 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
+    fn gamma_and_epsilon_single_input() {
+        let input = to_string_iter(vec![
+            "11010",
+        ]);
+        assert_eq!(calc_gamma_and_epsilon(input), (26, 5));
+    }
+
+    #[test]
     fn day3a_single_input() {
         let input = to_string_iter(vec![
             "11010",
