@@ -36,7 +36,7 @@ impl SubState {
         SubState {
             hpos,
             depth,
-            aim: 0,
+            aim,
         }
     }
 }
