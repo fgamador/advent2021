@@ -1,5 +1,6 @@
 use itertools::Itertools;
 
+#[allow(dead_code)]
 pub fn day2b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let state = move_submarine(input);
     let answer = state.hpos * state.depth;
