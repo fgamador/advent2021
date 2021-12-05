@@ -10,7 +10,7 @@ fn move_submarine(input: impl Iterator<Item=String>) -> SubState {
     input
         .map(|command| command_to_delta(&command))
         .fold(SubState::new(0, 0, 0), |state, delta| SubState::new(
-            state.hpos + delta.hpos, 0, 0,
+            state.hpos + delta.hpos, 0, state.aim + delta.aim,
         ))
 }
 
@@ -80,6 +80,15 @@ mod tests {
             "forward 4",
         ]);
         assert_eq!(move_submarine(input), SubState::new(7, 0, 0));
+    }
+
+    #[test]
+    fn move_submarine_down_and_up() {
+        let input = to_string_iter(vec![
+            "down 3",
+            "up 1",
+        ]);
+        assert_eq!(move_submarine(input), SubState::new(0, 0, 2));
     }
 
     #[test]
