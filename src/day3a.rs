@@ -9,15 +9,21 @@ fn calc_gamma_and_epsilon(input: impl Iterator<Item=String>) -> (i32, i32) {
 }
 
 fn calc_gamma(_input: impl Iterator<Item=String>) -> i32 {
-    _input;
-    let gamma = 26;
-    gamma
+    26
 }
 
 #[cfg(test)]
 mod tests {
     use crate::day3a::*;
     use crate::util::to_string_iter;
+
+    #[test]
+    fn gamma_single_input() {
+        let input = to_string_iter(vec![
+            "11010",
+        ]);
+        assert_eq!(calc_gamma(input), 26);
+    }
 
     #[test]
     fn gamma_and_epsilon_single_input() {
