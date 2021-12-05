@@ -15,7 +15,9 @@ fn move_submarine(input: impl Iterator<Item=String>) -> SubState {
 fn command_to_delta(command: &str) -> SubState {
     let split = command.split_whitespace().collect_vec();
     let arg: u32 = String::from(split[1]).parse().unwrap();
-    if split[0] == "forward" {
+    if split[0] == "down" {
+        SubState::new(0, 0, arg as i32)
+    } else if split[0] == "forward" {
         SubState::new(arg as i32, 0, 0)
     } else {
         panic!("Unknown command {}", split[0]);
@@ -43,6 +45,11 @@ impl SubState {
 mod tests {
     use crate::day2b::*;
     use crate::util::to_string_iter;
+
+    #[test]
+    fn down_command_to_delta() {
+        assert_eq!(command_to_delta("down 2"), SubState::new(0, 0, 2));
+    }
 
     #[test]
     fn forward_command_to_delta() {
