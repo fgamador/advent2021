@@ -100,7 +100,7 @@ mod tests {
     }
 
     #[test]
-    fn day2a_example_input() {
+    fn example_input() {
         let input = to_string_iter(vec![
             "forward 5",
             "down 5",
