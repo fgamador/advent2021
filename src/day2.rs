@@ -22,6 +22,8 @@ fn command_to_delta(command: &str) -> SubState {
         SubState::new(0, arg as i32)
     } else if split[0] == "forward" {
         SubState::new(arg as i32, 0)
+    } else if split[0] == "up" {
+        SubState::new(0, -(arg as i32))
     } else {
         panic!("Unknown command {}", split[0]);
     }
@@ -48,13 +50,18 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
+    fn down_command_to_delta() {
+        assert_eq!(command_to_delta("down 4"), SubState::new(0, 4));
+    }
+
+    #[test]
     fn forward_command_to_delta() {
         assert_eq!(command_to_delta("forward 6"), SubState::new(6, 0));
     }
 
     #[test]
-    fn down_command_to_delta() {
-        assert_eq!(command_to_delta("down 4"), SubState::new(0, 4));
+    fn up_command_to_delta() {
+        assert_eq!(command_to_delta("up 5"), SubState::new(0, -5));
     }
 
     #[test]
