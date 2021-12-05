@@ -18,13 +18,13 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
-    fn day1b_empty_input() {
+    fn empty_input() {
         let input = to_string_iter(vec![]);
         assert_eq!(day1b(input), ("day1b", 0));
     }
 
     #[test]
-    fn day1b_example_input() {
+    fn example_input() {
         let input = to_string_iter(vec![
             "199",
             "200",
