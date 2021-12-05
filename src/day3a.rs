@@ -8,8 +8,8 @@ fn calc_gamma_and_epsilon(input: impl Iterator<Item=String>) -> (i32, i32) {
     (gamma, 31 - gamma)
 }
 
-fn calc_gamma(_input: impl Iterator<Item=String>) -> i32 {
-    count_ones(_input).into_iter()
+fn calc_gamma(input: impl Iterator<Item=String>) -> i32 {
+    count_ones(input).into_iter()
         .enumerate()
         .fold(0, |gamma, (index, count)| {
             gamma + count * (1 << index)
