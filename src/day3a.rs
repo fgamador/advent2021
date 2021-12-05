@@ -3,8 +3,8 @@ pub fn day3a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     ("day3a", gamma * epsilon)
 }
 
-fn calc_gamma_and_epsilon(_input: impl Iterator<Item=String>) -> (i32, i32) {
-    let gamma = calc_gamma(_input);
+fn calc_gamma_and_epsilon(input: impl Iterator<Item=String>) -> (i32, i32) {
+    let gamma = calc_gamma(input);
     (gamma, 31 - gamma)
 }
 
