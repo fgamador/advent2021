@@ -1,4 +1,4 @@
-use itertools::Itertools;
+//use itertools::Itertools;
 
 pub fn day2b(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let state = SubState::new(3, 6);
