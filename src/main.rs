@@ -1,6 +1,7 @@
 mod util;
-mod day1;
+mod day1a;
 mod day2;
+mod day1b;
 
 fn main() {
     let (day, answer) = day2::day2b(util::read_input_file());
