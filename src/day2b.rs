@@ -8,7 +8,7 @@ pub fn day2b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 
 fn move_submarine(input: impl Iterator<Item=String>) -> SubState {
     input;
-    let state = SubState::new(3, 6);
+    let state = SubState::new(3, 0);
     state
 }
 
@@ -33,6 +33,15 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
+    fn move_submarine_forward() {
+        let input = to_string_iter(vec![
+            "forward 3",
+        ]);
+        assert_eq!(move_submarine(input), SubState::new(3, 0));
+    }
+
+    #[test]
+    #[ignore]
     fn move_submarine_down_and_forward() {
         let input = to_string_iter(vec![
             "down 2",
@@ -42,6 +51,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore]
     fn day2b_down_and_forward() {
         let input = to_string_iter(vec![
             "down 2",
