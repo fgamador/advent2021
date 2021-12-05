@@ -1,5 +1,5 @@
-pub fn day3a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let (gamma, epsilon) = calc_gamma_and_epsilon(_input);
+pub fn day3a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
+    let (gamma, epsilon) = calc_gamma_and_epsilon(input);
     ("day3a", gamma * epsilon)
 }
 
