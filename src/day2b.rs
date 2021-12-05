@@ -26,6 +26,7 @@ fn command_to_delta(command: &str) -> SubState {
 struct SubState {
     pub hpos: i32,
     pub depth: i32,
+    pub aim: i32,
 }
 
 impl SubState {
@@ -33,6 +34,7 @@ impl SubState {
         SubState {
             hpos,
             depth,
+            aim: 0,
         }
     }
 }
