@@ -12,6 +12,7 @@ fn move_submarine(input: impl Iterator<Item=String>) -> SubState {
     state
 }
 
+#[derive(Debug, PartialEq)]
 struct SubState {
     pub hpos: i32,
     pub depth: i32,
@@ -30,6 +31,15 @@ impl SubState {
 mod tests {
     use crate::day2b::*;
     use crate::util::to_string_iter;
+
+    #[test]
+    fn move_submarine_down_and_forward() {
+        let input = to_string_iter(vec![
+            "down 2",
+            "forward 3",
+        ]);
+        assert_eq!(move_submarine(input), SubState::new(3, 6));
+    }
 
     #[test]
     fn day2b_down_and_forward() {
