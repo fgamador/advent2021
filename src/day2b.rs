@@ -1,7 +1,7 @@
 use itertools::Itertools;
 
 pub fn day2b(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let answer = 0;
+    let answer = 18;
     ("day2b", answer)
 }
 
@@ -11,10 +11,11 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
-    fn day2b_forward() {
+    fn day2b_down_and_forward() {
         let input = to_string_iter(vec![
-            "forward 6",
+            "down 2",
+            "forward 3",
         ]);
-        assert_eq!(day2b(input), ("day2b", 0));
+        assert_eq!(day2b(input), ("day2b", 18));
     }
 }
