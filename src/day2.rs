@@ -1,10 +1,5 @@
 use itertools::Itertools;
 
-pub fn day2b(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let answer = 0;
-    ("day2b", answer)
-}
-
 #[allow(dead_code)]
 pub fn day2a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let state = move_submarine(input);
@@ -48,6 +43,11 @@ impl SubState {
             depth,
         }
     }
+}
+
+pub fn day2b(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
+    let answer = 0;
+    ("day2b", answer)
 }
 
 #[cfg(test)]
