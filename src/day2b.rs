@@ -16,7 +16,7 @@ fn command_to_delta(command: &str) -> SubState {
     let split = command.split_whitespace().collect_vec();
     let arg: u32 = String::from(split[1]).parse().unwrap();
     if split[0] == "forward" {
-        SubState::new(arg as i32, 0)
+        SubState::new(arg as i32, 0, 0)
     } else {
         panic!("Unknown command {}", split[0]);
     }
@@ -30,7 +30,7 @@ struct SubState {
 }
 
 impl SubState {
-    pub fn new(hpos: i32, depth: i32) -> Self {
+    pub fn new(hpos: i32, depth: i32, aim: i32) -> Self {
         SubState {
             hpos,
             depth,
@@ -46,7 +46,7 @@ mod tests {
 
     #[test]
     fn forward_command_to_delta() {
-        assert_eq!(command_to_delta("forward 3"), SubState::new(3, 0));
+        assert_eq!(command_to_delta("forward 3"), SubState::new(3, 0, 0));
     }
 
     #[test]
@@ -54,7 +54,7 @@ mod tests {
         let input = to_string_iter(vec![
             "forward 3",
         ]);
-        assert_eq!(move_submarine(input), SubState::new(3, 0));
+        assert_eq!(move_submarine(input), SubState::new(3, 0, 0));
     }
 
     #[test]
@@ -64,7 +64,7 @@ mod tests {
             "down 2",
             "forward 3",
         ]);
-        assert_eq!(move_submarine(input), SubState::new(3, 6));
+        assert_eq!(move_submarine(input), SubState::new(3, 6, 0));
     }
 
     #[test]
