@@ -7,6 +7,10 @@ pub fn day2b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 }
 
 fn move_submarine(_input: impl Iterator<Item=String>) -> SubState {
+    command_to_delta()
+}
+
+fn command_to_delta() -> SubState {
     SubState::new(3, 0)
 }
 
