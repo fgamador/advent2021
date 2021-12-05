@@ -1,4 +1,4 @@
-//use itertools::Itertools;
+use itertools::Itertools;
 
 pub fn day2b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let state = move_submarine(input);
@@ -6,12 +6,20 @@ pub fn day2b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     ("day2b", answer)
 }
 
-fn move_submarine(_input: impl Iterator<Item=String>) -> SubState {
-    command_to_delta()
+fn move_submarine(input: impl Iterator<Item=String>) -> SubState {
+    input
+        .map(|command| command_to_delta(&command))
+        .next().unwrap()
 }
 
-fn command_to_delta() -> SubState {
-    SubState::new(3, 0)
+fn command_to_delta(command: &str) -> SubState {
+    let split = command.split_whitespace().collect_vec();
+    let arg: u32 = String::from(split[1]).parse().unwrap();
+    if split[0] == "forward" {
+        SubState::new(arg as i32, 0)
+    } else {
+        panic!("Unknown command {}", split[0]);
+    }
 }
 
 #[derive(Debug, PartialEq)]
@@ -33,6 +41,11 @@ impl SubState {
 mod tests {
     use crate::day2b::*;
     use crate::util::to_string_iter;
+
+    #[test]
+    fn forward_command_to_delta() {
+        assert_eq!(command_to_delta("forward 3"), SubState::new(3, 0));
+    }
 
     #[test]
     fn move_submarine_forward() {
