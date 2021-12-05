@@ -6,11 +6,15 @@ pub fn day2a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 
 fn move_submarine(input: impl Iterator<Item=String>) -> SubState {
     input
-        .map(|line| SubState::new(3, 2))
+        .map(|line| command_to_delta())
         .fold(SubState::new(0, 0), |state, delta| SubState {
             hpos: state.hpos + delta.hpos,
             depth: state.depth + delta.depth,
         })
+}
+
+fn command_to_delta() -> SubState {
+    SubState::new(3, 2)
 }
 
 #[derive(Debug, PartialEq)]
