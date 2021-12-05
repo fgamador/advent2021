@@ -103,7 +103,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn day2b_down_and_forward() {
         let input = to_string_iter(vec![
             "down 2",
