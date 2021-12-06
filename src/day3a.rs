@@ -9,7 +9,7 @@ fn calc_gamma_and_epsilon(input: impl Iterator<Item=String>) -> (i32, i32) {
 }
 
 fn calc_gamma(input: impl Iterator<Item=String>) -> i32 {
-    count_ones(input).into_iter()
+    count_net_ones(input).into_iter()
         .enumerate()
         .filter(|(_index, count)| *count > 0)
         .fold(0, |gamma, (index, _count)| {
@@ -17,7 +17,7 @@ fn calc_gamma(input: impl Iterator<Item=String>) -> i32 {
         })
 }
 
-fn count_ones(input: impl Iterator<Item=String>) -> Vec<i32> {
+fn count_net_ones(input: impl Iterator<Item=String>) -> Vec<i32> {
     input.map(|bitstr| parse_bitstr(&bitstr))
         .next().unwrap()
 }
@@ -25,7 +25,7 @@ fn count_ones(input: impl Iterator<Item=String>) -> Vec<i32> {
 fn parse_bitstr(bitstr: &str) -> Vec<i32> {
     let mut bits: Vec<i32> = Vec::with_capacity(5);
     for bitchar in bitstr.chars().rev() {
-        bits.push(if bitchar == '1' { 1 } else { 0 });
+        bits.push(if bitchar == '1' { 1 } else { -1 });
     }
     bits
 }
@@ -37,7 +37,7 @@ mod tests {
 
     #[test]
     fn parse_sample_bitstr() {
-        assert_eq!(parse_bitstr("11010"), vec![0, 1, 0, 1, 1]);
+        assert_eq!(parse_bitstr("11010"), vec![-1, 1, -1, 1, 1]);
     }
 
     #[test]
@@ -45,7 +45,7 @@ mod tests {
         let input = to_string_iter(vec![
             "11010",
         ]);
-        assert_eq!(count_ones(input), vec![0, 1, 0, 1, 1]);
+        assert_eq!(count_net_ones(input), vec![-1, 1, -1, 1, 1]);
     }
 
     #[test]
