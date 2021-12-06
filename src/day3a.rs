@@ -22,8 +22,11 @@ fn count_ones(input: impl Iterator<Item=String>) -> Vec<i32> {
 }
 
 fn parse_bitstr(bitstr: &str) -> Vec<i32> {
-    bitstr;
-    vec![0, 1, 0, 1, 1]
+    let mut bits: Vec<i32> = Vec::with_capacity(5);
+    for bitchar in bitstr.chars().rev() {
+        bits.push(if bitchar == '1' { 1 } else { 0 });
+    }
+    bits
 }
 
 #[cfg(test)]
