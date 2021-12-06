@@ -20,11 +20,15 @@ fn calc_gamma(input: impl Iterator<Item=String>) -> i32 {
 fn count_net_ones(input: impl Iterator<Item=String>) -> Vec<i32> {
     input.map(|bitstr| parse_bitstr(&bitstr))
         .fold(vec![0, 0, 0, 0, 0], |net_counts, bitstr_counts| {
-            let mut sum: Vec<i32> = Vec::with_capacity(5);
-            net_counts.iter().zip(bitstr_counts)
-                .for_each(|(count1, count2)| sum.push(count1 + count2));
-            sum
+            add_counts_vectors(net_counts, bitstr_counts)
         })
+}
+
+fn add_counts_vectors(counts1: Vec<i32>, counts2: Vec<i32>) -> Vec<i32> {
+    let mut sum: Vec<i32> = Vec::with_capacity(5);
+    counts1.iter().zip(counts2)
+        .for_each(|(count1, count2)| sum.push(count1 + count2));
+    sum
 }
 
 fn parse_bitstr(bitstr: &str) -> Vec<i32> {
