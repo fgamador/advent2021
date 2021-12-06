@@ -18,7 +18,7 @@ fn calc_gamma(input: impl Iterator<Item=String>) -> i32 {
 }
 
 fn count_net_ones(input: impl Iterator<Item=String>) -> Vec<i32> {
-    input.map(|bitstr| parse_bitstr(&bitstr))
+    input.map(|bitstr| bitstr_to_net_ones_deltas(&bitstr))
         .fold(vec![0, 0, 0, 0, 0], |net_counts, bitstr_counts| {
             add_counts_vectors(net_counts, bitstr_counts)
         })
@@ -31,7 +31,7 @@ fn add_counts_vectors(counts1: Vec<i32>, counts2: Vec<i32>) -> Vec<i32> {
     sum
 }
 
-fn parse_bitstr(bitstr: &str) -> Vec<i32> {
+fn bitstr_to_net_ones_deltas(bitstr: &str) -> Vec<i32> {
     let mut bits: Vec<i32> = Vec::with_capacity(5);
     for bitchar in bitstr.chars().rev() {
         bits.push(if bitchar == '1' { 1 } else { -1 });
@@ -45,8 +45,8 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
-    fn parse_sample_bitstr() {
-        assert_eq!(parse_bitstr("11010"), vec![-1, 1, -1, 1, 1]);
+    fn sample_bitstr_to_net_ones_deltas() {
+        assert_eq!(bitstr_to_net_ones_deltas("11010"), vec![-1, 1, -1, 1, 1]);
     }
 
     #[test]
