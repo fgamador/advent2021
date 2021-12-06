@@ -41,7 +41,7 @@ mod tests {
     }
 
     #[test]
-    fn ones_count_single_input() {
+    fn count_net_ones_single_input() {
         let input = to_string_iter(vec![
             "11010",
         ]);
@@ -49,7 +49,7 @@ mod tests {
     }
 
     #[test]
-    fn gamma_single_input() {
+    fn count_gamma_single_input() {
         let input = to_string_iter(vec![
             "11010",
         ]);
@@ -57,7 +57,7 @@ mod tests {
     }
 
     #[test]
-    fn gamma_and_epsilon_single_input() {
+    fn count_gamma_and_epsilon_single_input() {
         let input = to_string_iter(vec![
             "11010",
         ]);
