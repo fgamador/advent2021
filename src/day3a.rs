@@ -19,7 +19,12 @@ fn calc_gamma(input: impl Iterator<Item=String>) -> i32 {
 
 fn count_net_ones(input: impl Iterator<Item=String>) -> Vec<i32> {
     input.map(|bitstr| parse_bitstr(&bitstr))
-        .next().unwrap()
+        .fold(vec![0, 0, 0, 0, 0], |net_counts, bitstr_counts| {
+            let mut sum: Vec<i32> = Vec::with_capacity(5);
+            net_counts.iter().zip(bitstr_counts)
+                .for_each(|(count1, count2)| sum.push(count1 + count2));
+            sum
+        })
 }
 
 fn parse_bitstr(bitstr: &str) -> Vec<i32> {
@@ -46,6 +51,15 @@ mod tests {
             "11010",
         ]);
         assert_eq!(count_net_ones(input), vec![-1, 1, -1, 1, 1]);
+    }
+
+    #[test]
+    fn count_net_ones_two_inputs() {
+        let input = to_string_iter(vec![
+            "11010",
+            "01100",
+        ]);
+        assert_eq!(count_net_ones(input), vec![-2, 0, 0, 2, 0]);
     }
 
     #[test]
