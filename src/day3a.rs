@@ -86,10 +86,10 @@ mod tests {
     //     assert_eq!(calc_gamma(input), 26);
     // }
 
-    // #[test]
-    // fn calc_gamma_single_input() {
-    //     assert_eq!(calc_gamma(&vec![1, 1, 0, 1, 0], 1), 26);
-    // }
+    #[test]
+    fn calc_gamma_single_input() {
+        assert_eq!(calc_gamma(&vec![1, 1, 0, 1, 0], 1), 26);
+    }
 
     #[test]
     fn count_gamma_and_epsilon_single_input() {
