@@ -5,10 +5,14 @@ pub fn day3a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 
 fn calc_gamma_and_epsilon(_input: impl Iterator<Item=String>) -> (i32, i32) {
     let (one_counts, num_values) = (vec![1, 1, 0, 1, 0], 1);
-    let gamma = one_counts.into_iter().rev().enumerate()
-        .filter(|(_index, count)| *count > num_values / 2)
-        .fold(0, |gamma, (index, _count)| gamma + (1 << index));
+    let gamma = calc_gamma(one_counts, num_values);
     (gamma, 31 - gamma)
+}
+
+fn calc_gamma(one_counts: Vec<i32>, num_values: i32) -> i32 {
+    one_counts.into_iter().rev().enumerate()
+        .filter(|(_index, count)| *count > num_values / 2)
+        .fold(0, |gamma, (index, _count)| gamma + (1 << index))
 }
 
 // fn calc_gamma_and_epsilon(input: impl Iterator<Item=String>) -> (i32, i32) {
