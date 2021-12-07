@@ -87,6 +87,11 @@ mod tests {
     // }
 
     #[test]
+    fn calc_gamma_three_inputs() {
+        assert_eq!(calc_gamma(&vec![1, 2, 0, 3, 2], 3), 11);
+    }
+
+    #[test]
     fn calc_gamma_single_input() {
         assert_eq!(calc_gamma(&vec![1, 1, 0, 1, 0], 1), 26);
     }
