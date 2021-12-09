@@ -13,10 +13,9 @@ fn calc_gamma_and_epsilon(_input: impl Iterator<Item=String>) -> (i32, i32) {
 
 fn calc_gamma_bits(_input: impl Iterator<Item=String>) -> Vec<bool> {
     let (one_counts, num_values) = (vec![1, 1, 0, 1, 0], 1);
-    let gamma_bits = one_counts.iter().rev()
+    one_counts.iter().rev()
         .map(|count| *count > num_values / 2)
-        .collect_vec();
-    gamma_bits
+        .collect_vec()
 }
 
 fn bits_to_decimal(bits: Vec<bool>) -> i32 {
@@ -102,8 +101,8 @@ mod tests {
         let one_counts = &vec![1, 2, 0, 3, 2];
         let num_values = 3;
         let gamma_bits = one_counts.iter().rev()
-        .map(|count| *count > num_values / 2)
-        .collect_vec();
+            .map(|count| *count > num_values / 2)
+            .collect_vec();
         assert_eq!(bits_to_decimal(gamma_bits), 11);
     }
 
@@ -112,8 +111,8 @@ mod tests {
         let one_counts = &vec![1, 1, 0, 1, 0];
         let num_values = 1;
         let gamma_bits = one_counts.iter().rev()
-        .map(|count| *count > num_values / 2)
-        .collect_vec();
+            .map(|count| *count > num_values / 2)
+            .collect_vec();
         assert_eq!(bits_to_decimal(gamma_bits), 26);
     }
 
