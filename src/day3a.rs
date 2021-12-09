@@ -97,6 +97,11 @@ mod tests {
     // }
 
     #[test]
+    fn example_bits_to_decimal() {
+        assert_eq!(bits_to_decimal(vec![false, true, false, true, true]), 26)
+    }
+
+    #[test]
     fn calc_gamma_three_inputs() {
         let one_counts = &vec![1, 2, 0, 3, 2];
         let num_values = 3;
