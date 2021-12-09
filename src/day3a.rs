@@ -11,7 +11,8 @@ fn calc_gamma_and_epsilon(_input: impl Iterator<Item=String>) -> (i32, i32) {
 
 fn calc_gamma(one_counts: &[i32], num_values: i32) -> i32 {
     one_counts.iter().rev().enumerate()
-        .filter(|(_index, count)| **count > num_values / 2)
+        .map(|(index, count)| (index, *count > num_values / 2))
+        .filter(|(_index, bit)| *bit)
         .fold(0, |gamma, (index, _count)| gamma + (1 << index))
 }
 
