@@ -15,6 +15,10 @@ fn calc_gamma(one_counts: &[i32], num_values: i32) -> i32 {
     let gamma_bits = one_counts.iter().rev()
         .map(|count| *count > num_values / 2)
         .collect_vec();
+    bits_to_decimal(gamma_bits)
+}
+
+fn bits_to_decimal(gamma_bits: Vec<bool>) -> i32 {
     gamma_bits
         .into_iter().enumerate()
         .filter(|(_index, bit)| *bit)
