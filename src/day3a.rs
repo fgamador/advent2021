@@ -18,8 +18,8 @@ fn calc_gamma(one_counts: &[i32], num_values: i32) -> i32 {
     bits_to_decimal(gamma_bits)
 }
 
-fn bits_to_decimal(gamma_bits: Vec<bool>) -> i32 {
-    gamma_bits
+fn bits_to_decimal(bits: Vec<bool>) -> i32 {
+    bits
         .into_iter().enumerate()
         .filter(|(_index, bit)| *bit)
         .fold(0, |gamma, (index, _count)| gamma + (1 << index))
