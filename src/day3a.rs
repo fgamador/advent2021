@@ -21,8 +21,8 @@ fn calc_gamma(one_counts: &[i32], num_values: i32) -> i32 {
 fn bits_to_decimal(bits: Vec<bool>) -> i32 {
     bits
         .into_iter().enumerate()
-        .filter(|(_index, bit)| *bit)
-        .fold(0, |decimal, (index, _bit)| decimal + (1 << index))
+        .filter_map(|(index, bit)| if bit { Some(index) } else { None })
+        .fold(0, |decimal, index| decimal + (1 << index))
 }
 
 // fn calc_gamma_and_epsilon(input: impl Iterator<Item=String>) -> (i32, i32) {
