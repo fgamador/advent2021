@@ -7,15 +7,11 @@ pub fn day3a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 
 fn calc_gamma_and_epsilon(_input: impl Iterator<Item=String>) -> (i32, i32) {
     let (one_counts, num_values) = (vec![1, 1, 0, 1, 0], 1);
-    let gamma = calc_gamma(&one_counts, num_values);
-    (gamma, 31 - gamma)
-}
-
-fn calc_gamma(one_counts: &[i32], num_values: i32) -> i32 {
     let gamma_bits = one_counts.iter().rev()
         .map(|count| *count > num_values / 2)
         .collect_vec();
-    bits_to_decimal(gamma_bits)
+    let gamma = bits_to_decimal(gamma_bits);
+    (gamma, 31 - gamma)
 }
 
 fn bits_to_decimal(bits: Vec<bool>) -> i32 {
@@ -98,12 +94,22 @@ mod tests {
 
     #[test]
     fn calc_gamma_three_inputs() {
-        assert_eq!(calc_gamma(&vec![1, 2, 0, 3, 2], 3), 11);
+        let one_counts = &vec![1, 2, 0, 3, 2];
+        let num_values = 3;
+        let gamma_bits = one_counts.iter().rev()
+        .map(|count| *count > num_values / 2)
+        .collect_vec();
+        assert_eq!(bits_to_decimal(gamma_bits), 11);
     }
 
     #[test]
     fn calc_gamma_single_input() {
-        assert_eq!(calc_gamma(&vec![1, 1, 0, 1, 0], 1), 26);
+        let one_counts = &vec![1, 1, 0, 1, 0];
+        let num_values = 1;
+        let gamma_bits = one_counts.iter().rev()
+        .map(|count| *count > num_values / 2)
+        .collect_vec();
+        assert_eq!(bits_to_decimal(gamma_bits), 26);
     }
 
     #[test]
