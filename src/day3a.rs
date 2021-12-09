@@ -1,3 +1,5 @@
+use itertools::Itertools;
+
 pub fn day3a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let (gamma, epsilon) = calc_gamma_and_epsilon(input);
     ("day3a", gamma * epsilon)
@@ -12,6 +14,8 @@ fn calc_gamma_and_epsilon(_input: impl Iterator<Item=String>) -> (i32, i32) {
 fn calc_gamma(one_counts: &[i32], num_values: i32) -> i32 {
     one_counts.iter().rev().enumerate()
         .map(|(index, count)| (index, *count > num_values / 2))
+        .collect_vec()
+        .into_iter()
         .filter(|(_index, bit)| *bit)
         .fold(0, |gamma, (index, _count)| gamma + (1 << index))
 }
