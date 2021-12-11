@@ -15,9 +15,8 @@ fn calc_gamma_and_epsilon(input: impl Iterator<Item=String>) -> (i32, i32) {
 fn count_one_bits(input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
     input.map(|_bitstr| vec![true, true, false, true, false])
         .fold((vec![0, 0, 0, 0, 0], 0), |ones_counts_and_line_count, bits| {
-            let _counts = ones_counts_and_line_count.0;
-            let new_counts = increment_elements(_counts, bits);
-            (new_counts, ones_counts_and_line_count.1 + 1)
+            (increment_elements(ones_counts_and_line_count.0, bits),
+             ones_counts_and_line_count.1 + 1)
         })
 }
 
