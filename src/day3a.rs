@@ -108,14 +108,11 @@ mod tests {
     //     assert_eq!(calc_gamma(input), 26);
     // }
 
-    // #[test]
-    // fn add_example_bits_to_ones_counts() {
-    //     let prev_counts = (vec![0, 0, 0, 0, 0], 0);
-    //     let bits = vec![1, 1, 0, 1, 0];
-    //     let _counts = prev_counts;
-    //     let _bits = bits;
-    //     assert_eq!((vec![1, 1, 0, 1, 0], 1), (vec![1, 1, 0, 1, 0], 1));
-    // }
+    #[test]
+    fn increment_ones_counts_by_example_bits() {
+        let result = increment_elements(vec![0, 0, 0, 0, 0], vec![true, true, false, true, false]);
+        assert_eq!(result, vec![1, 1, 0, 1, 0]);
+    }
 
     #[test]
     fn count_one_bits_one_input() {
