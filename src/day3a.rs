@@ -21,7 +21,7 @@ fn count_one_bits(input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
 }
 
 fn bitstr_to_bits(bitstr: &str) -> Vec<bool> {
-    let mut bits: Vec<bool> = Vec::with_capacity(5);
+    let mut bits: Vec<bool> = Vec::with_capacity(bitstr.len());
     for bitchar in bitstr.chars() {
         bits.push(bitchar == '1');
     }
@@ -54,7 +54,7 @@ mod tests {
 
     #[test]
     fn example_bitstr_to_bits() {
-        assert_eq!(bitstr_to_bits("11010"), vec![true, true, false, true, false]);
+        assert_eq!(bitstr_to_bits("1101010"), vec![true, true, false, true, false, true, false]);
     }
 
     #[test]
