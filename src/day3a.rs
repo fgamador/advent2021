@@ -13,14 +13,14 @@ fn calc_gamma_and_epsilon(input: impl Iterator<Item=String>) -> (i32, i32) {
 }
 
 fn count_one_bits(input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
-    input.map(|bitstr| bitstr_to_bits(bitstr))
+    input.map(|bitstr| bitstr_to_bits(&bitstr))
         .fold((vec![0, 0, 0, 0, 0], 0), |(mut ones_counts, line_count), bits| {
             increment_elements(&mut ones_counts, &bits);
             (ones_counts, line_count + 1)
         })
 }
 
-fn bitstr_to_bits(_bitstr: String) -> Vec<bool> {
+fn bitstr_to_bits(_bitstr: &str) -> Vec<bool> {
     vec![true, true, false, true, false]
 }
 
@@ -113,6 +113,11 @@ mod tests {
     //     ]);
     //     assert_eq!(calc_gamma(input), 26);
     // }
+
+    #[test]
+    fn example_bitstr_to_bits() {
+        assert_eq!(bitstr_to_bits("1, 1, 0, 1, 0"), vec![true, true, false, true, false]);
+    }
 
     #[test]
     fn increment_ones_counts_by_example_bits() {
