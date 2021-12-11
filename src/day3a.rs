@@ -106,23 +106,9 @@ mod tests {
     }
 
     #[test]
-    fn calc_gamma_three_inputs() {
-        let one_counts = &vec![1, 2, 0, 3, 2];
-        let num_values = 3;
-        let gamma_bits = one_counts.iter()
-            .map(|count| *count > num_values / 2)
-            .collect_vec();
-        assert_eq!(bits_to_decimal(&gamma_bits), 11);
-    }
-
-    #[test]
-    fn calc_gamma_single_input() {
-        let one_counts = &vec![1, 1, 0, 1, 0];
-        let num_values = 1;
-        let gamma_bits = one_counts.iter()
-            .map(|count| *count > num_values / 2)
-            .collect_vec();
-        assert_eq!(bits_to_decimal(&gamma_bits), 26);
+    fn calc_gamma_bits_three_inputs() {
+        let gamma_bits = one_counts_to_gamma_bits(&vec![1, 2, 0, 3, 2], 3);
+        assert_eq!(gamma_bits, vec![false, true, false, true, true]);
     }
 
     #[test]
