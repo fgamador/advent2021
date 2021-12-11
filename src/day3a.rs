@@ -101,6 +101,25 @@ mod tests {
     // }
 
     #[test]
+    fn count_one_bits_one_input() {
+        let input = to_string_iter(vec![
+            "11010",
+        ]);
+        assert_eq!(count_one_bits(input), (vec![1, 1, 0, 1, 0], 1));
+    }
+
+    #[test]
+    #[ignore]
+    fn count_one_bits_three_inputs() {
+        let input = to_string_iter(vec![
+            "11001",
+            "01010",
+            "11010",
+        ]);
+        assert_eq!(count_one_bits(input), (vec![2, 3, 0, 2, 1], 3));
+    }
+
+    #[test]
     fn calc_gamma_bits_three_inputs() {
         let gamma_bits = one_counts_to_gamma_bits(&vec![2, 3, 0, 2, 1], 3);
         assert_eq!(gamma_bits, vec![true, true, false, true, false]);
