@@ -16,12 +16,12 @@ fn count_one_bits(input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
     input.map(|_bitstr| vec![true, true, false, true, false])
         .fold((vec![0, 0, 0, 0, 0], 0), |ones_counts_and_line_count, bits| {
             let _counts = ones_counts_and_line_count.0;
-            let new_counts = increment_elements(bits, _counts);
+            let new_counts = increment_elements(_counts, bits);
             (new_counts, ones_counts_and_line_count.1 + 1)
         })
 }
 
-fn increment_elements(_bits: Vec<bool>, _counts: Vec<i32>) -> Vec<i32> {
+fn increment_elements(_counts: Vec<i32>, _bits: Vec<bool>) -> Vec<i32> {
     vec![1, 1, 0, 1, 0]
 }
 
