@@ -13,7 +13,7 @@ fn calc_gamma_and_epsilon(input: impl Iterator<Item=String>) -> (i32, i32) {
 }
 
 fn count_one_bits(input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
-    input.map(|_bitstr| vec![1, 1, 0, 1, 0])
+    input.map(|_bitstr| vec![true, true, false, true, false])
         .fold((vec![0, 0, 0, 0, 0], 0), |counts, bits| {
             let _counts = counts;
             let _bits = bits;
