@@ -59,9 +59,9 @@ mod tests {
 
     #[test]
     fn increment_ones_counts_by_example_bits() {
-        let mut ones_counts = vec![0, 1, 2, 3, 4];
-        increment_elements(&mut ones_counts, &vec![true, true, false, true, false]);
-        assert_eq!(ones_counts, vec![1, 2, 2, 4, 4]);
+        let mut ones_counts = vec![0, 1, 2, 3, 4, 5, 6];
+        increment_elements(&mut ones_counts, &vec![true, true, false, true, false, true, false]);
+        assert_eq!(ones_counts, vec![1, 2, 2, 4, 4, 6, 6]);
     }
 
     #[test]
