@@ -101,14 +101,14 @@ mod tests {
     // }
 
     #[test]
-    fn example_bits_to_decimal() {
-        assert_eq!(bits_to_decimal(&vec![true, true, false, true, false]), 26)
-    }
-
-    #[test]
     fn calc_gamma_bits_three_inputs() {
         let gamma_bits = one_counts_to_gamma_bits(&vec![1, 2, 0, 3, 2], 3);
         assert_eq!(gamma_bits, vec![false, true, false, true, true]);
+    }
+
+    #[test]
+    fn example_bits_to_decimal() {
+        assert_eq!(bits_to_decimal(&vec![true, true, false, true, false]), 26)
     }
 
     #[test]
