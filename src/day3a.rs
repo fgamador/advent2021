@@ -108,6 +108,13 @@ mod tests {
     // }
 
     #[test]
+    fn add_example_bits_to_ones_counts() {
+        let prev_counts = (vec![0, 0, 0, 0, 0], 0);
+        let bits = vec![1, 1, 0, 1, 0];
+        assert_eq!(add_to_ones_counts(prev_counts, bits), (vec![1, 1, 0, 1, 0], 1));
+    }
+
+    #[test]
     fn count_one_bits_one_input() {
         let input = to_string_iter(vec![
             "11010",
