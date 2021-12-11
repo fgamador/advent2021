@@ -66,22 +66,13 @@ mod tests {
     }
 
     #[test]
-    fn count_one_bits_one_input() {
-        let input = to_string_iter(vec![
-            "1101010",
-        ]);
-        assert_eq!(count_one_bits(input), (vec![1, 1, 0, 1, 0, 1, 0], 1));
-    }
-
-    #[test]
-    #[ignore]
     fn count_one_bits_three_inputs() {
         let input = to_string_iter(vec![
-            "11001",
-            "01010",
-            "11010",
+            "11001010",
+            "01010110",
+            "11010100",
         ]);
-        assert_eq!(count_one_bits(input), (vec![2, 3, 0, 2, 1], 3));
+        assert_eq!(count_one_bits(input), (vec![2, 3, 0, 2, 1, 2, 2, 0], 3));
     }
 
     #[test]
