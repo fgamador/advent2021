@@ -9,7 +9,8 @@ fn calc_gamma_and_epsilon(input: impl Iterator<Item=String>) -> (i32, i32) {
     let (one_counts, num_values) = count_one_bits(input);
     let gamma_bits = one_counts_to_gamma_bits(&one_counts, num_values);
     let gamma = bits_to_decimal(&gamma_bits);
-    (gamma, 63 - gamma)
+    let all_bit_set_as_decimal = (1 << gamma_bits.len()) - 1;
+    (gamma, all_bit_set_as_decimal - gamma)
 }
 
 fn count_one_bits(input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
