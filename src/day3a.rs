@@ -20,13 +20,12 @@ fn count_one_bits(input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
         })
 }
 
-fn increment_elements(counts: &mut [i32], _bits: &[bool]) -> Vec<i32> {
+fn increment_elements(counts: &mut [i32], _bits: &[bool]) {
     counts[0] = 1;
     counts[1] = 1;
     counts[2] = 0;
     counts[3] = 1;
     counts[4] = 0;
-    vec![1, 1, 0, 1, 0]
 }
 
 fn one_counts_to_gamma_bits(one_counts: &[i32], num_values: i32) -> Vec<bool> {
