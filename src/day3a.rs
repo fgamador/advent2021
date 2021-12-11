@@ -20,8 +20,12 @@ fn count_one_bits(input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
         })
 }
 
-fn bitstr_to_bits(_bitstr: &str) -> Vec<bool> {
-    vec![true, true, false, true, false]
+fn bitstr_to_bits(bitstr: &str) -> Vec<bool> {
+    let mut bits: Vec<bool> = Vec::with_capacity(5);
+    for bitchar in bitstr.chars() {
+        bits.push(bitchar == '1');
+    }
+    bits
 }
 
 fn increment_elements(counts: &mut [i32], bits: &[bool]) {
@@ -116,7 +120,7 @@ mod tests {
 
     #[test]
     fn example_bitstr_to_bits() {
-        assert_eq!(bitstr_to_bits("1, 1, 0, 1, 0"), vec![true, true, false, true, false]);
+        assert_eq!(bitstr_to_bits("11010"), vec![true, true, false, true, false]);
     }
 
     #[test]
