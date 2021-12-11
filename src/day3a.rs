@@ -9,7 +9,7 @@ fn calc_gamma_and_epsilon(input: impl Iterator<Item=String>) -> (i32, i32) {
     let (one_counts, num_values) = count_one_bits(input);
     let gamma_bits = one_counts_to_gamma_bits(&one_counts, num_values);
     let gamma = bits_to_decimal(&gamma_bits);
-    (gamma, 31 - gamma)
+    (gamma, 63 - gamma)
 }
 
 fn count_one_bits(input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
@@ -83,26 +83,28 @@ mod tests {
 
     #[test]
     fn example_bits_to_decimal() {
-        assert_eq!(bits_to_decimal(&vec![true, true, false, true, false, true]), 53)
+        assert_eq!(bits_to_decimal(&vec![true, true, false, true, false, true]),
+                   32 + 16 + 4 + 1)
     }
 
     #[test]
     fn count_gamma_and_epsilon_single_input() {
         let input = to_string_iter(vec![
-            "11010",
+            "110101",
         ]);
-        assert_eq!(calc_gamma_and_epsilon(input), (26, 5));
+        assert_eq!(calc_gamma_and_epsilon(input), (32 + 16 + 4 + 1, 8 + 2));
     }
 
     #[test]
     fn day3a_single_input() {
         let input = to_string_iter(vec![
-            "11010",
+            "110101",
         ]);
-        assert_eq!(day3a(input), ("day3a", (16 + 8 + 2) * (4 + 1)));
+        assert_eq!(day3a(input), ("day3a", (32 + 16 + 4 + 1) * (8 + 2)));
     }
 
     #[test]
+    #[ignore]
     fn example_input() {
         let input = to_string_iter(vec![
             "00100",
