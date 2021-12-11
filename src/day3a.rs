@@ -102,8 +102,8 @@ mod tests {
 
     #[test]
     fn calc_gamma_bits_three_inputs() {
-        let gamma_bits = one_counts_to_gamma_bits(&vec![1, 2, 0, 3, 2], 3);
-        assert_eq!(gamma_bits, vec![false, true, false, true, true]);
+        let gamma_bits = one_counts_to_gamma_bits(&vec![2, 3, 0, 2, 1], 3);
+        assert_eq!(gamma_bits, vec![true, true, false, true, false]);
     }
 
     #[test]
