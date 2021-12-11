@@ -7,7 +7,7 @@ pub fn day3a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 
 fn calc_gamma_and_epsilon(input: impl Iterator<Item=String>) -> (i32, i32) {
     let (one_counts, num_values) = count_one_bits(input);
-    let gamma_bits = one_counts_to_gamma_bits(one_counts, num_values);
+    let gamma_bits = one_counts_to_gamma_bits(&one_counts, num_values);
     let gamma = bits_to_decimal(&gamma_bits);
     (gamma, 31 - gamma)
 }
@@ -16,7 +16,7 @@ fn count_one_bits(_input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
     (vec![1, 1, 0, 1, 0], 1)
 }
 
-fn one_counts_to_gamma_bits(one_counts: Vec<i32>, num_values: i32) -> Vec<bool> {
+fn one_counts_to_gamma_bits(one_counts: &[i32], num_values: i32) -> Vec<bool> {
     one_counts.iter().rev()
         .map(|count| *count > num_values / 2)
         .collect_vec()
