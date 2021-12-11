@@ -83,7 +83,7 @@ mod tests {
 
     #[test]
     fn example_bits_to_decimal() {
-        assert_eq!(bits_to_decimal(&vec![true, true, false, true, false]), 26)
+        assert_eq!(bits_to_decimal(&vec![true, true, false, true, false, true]), 53)
     }
 
     #[test]
