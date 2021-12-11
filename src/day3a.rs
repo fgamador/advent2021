@@ -17,14 +17,14 @@ fn count_one_bits(_input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
 }
 
 fn one_counts_to_gamma_bits(one_counts: &[i32], num_values: i32) -> Vec<bool> {
-    one_counts.iter().rev()
+    one_counts.iter()
         .map(|count| *count > num_values / 2)
         .collect_vec()
 }
 
 fn bits_to_decimal(bits: &[bool]) -> i32 {
     bits
-        .iter().enumerate()
+        .iter().rev().enumerate()
         .filter(|(_index, bit)| **bit)
         .fold(0, |result, (index, _bit)| result + (1 << index))
 }
@@ -102,14 +102,14 @@ mod tests {
 
     #[test]
     fn example_bits_to_decimal() {
-        assert_eq!(bits_to_decimal(&vec![false, true, false, true, true]), 26)
+        assert_eq!(bits_to_decimal(&vec![true, true, false, true, false]), 26)
     }
 
     #[test]
     fn calc_gamma_three_inputs() {
         let one_counts = &vec![1, 2, 0, 3, 2];
         let num_values = 3;
-        let gamma_bits = one_counts.iter().rev()
+        let gamma_bits = one_counts.iter()
             .map(|count| *count > num_values / 2)
             .collect_vec();
         assert_eq!(bits_to_decimal(&gamma_bits), 11);
@@ -119,7 +119,7 @@ mod tests {
     fn calc_gamma_single_input() {
         let one_counts = &vec![1, 1, 0, 1, 0];
         let num_values = 1;
-        let gamma_bits = one_counts.iter().rev()
+        let gamma_bits = one_counts.iter()
             .map(|count| *count > num_values / 2)
             .collect_vec();
         assert_eq!(bits_to_decimal(&gamma_bits), 26);
