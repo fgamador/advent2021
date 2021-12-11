@@ -19,10 +19,9 @@ fn count_one_bits(input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
 }
 
 fn one_counts_to_gamma_bits(one_counts: Vec<i32>, num_values: i32) -> Vec<bool> {
-    let gamma_bits = one_counts.iter().rev()
+    one_counts.iter().rev()
         .map(|count| *count > num_values / 2)
-        .collect_vec();
-    gamma_bits
+        .collect_vec()
 }
 
 fn bits_to_decimal(bits: Vec<bool>) -> i32 {
