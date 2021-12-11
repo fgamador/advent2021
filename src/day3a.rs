@@ -17,7 +17,7 @@ fn count_one_bits(input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
         .fold((vec![0, 0, 0, 0, 0], 0), |counts, bits| {
             let _counts = counts;
             let _bits = bits;
-            (vec![1, 1, 0, 1, 0], 1)
+            (vec![1, 1, 0, 1, 0], _counts.1 + 1)
         })
 }
 
