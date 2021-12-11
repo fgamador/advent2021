@@ -20,12 +20,10 @@ fn count_one_bits(input: impl Iterator<Item=String>) -> (Vec<i32>, i32) {
         })
 }
 
-fn increment_elements(counts: &mut [i32], _bits: &[bool]) {
-    counts[0] = 1;
-    counts[1] = 1;
-    counts[2] = 0;
-    counts[3] = 1;
-    counts[4] = 0;
+fn increment_elements(counts: &mut [i32], bits: &[bool]) {
+    counts.iter_mut().enumerate()
+        .filter(|(index, _element)| bits[*index])
+        .for_each(|(_index, element)| *element += 1);
 }
 
 fn one_counts_to_gamma_bits(one_counts: &[i32], num_values: i32) -> Vec<bool> {
@@ -114,9 +112,9 @@ mod tests {
 
     #[test]
     fn increment_ones_counts_by_example_bits() {
-        let mut ones_counts = vec![0, 0, 0, 0, 0];
+        let mut ones_counts = vec![0, 1, 2, 3, 4];
         increment_elements(&mut ones_counts, &vec![true, true, false, true, false]);
-        assert_eq!(ones_counts, vec![1, 1, 0, 1, 0]);
+        assert_eq!(ones_counts, vec![1, 2, 2, 4, 4]);
     }
 
     #[test]
