@@ -1,5 +1,5 @@
 pub fn day3b(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    ("day3b", 230)
+    ("day3b", 23 * 10)
 }
 
 #[cfg(test)]
