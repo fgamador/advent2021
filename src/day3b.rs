@@ -1,5 +1,7 @@
 pub fn day3b(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    ("day3b", 23 * 10)
+    let og_rating = 23;
+    let cs_rating = 10;
+    ("day3b", og_rating * cs_rating)
 }
 
 #[cfg(test)]
