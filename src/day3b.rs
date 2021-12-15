@@ -4,9 +4,13 @@ pub fn day3b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 }
 
 fn calc_og_rating(_input_bitstrs: impl Iterator<Item=String>) -> i32 {
-    let input_bitvecs = vec![vec![true, true]];
+    let input_bitvecs = bitstrs_to_bitvecs(_input_bitstrs);
     let og_rating_bits = find_og_rating_bits(&input_bitvecs);
     bits_to_decimal(&og_rating_bits)
+}
+
+fn bitstrs_to_bitvecs(_input_bitstrs: impl Iterator<Item=String>) -> Vec<Vec<bool>> {
+    vec![vec![true, true]]
 }
 
 fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
