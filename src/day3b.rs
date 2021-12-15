@@ -66,11 +66,7 @@ mod tests {
 
     #[test]
     fn simple_og_rating() {
-        let input = to_string_iter(vec![
-            "11",
-        ]);
-        let input_bitstrs = input;
-        let input_bitvecs = bitstrs_to_bitvecs(input_bitstrs);
+        let input_bitvecs = vec![vec![true, true]];
         assert_eq!(calc_og_rating(&input_bitvecs), 3);
     }
 
