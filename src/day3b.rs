@@ -30,6 +30,14 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
+    fn single_bitstr_to_bitvec() {
+        let input_bitstrs = to_string_iter(vec![
+            "11",
+        ]);
+        assert_eq!(bitstrs_to_bitvecs(input_bitstrs), vec![vec![true, true]]);
+    }
+
+    #[test]
     fn simple_og_rating_bits() {
         let input_bitvecs = vec![vec![true, true]];
         assert_eq!(find_og_rating_bits(&input_bitvecs), vec![true, true])
