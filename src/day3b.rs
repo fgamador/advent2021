@@ -4,7 +4,11 @@ pub fn day3b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 }
 
 fn calc_og_rating(_input: impl Iterator<Item=String>) -> i32 {
-    bits_to_decimal(&vec![true, true])
+    bits_to_decimal(&find_og_rating_bits(&vec![vec![true, true]]))
+}
+
+fn find_og_rating_bits(input: &[Vec<bool>]) -> Vec<bool> {
+    input[0].clone()
 }
 
 fn bits_to_decimal(bits: &[bool]) -> i32 {
