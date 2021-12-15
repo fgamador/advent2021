@@ -1,12 +1,12 @@
 use itertools::Itertools;
 
 pub fn day3b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let og_rating = calc_og_rating(input);
+    let input_bitvecs = bitstrs_to_bitvecs(input);
+    let og_rating = calc_og_rating(&input_bitvecs);
     ("day3b", og_rating * 10)
 }
 
-fn calc_og_rating(input_bitstrs: impl Iterator<Item=String>) -> i32 {
-    let input_bitvecs = bitstrs_to_bitvecs(input_bitstrs);
+fn calc_og_rating(input_bitvecs: &[Vec<bool>]) -> i32 {
     let og_rating_bits = find_og_rating_bits(&input_bitvecs);
     bits_to_decimal(&og_rating_bits)
 }
@@ -69,7 +69,9 @@ mod tests {
         let input = to_string_iter(vec![
             "11",
         ]);
-        assert_eq!(calc_og_rating(input), 3);
+        let input_bitstrs = input;
+        let input_bitvecs = bitstrs_to_bitvecs(input_bitstrs);
+        assert_eq!(calc_og_rating(&input_bitvecs), 3);
     }
 
     #[test]
