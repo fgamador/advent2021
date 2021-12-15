@@ -3,14 +3,14 @@ pub fn day3b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     ("day3b", og_rating * 10)
 }
 
-fn calc_og_rating(_input: impl Iterator<Item=String>) -> i32 {
-    let input_bits = vec![vec![true, true]];
-    let og_rating_bits = find_og_rating_bits(&input_bits);
+fn calc_og_rating(_input_bitstrs: impl Iterator<Item=String>) -> i32 {
+    let input_bitvecs = vec![vec![true, true]];
+    let og_rating_bits = find_og_rating_bits(&input_bitvecs);
     bits_to_decimal(&og_rating_bits)
 }
 
-fn find_og_rating_bits(input: &[Vec<bool>]) -> Vec<bool> {
-    input[0].clone()
+fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
+    input_bitvecs[0].clone()
 }
 
 fn bits_to_decimal(bits: &[bool]) -> i32 {
@@ -27,8 +27,8 @@ mod tests {
 
     #[test]
     fn simple_og_rating_bits() {
-        let input = vec![vec![true, true]];
-        assert_eq!(find_og_rating_bits(&input), vec![true, true])
+        let input_bitvecs = vec![vec![true, true]];
+        assert_eq!(find_og_rating_bits(&input_bitvecs), vec![true, true])
     }
 
     #[test]
