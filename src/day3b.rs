@@ -17,8 +17,12 @@ fn bitstrs_to_bitvecs(input_bitstrs: impl Iterator<Item=String>) -> Vec<Vec<bool
         .collect_vec()
 }
 
-fn bitstr_to_bitvec(_input_bitstr: &str) -> Vec<bool> {
-    vec![true, true]
+fn bitstr_to_bitvec(bitstr: &str) -> Vec<bool> {
+    let mut bitvec: Vec<bool> = Vec::with_capacity(bitstr.len());
+    for bitchar in bitstr.chars() {
+        bitvec.push(bitchar == '1');
+    }
+    bitvec
 }
 
 fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
@@ -36,6 +40,11 @@ fn bits_to_decimal(bits: &[bool]) -> i32 {
 mod tests {
     use crate::day3b::*;
     use crate::util::to_string_iter;
+
+    #[test]
+    fn example_bitstr_to_bitvec() {
+        assert_eq!(bitstr_to_bitvec("1101010"), vec![true, true, false, true, false, true, false]);
+    }
 
     #[test]
     fn single_bitstr_to_bitvec() {
