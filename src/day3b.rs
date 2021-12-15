@@ -1,3 +1,5 @@
+use itertools::Itertools;
+
 pub fn day3b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let og_rating = calc_og_rating(input);
     ("day3b", og_rating * 10)
@@ -9,8 +11,10 @@ fn calc_og_rating(_input_bitstrs: impl Iterator<Item=String>) -> i32 {
     bits_to_decimal(&og_rating_bits)
 }
 
-fn bitstrs_to_bitvecs(_input_bitstrs: impl Iterator<Item=String>) -> Vec<Vec<bool>> {
-    vec![vec![true, true]]
+fn bitstrs_to_bitvecs(input_bitstrs: impl Iterator<Item=String>) -> Vec<Vec<bool>> {
+    input_bitstrs
+        .map(|_input_bitstr| vec![true, true])
+        .collect_vec()
 }
 
 fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
