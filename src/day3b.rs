@@ -24,6 +24,12 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
+    fn simple_og_rating_bits() {
+        let input = vec![vec![true, true]];
+        assert_eq!(find_og_rating_bits(&input), vec![true, true])
+    }
+
+    #[test]
     fn example_bits_to_decimal() {
         assert_eq!(bits_to_decimal(&vec![true, true, false, true, false, true]),
                    32 + 16 + 4 + 1)
