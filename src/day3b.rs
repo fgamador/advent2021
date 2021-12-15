@@ -17,6 +17,11 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
+    fn example_bits_to_decimal() {
+        assert_eq!(bits_to_decimal(&vec![true, true]), 2 + 1)
+    }
+
+    #[test]
     fn simple_og_rating() {
         let input = to_string_iter(vec![
             "11",
