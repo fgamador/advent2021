@@ -13,8 +13,12 @@ fn calc_og_rating(_input_bitstrs: impl Iterator<Item=String>) -> i32 {
 
 fn bitstrs_to_bitvecs(input_bitstrs: impl Iterator<Item=String>) -> Vec<Vec<bool>> {
     input_bitstrs
-        .map(|_input_bitstr| vec![true, true])
+        .map(|input_bitstr| bitstr_to_bitvec(&input_bitstr))
         .collect_vec()
+}
+
+fn bitstr_to_bitvec(_input_bitstr: &str) -> Vec<bool> {
+    vec![true, true]
 }
 
 fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
