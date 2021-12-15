@@ -8,7 +8,10 @@ fn calc_og_rating(_input: impl Iterator<Item=String>) -> i32 {
 }
 
 fn bits_to_decimal(bits: &[bool]) -> i32 {
-    3
+    bits
+        .iter().rev().enumerate()
+        .filter(|(_index, bit)| **bit)
+        .fold(0, |result, (index, _bit)| result + (1 << index))
 }
 
 #[cfg(test)]
@@ -18,7 +21,8 @@ mod tests {
 
     #[test]
     fn example_bits_to_decimal() {
-        assert_eq!(bits_to_decimal(&vec![true, true]), 2 + 1)
+        assert_eq!(bits_to_decimal(&vec![true, true, false, true, false, true]),
+                   32 + 16 + 4 + 1)
     }
 
     #[test]
