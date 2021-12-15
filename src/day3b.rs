@@ -1,14 +1,10 @@
 pub fn day3b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let og_rating = calc_og_rating(input);
-    ("day3b", og_rating * calc_cs_rating())
+    ("day3b", og_rating * 10)
 }
 
 fn calc_og_rating(_input: impl Iterator<Item=String>) -> i32 {
     23
-}
-
-fn calc_cs_rating() -> i32 {
-    10
 }
 
 #[cfg(test)]
