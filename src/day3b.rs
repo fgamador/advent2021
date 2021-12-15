@@ -18,11 +18,9 @@ fn bitstrs_to_bitvecs(input_bitstrs: impl Iterator<Item=String>) -> Vec<Vec<bool
 }
 
 fn bitstr_to_bitvec(bitstr: &str) -> Vec<bool> {
-    let mut bitvec: Vec<bool> = Vec::with_capacity(bitstr.len());
-    for bitchar in bitstr.chars() {
-        bitvec.push(bitchar == '1');
-    }
-    bitvec
+    bitstr.chars()
+        .map(|bitchar| bitchar == '1')
+        .collect_vec()
 }
 
 fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
