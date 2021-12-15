@@ -4,7 +4,8 @@ pub fn day3b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 }
 
 fn calc_og_rating(_input: impl Iterator<Item=String>) -> i32 {
-    let og_rating_bits = find_og_rating_bits(&vec![vec![true, true]]);
+    let input_bits = vec![vec![true, true]];
+    let og_rating_bits = find_og_rating_bits(&input_bits);
     bits_to_decimal(&og_rating_bits)
 }
 
