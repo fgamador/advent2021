@@ -24,7 +24,18 @@ fn bitstr_to_bitvec(bitstr: &str) -> Vec<bool> {
 }
 
 fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
-    input_bitvecs[0].clone()
+    if input_bitvecs.len() == 1 {
+        return input_bitvecs[0].clone();
+    }
+
+    let true_bitvecs = vec![input_bitvecs[1].clone()];
+    let false_bitvecs = vec![input_bitvecs[0].clone()];
+
+    if true_bitvecs.len() == false_bitvecs.len() {
+        return true_bitvecs[0].clone();
+    } else {
+        return false_bitvecs[0].clone();
+    }
 }
 
 fn bits_to_decimal(bits: &[bool]) -> i32 {
@@ -50,6 +61,15 @@ mod tests {
             "11",
         ]);
         assert_eq!(bitstrs_to_bitvecs(input_bitstrs), vec![vec![true, true]]);
+    }
+
+    #[test]
+    fn og_rating_bits_prefer_true_bit_if_equal_numbers_of_true_and_false() {
+        let input_bitvecs = vec![
+            vec![false, true],
+            vec![true, false],
+        ];
+        assert_eq!(find_og_rating_bits(&input_bitvecs), vec![true, false])
     }
 
     #[test]
