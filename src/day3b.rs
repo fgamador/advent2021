@@ -53,6 +53,12 @@ mod tests {
     }
 
     #[test]
+    fn single_bitvec_becomes_og_rating_bits_even_with_leading_false() {
+        let input_bitvecs = vec![vec![false, true, false, false]];
+        assert_eq!(find_og_rating_bits(&input_bitvecs), vec![false, true, false, false])
+    }
+
+    #[test]
     fn simple_og_rating_bits() {
         let input_bitvecs = vec![vec![true, true]];
         assert_eq!(find_og_rating_bits(&input_bitvecs), vec![true, true])
