@@ -28,7 +28,7 @@ fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
         return input_bitvecs[0].clone();
     }
 
-    let (true_bitvecs, false_bitvecs) = partition_bitvecs(input_bitvecs);
+    let (true_bitvecs, false_bitvecs) = partition_bitvecs(input_bitvecs, 0);
 
     if true_bitvecs.len() == false_bitvecs.len() {
         true_bitvecs[0].clone()
@@ -37,11 +37,11 @@ fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
     }
 }
 
-fn partition_bitvecs(input_bitvecs: &[Vec<bool>]) -> (Vec<Vec<bool>>, Vec<Vec<bool>>) {
+fn partition_bitvecs(input_bitvecs: &[Vec<bool>], bit_index: usize) -> (Vec<Vec<bool>>, Vec<Vec<bool>>) {
     let mut true_bitvecs = vec![];
     let mut false_bitvecs = vec![];
     for bitvec in input_bitvecs {
-        if bitvec[0] {
+        if bitvec[bit_index] {
             true_bitvecs.push(bitvec.clone());
         } else {
             false_bitvecs.push(bitvec.clone());
@@ -83,7 +83,7 @@ mod tests {
             vec![false, false, true],
             vec![true, true, true],
         ];
-        assert_eq!(partition_bitvecs(&input_bitvecs),
+        assert_eq!(partition_bitvecs(&input_bitvecs, 0),
                    (vec![vec![true, false, true], vec![true, true, true]],
                     vec![vec![false, true, true], vec![false, false, true]]))
     }
