@@ -38,7 +38,16 @@ fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
 }
 
 fn partition_bitvecs(input_bitvecs: &[Vec<bool>]) -> (Vec<Vec<bool>>, Vec<Vec<bool>>) {
-    (vec![input_bitvecs[1].clone()], vec![input_bitvecs[0].clone()])
+    let mut true_bitvecs = vec![];
+    let mut false_bitvecs = vec![];
+    for bitvec in input_bitvecs {
+        if bitvec[0] {
+            true_bitvecs.push(bitvec.clone());
+        } else {
+            false_bitvecs.push(bitvec.clone());
+        }
+    }
+    (true_bitvecs, false_bitvecs)
 }
 
 fn bits_to_decimal(bits: &[bool]) -> i32 {
@@ -64,6 +73,19 @@ mod tests {
             "11",
         ]);
         assert_eq!(bitstrs_to_bitvecs(input_bitstrs), vec![vec![true, true]]);
+    }
+
+    #[test]
+    fn partition_bitvecs_by_first_bit() {
+        let input_bitvecs = vec![
+            vec![false, true, true],
+            vec![true, false, true],
+            vec![false, false, true],
+            vec![true, true, true],
+        ];
+        assert_eq!(partition_bitvecs(&input_bitvecs),
+                   (vec![vec![true, false, true], vec![true, true, true]],
+                    vec![vec![false, true, true], vec![false, false, true]]))
     }
 
     #[test]
