@@ -28,8 +28,8 @@ fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
         return input_bitvecs[0].clone();
     }
 
-    let true_bitvecs = vec![input_bitvecs[1].clone()];
-    let false_bitvecs = vec![input_bitvecs[0].clone()];
+    let (true_bitvecs, false_bitvecs) =
+        (vec![input_bitvecs[1].clone()], vec![input_bitvecs[0].clone()]);
 
     if true_bitvecs.len() == false_bitvecs.len() {
         return true_bitvecs[0].clone();
