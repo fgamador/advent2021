@@ -28,14 +28,17 @@ fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
         return input_bitvecs[0].clone();
     }
 
-    let (true_bitvecs, false_bitvecs) =
-        (vec![input_bitvecs[1].clone()], vec![input_bitvecs[0].clone()]);
+    let (true_bitvecs, false_bitvecs) = partition_bitvecs(input_bitvecs);
 
     if true_bitvecs.len() == false_bitvecs.len() {
         return true_bitvecs[0].clone();
     } else {
         return false_bitvecs[0].clone();
     }
+}
+
+fn partition_bitvecs(input_bitvecs: &[Vec<bool>]) -> (Vec<Vec<bool>>, Vec<Vec<bool>>) {
+    (vec![input_bitvecs[1].clone()], vec![input_bitvecs[0].clone()])
 }
 
 fn bits_to_decimal(bits: &[bool]) -> i32 {
