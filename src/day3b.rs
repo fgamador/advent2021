@@ -64,12 +64,9 @@ mod tests {
     }
 
     #[test]
-    fn og_rating_bits_prefer_true_bit_if_equal_numbers_of_true_and_false() {
-        let input_bitvecs = vec![
-            vec![false, true],
-            vec![true, false],
-        ];
-        assert_eq!(find_og_rating_bits(&input_bitvecs), vec![true, false])
+    fn simple_og_rating_bits() {
+        let input_bitvecs = vec![vec![true, true]];
+        assert_eq!(find_og_rating_bits(&input_bitvecs), vec![true, true])
     }
 
     #[test]
@@ -79,9 +76,12 @@ mod tests {
     }
 
     #[test]
-    fn simple_og_rating_bits() {
-        let input_bitvecs = vec![vec![true, true]];
-        assert_eq!(find_og_rating_bits(&input_bitvecs), vec![true, true])
+    fn og_rating_bits_prefer_true_bit_if_equal_numbers_of_true_and_false() {
+        let input_bitvecs = vec![
+            vec![false, true],
+            vec![true, false],
+        ];
+        assert_eq!(find_og_rating_bits(&input_bitvecs), vec![true, false])
     }
 
     #[test]
