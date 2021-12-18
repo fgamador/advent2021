@@ -68,16 +68,16 @@ mod tests {
     }
 
     #[test]
-    fn partition_bitvecs_by_first_bit() {
+    fn partition_bitvecs_by_second_bit() {
         let input_bitvecs = vec![
             vec![false, true, true],
             vec![true, false, true],
             vec![false, false, true],
             vec![true, true, true],
         ];
-        assert_eq!(partition_bitvecs(&input_bitvecs, 0),
-                   (vec![vec![true, false, true], vec![true, true, true]],
-                    vec![vec![false, true, true], vec![false, false, true]]))
+        assert_eq!(partition_bitvecs(&input_bitvecs, 1),
+                   (vec![vec![false, true, true], vec![true, true, true]],
+                    vec![vec![true, false, true], vec![false, false, true]]))
     }
 
     #[test]
