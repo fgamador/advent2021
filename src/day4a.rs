@@ -1,19 +1,14 @@
 use itertools::Itertools;
 
 pub fn day4a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let unmarked_sum: u32 = sum_unmarked_numbers();
-    let winning_number = 5;
-    let answer = unmarked_sum * winning_number;
-    ("day4a", answer as i32)
-}
-
-fn sum_unmarked_numbers() -> u32 {
     let mut board = Board::new(&(1..=25).collect_vec());
     for cell_index in 0..=4 {
         board.mark_cell(cell_index);
     }
-
-    board.sum_unmarked_numbers()
+    let unmarked_sum: u32 = board.sum_unmarked_numbers();
+    let winning_number = 5;
+    let answer = unmarked_sum * winning_number;
+    ("day4a", answer as i32)
 }
 
 struct Board {
@@ -59,7 +54,11 @@ mod tests {
 
     #[test]
     fn sum_example_unmarked_numbers() {
-        assert_eq!(sum_unmarked_numbers(), (6..=25).sum());
+        let mut board = Board::new(&(1..=25).collect_vec());
+        for cell_index in 0..=4 {
+            board.mark_cell(cell_index);
+        }
+        assert_eq!(board.sum_unmarked_numbers(), (6..=25).sum());
     }
 
     #[test]
