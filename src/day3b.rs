@@ -28,6 +28,10 @@ fn og_rating_selection_fn(true_bitvecs_len: usize, false_bitvecs_len: usize) -> 
     true_bitvecs_len >= false_bitvecs_len
 }
 
+fn cs_rating_selection_fn(true_bitvecs_len: usize, false_bitvecs_len: usize) -> bool {
+    true_bitvecs_len < false_bitvecs_len
+}
+
 fn find_rating_bits<F>(input_bitvecs: &[Vec<bool>], selection_fn: &F) -> Vec<bool>
     where F: Fn(usize, usize) -> bool
 {
@@ -126,6 +130,16 @@ mod tests {
             vec![false, true],
         ];
         assert_eq!(find_rating_bits(&input_bitvecs, &og_rating_selection_fn), vec![false, true])
+    }
+
+    #[test]
+    fn cs_rating_bits_prefers_minority_bit_value() {
+        let input_bitvecs = vec![
+            vec![false, false],
+            vec![true, false],
+            vec![false, true],
+        ];
+        assert_eq!(find_rating_bits(&input_bitvecs, &cs_rating_selection_fn), vec![true, false])
     }
 
     #[test]
