@@ -19,12 +19,8 @@ fn bitstr_to_bitvec(bitstr: &str) -> Vec<bool> {
 }
 
 fn calc_og_rating(input_bitvecs: &[Vec<bool>]) -> i32 {
-    let og_rating_bits = find_og_rating_bits(&input_bitvecs);
+    let og_rating_bits = find_rating_bits(&input_bitvecs, &og_rating_selection_fn);
     bits_to_decimal(&og_rating_bits)
-}
-
-fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
-    find_rating_bits(input_bitvecs, &og_rating_selection_fn)
 }
 
 fn og_rating_selection_fn(true_bitvecs_len: usize, false_bitvecs_len: usize) -> bool {
@@ -103,13 +99,13 @@ mod tests {
     #[test]
     fn simple_og_rating_bits() {
         let input_bitvecs = vec![vec![true, true]];
-        assert_eq!(find_og_rating_bits(&input_bitvecs), vec![true, true])
+        assert_eq!(find_rating_bits(&input_bitvecs, &og_rating_selection_fn), vec![true, true])
     }
 
     #[test]
     fn single_bitvec_becomes_og_rating_bits_even_with_leading_false() {
         let input_bitvecs = vec![vec![false, true, false, false]];
-        assert_eq!(find_og_rating_bits(&input_bitvecs), vec![false, true, false, false])
+        assert_eq!(find_rating_bits(&input_bitvecs, &og_rating_selection_fn), vec![false, true, false, false])
     }
 
     #[test]
@@ -118,7 +114,7 @@ mod tests {
             vec![false, true],
             vec![true, false],
         ];
-        assert_eq!(find_og_rating_bits(&input_bitvecs), vec![true, false])
+        assert_eq!(find_rating_bits(&input_bitvecs, &og_rating_selection_fn), vec![true, false])
     }
 
     #[test]
@@ -128,7 +124,7 @@ mod tests {
             vec![true, false],
             vec![false, true],
         ];
-        assert_eq!(find_og_rating_bits(&input_bitvecs), vec![false, true])
+        assert_eq!(find_rating_bits(&input_bitvecs, &og_rating_selection_fn), vec![false, true])
     }
 
     #[test]
