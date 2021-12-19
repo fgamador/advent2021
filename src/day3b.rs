@@ -24,6 +24,8 @@ fn bitstr_to_bitvec(bitstr: &str) -> Vec<bool> {
 }
 
 fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
+    assert!(!input_bitvecs.is_empty());
+
     if input_bitvecs.len() == 1 {
         return input_bitvecs[0].clone();
     }
