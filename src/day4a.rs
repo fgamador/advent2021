@@ -2,8 +2,8 @@
 
 pub fn day4a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let unmarked_sum: i32 = (6..=25).sum();
-    let winning_num = 5;
-    let answer = unmarked_sum * winning_num;
+    let winning_number = 5;
+    let answer = unmarked_sum * winning_number;
     ("day4a", answer as i32)
 }
 
@@ -24,8 +24,8 @@ mod tests {
             "21 22 23 24 25",
         ]);
         let unmarked_sum: i32 = (6..=25).sum();
-        let winning_num = 5;
-        assert_eq!(day4a(input), ("day4a", unmarked_sum * winning_num));
+        let winning_number = 5;
+        assert_eq!(day4a(input), ("day4a", unmarked_sum * winning_number));
     }
 
     #[test]
