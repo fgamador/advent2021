@@ -17,6 +17,7 @@ struct Board {
 
 impl Board {
     pub fn new(numbers: &[u32]) -> Self {
+        assert_eq!(numbers.len(), 5 * 5);
         Board {
             cells: numbers.iter()
                 .map(|&num| Cell::new(num, false))
@@ -53,12 +54,13 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
-    fn sum_example_unmarked_numbers() {
-        let mut board = Board::new(&(1..=25).collect_vec());
-        for cell_index in 0..=4 {
-            board.mark_cell(cell_index);
-        }
-        assert_eq!(board.sum_unmarked_numbers(), (6..=25).sum());
+    fn score_example_board() {
+        let mut board = Board::new(&(11..=35).rev().collect_vec());
+        board.mark_cell(0);
+        board.mark_cell(11);
+        board.mark_cell(12);
+        board.mark_cell(24);
+        assert_eq!(board.sum_unmarked_numbers(), (11..=35).sum::<u32>() - (35 + 24 + 23 + 11));
     }
 
     #[test]
