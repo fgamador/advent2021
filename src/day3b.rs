@@ -2,7 +2,7 @@ use itertools::Itertools;
 
 pub fn day3b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let input_bitvecs = bitstrs_to_bitvecs(input);
-    let og_rating = calc_og_rating(&input_bitvecs);
+    let og_rating = calc_rating(&input_bitvecs, &og_rating_selection_fn);
     ("day3b", og_rating * 10)
 }
 
@@ -16,10 +16,6 @@ fn bitstr_to_bitvec(bitstr: &str) -> Vec<bool> {
     bitstr.chars()
         .map(|bitchar| bitchar == '1')
         .collect_vec()
-}
-
-fn calc_og_rating(input_bitvecs: &[Vec<bool>]) -> i32 {
-    calc_rating(&input_bitvecs, &og_rating_selection_fn)
 }
 
 fn calc_rating<F>(input_bitvecs: &[Vec<bool>], selection_fn: &F) -> i32
@@ -141,7 +137,7 @@ mod tests {
     #[test]
     fn simple_og_rating() {
         let input_bitvecs = vec![vec![true, true]];
-        assert_eq!(calc_og_rating(&input_bitvecs), 3);
+        assert_eq!(calc_rating(&input_bitvecs, &og_rating_selection_fn), 3);
     }
 
     #[test]
