@@ -1,4 +1,3 @@
-use std::iter;
 use itertools::Itertools;
 
 pub fn day4a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
@@ -9,14 +8,10 @@ pub fn day4a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
 }
 
 fn sum_unmarked_numbers() -> u32 {
-    let row1 =
-        (1..=5).zip(iter::repeat(true))
-            .map(|(number, is_marked)| Cell::new(number, is_marked));
-    let rows2to5 =
-        (6..=25).zip(iter::repeat(false))
-            .map(|(number, is_marked)| Cell::new(number, is_marked));
-    let cells = row1.chain(rows2to5).collect_vec();
-    let board = Board::new(cells);
+    let mut board = Board::new(&(1..=25).collect_vec());
+    for cell_index in 0..=4 {
+        board.mark_cell(cell_index);
+    }
 
     board.sum_unmarked_numbers()
 }
@@ -26,8 +21,16 @@ struct Board {
 }
 
 impl Board {
-    pub fn new(cells: Vec<Cell>) -> Self {
-        Board { cells }
+    pub fn new(numbers: &[u32]) -> Self {
+        Board {
+            cells: numbers.iter()
+                .map(|&num| Cell::new(num, false))
+                .collect_vec()
+        }
+    }
+
+    pub fn mark_cell(&mut self, cell_index: usize) {
+        self.cells[cell_index].is_marked = true;
     }
 
     pub fn sum_unmarked_numbers(&self) -> u32 {
