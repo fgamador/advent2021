@@ -102,6 +102,17 @@ mod tests {
     }
 
     #[test]
+    #[ignore]
+    fn og_rating_bits_prefers_majority_bit_value() {
+        let input_bitvecs = vec![
+            vec![false, false],
+            vec![true, false],
+            vec![false, true],
+        ];
+        assert_eq!(find_og_rating_bits(&input_bitvecs), vec![false, true])
+    }
+
+    #[test]
     fn example_bits_to_decimal() {
         assert_eq!(bits_to_decimal(&vec![true, true, false, true, false, true]),
                    32 + 16 + 4 + 1)
