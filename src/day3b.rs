@@ -24,10 +24,15 @@ fn bitstr_to_bitvec(bitstr: &str) -> Vec<bool> {
 }
 
 fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
-    let bit_index = 0;
-    let chosen_bitvecs = winnow_to_candidate_og_rating_bitvecs(input_bitvecs, bit_index);
+    let mut bit_index = 0;
+    let mut chosen_bitvecs = winnow_to_candidate_og_rating_bitvecs(input_bitvecs, bit_index);
 
-    assert_eq!(chosen_bitvecs.len(), 1);
+    while chosen_bitvecs.len() > 1 {
+        assert!(!chosen_bitvecs.is_empty());
+        bit_index += 1;
+        chosen_bitvecs = winnow_to_candidate_og_rating_bitvecs(&chosen_bitvecs, bit_index);
+    }
+
     chosen_bitvecs[0].clone()
 }
 
@@ -105,7 +110,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn og_rating_bits_prefers_majority_bit_value() {
         let input_bitvecs = vec![
             vec![false, false],
