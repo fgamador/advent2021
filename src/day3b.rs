@@ -27,19 +27,18 @@ fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
     let selection_fn = |true_bitvecs_len, false_bitvecs_len| true_bitvecs_len >= false_bitvecs_len;
 
     let mut bit_index = 0;
-    let mut chosen_bitvecs = winnow_to_candidate_og_rating_bitvecs(input_bitvecs, bit_index, selection_fn);
+    let mut chosen_bitvecs = winnow_to_candidate_rating_bitvecs(input_bitvecs, bit_index, selection_fn);
 
     while chosen_bitvecs.len() > 1 {
         assert!(!chosen_bitvecs.is_empty());
         bit_index += 1;
-        chosen_bitvecs = winnow_to_candidate_og_rating_bitvecs(&chosen_bitvecs, bit_index, selection_fn);
+        chosen_bitvecs = winnow_to_candidate_rating_bitvecs(&chosen_bitvecs, bit_index, selection_fn);
     }
 
     chosen_bitvecs[0].clone()
 }
 
-fn winnow_to_candidate_og_rating_bitvecs<F>(bitvecs: &[Vec<bool>], bit_index: usize, selection_fn: F)
-                                            -> Vec<Vec<bool>>
+fn winnow_to_candidate_rating_bitvecs<F>(bitvecs: &[Vec<bool>], bit_index: usize, selection_fn: F) -> Vec<Vec<bool>>
     where F: Fn(usize, usize) -> bool
 {
     let (true_bitvecs, false_bitvecs) = partition_bitvecs_by_bit_value(bitvecs, bit_index);
