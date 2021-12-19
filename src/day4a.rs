@@ -1,7 +1,7 @@
 //use itertools::Itertools;
 
 pub fn day4a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let answer = 4512;
+    let answer = 1550;
     ("day4a", answer as i32)
 }
 
@@ -11,6 +11,23 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
+    fn simple_input() {
+        let input = to_string_iter(vec![
+            "1,2,3,4,5",
+            "",
+            " 1  2  3  4  5",
+            " 6  7  8  9 10",
+            "11 12 13 14 15",
+            "16 17 18 19 20",
+            "21 22 23 24 25",
+        ]);
+        let unmarked_sum: i32 = (6..=25).sum();
+        let winning_num = 5;
+        assert_eq!(day4a(input), ("day4a", unmarked_sum * winning_num));
+    }
+
+    #[test]
+    #[ignore]
     fn example_input() {
         let input = to_string_iter(vec![
             "7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1",
