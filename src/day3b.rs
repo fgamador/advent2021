@@ -24,22 +24,17 @@ fn bitstr_to_bitvec(bitstr: &str) -> Vec<bool> {
 }
 
 fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
-    assert!(!input_bitvecs.is_empty());
-
-    if input_bitvecs.len() == 1 {
-        return input_bitvecs[0].clone();
-    }
-
     let bit_index = 0;
     let chosen_bitvecs = winnow_to_candidate_og_rating_bitvecs(input_bitvecs, bit_index);
 
+    assert_eq!(chosen_bitvecs.len(), 1);
     chosen_bitvecs[0].clone()
 }
 
 fn winnow_to_candidate_og_rating_bitvecs(bitvecs: &[Vec<bool>], bit_index: usize) -> Vec<Vec<bool>> {
     let (true_bitvecs, false_bitvecs) = partition_bitvecs_by_bit_value(bitvecs, bit_index);
 
-    if true_bitvecs.len() == false_bitvecs.len() {
+    if true_bitvecs.len() >= false_bitvecs.len() {
         true_bitvecs
     } else {
         false_bitvecs
