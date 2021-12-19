@@ -3,7 +3,8 @@ use itertools::Itertools;
 pub fn day3b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let input_bitvecs = bitstrs_to_bitvecs(input);
     let og_rating = calc_rating(&input_bitvecs, &og_rating_selection_fn);
-    ("day3b", og_rating * 10)
+    let cs_rating = calc_rating(&input_bitvecs, &cs_rating_selection_fn);
+    ("day3b", og_rating * cs_rating)
 }
 
 fn bitstrs_to_bitvecs(input_bitstrs: impl Iterator<Item=String>) -> Vec<Vec<bool>> {
