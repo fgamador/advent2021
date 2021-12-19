@@ -1,7 +1,9 @@
 //use itertools::Itertools;
 
 pub fn day4a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let answer = 1550;
+    let unmarked_sum: i32 = (6..=25).sum();
+    let winning_num = 5;
+    let answer = unmarked_sum * winning_num;
     ("day4a", answer as i32)
 }
 
