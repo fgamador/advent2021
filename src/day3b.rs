@@ -30,15 +30,13 @@ fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
 
     let (true_bitvecs, false_bitvecs) = partition_bitvecs_by_bit_value(input_bitvecs, 0);
 
+    let chosen_bitvecs;
     if true_bitvecs.len() == false_bitvecs.len() {
-        let chosen_bitvecs;
         chosen_bitvecs = true_bitvecs;
-        chosen_bitvecs[0].clone()
     } else {
-        let chosen_bitvecs;
         chosen_bitvecs = false_bitvecs;
-        chosen_bitvecs[0].clone()
     }
+    chosen_bitvecs[0].clone()
 }
 
 fn partition_bitvecs_by_bit_value(bitvecs: &[Vec<bool>], bit_index: usize) -> (Vec<Vec<bool>>, Vec<Vec<bool>>) {
