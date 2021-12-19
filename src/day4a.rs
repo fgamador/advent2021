@@ -18,7 +18,7 @@ fn sum_unmarked_numbers() -> u32 {
     let cells = row1.chain(rows2to5).collect_vec();
 
     cells.iter()
-        .filter(|&cell| !cell.is_marked)
+        .filter(|cell| !cell.is_marked)
         .map(|cell| cell.number)
         .sum()
 }
