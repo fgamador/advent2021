@@ -155,7 +155,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn example_input() {
         let input = to_string_iter(vec![
             "00100",
