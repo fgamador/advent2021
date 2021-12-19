@@ -9,10 +9,12 @@ pub fn day4a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
 }
 
 fn sum_unmarked_numbers() -> u32 {
-    let marked_cells = (1..=5).zip(iter::repeat(true))
-        .map(|(number, is_marked)| Cell::new(number, is_marked));
-    let unmarked_cells = (6..=25).zip(iter::repeat(false))
-        .map(|(number, is_marked)| Cell::new(number, is_marked));
+    let marked_cells =
+        (1..=5).zip(iter::repeat(true))
+            .map(|(number, is_marked)| Cell::new(number, is_marked));
+    let unmarked_cells =
+        (6..=25).zip(iter::repeat(false))
+            .map(|(number, is_marked)| Cell::new(number, is_marked));
     let cells = marked_cells.chain(unmarked_cells).collect_vec();
 
     cells.iter()
