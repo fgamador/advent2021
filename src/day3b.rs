@@ -1,5 +1,6 @@
 use itertools::Itertools;
 
+#[allow(dead_code)]
 pub fn day3b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let input_bitvecs = bitstrs_to_bitvecs(input);
     let og_rating = calc_rating(&input_bitvecs, &og_rating_selection_fn);
