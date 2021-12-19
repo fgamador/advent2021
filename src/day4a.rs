@@ -26,15 +26,11 @@ struct Board {
 }
 
 impl Board {
-    fn new(cells: Vec<Cell>) -> Self {
+    pub fn new(cells: Vec<Cell>) -> Self {
         Board { cells }
     }
 
-    fn cells(&self) -> impl Iterator<Item=&Cell> {
-        self.cells.iter()
-    }
-
-    fn sum_unmarked_numbers(&self) -> u32 {
+    pub fn sum_unmarked_numbers(&self) -> u32 {
         self.cells.iter()
             .filter(|cell| !cell.is_marked)
             .map(|cell| cell.number)
@@ -48,7 +44,7 @@ struct Cell {
 }
 
 impl Cell {
-    fn new(number: u32, is_marked: bool) -> Self {
+    pub fn new(number: u32, is_marked: bool) -> Self {
         Cell { number, is_marked }
     }
 }
