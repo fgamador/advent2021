@@ -17,6 +17,11 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
+    fn sum_example_unmarked_numbers() {
+        assert_eq!(sum_unmarked_numbers(), (6..=25).sum());
+    }
+
+    #[test]
     fn simple_input() {
         let input = to_string_iter(vec![
             "1,2,3,4,5",
