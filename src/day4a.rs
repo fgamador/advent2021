@@ -16,11 +16,26 @@ fn sum_unmarked_numbers() -> u32 {
         (6..=25).zip(iter::repeat(false))
             .map(|(number, is_marked)| Cell::new(number, is_marked));
     let cells = row1.chain(rows2to5).collect_vec();
+    let board = Board::new(cells);
 
-    cells.iter()
+    board.cells()
         .filter(|cell| !cell.is_marked)
         .map(|cell| cell.number)
         .sum()
+}
+
+struct Board {
+    cells: Vec<Cell>,
+}
+
+impl Board {
+    fn new(cells: Vec<Cell>) -> Self {
+        Board { cells }
+    }
+
+    fn cells(&self) -> impl Iterator<Item=&Cell> {
+        self.cells.iter()
+    }
 }
 
 struct Cell {
