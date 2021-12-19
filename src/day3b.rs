@@ -38,8 +38,7 @@ fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
 }
 
 fn partition_bitvecs(input_bitvecs: &[Vec<bool>], bit_index: usize) -> (Vec<Vec<bool>>, Vec<Vec<bool>>) {
-    (input_bitvecs.iter().filter(|bitvec| bitvec[bit_index]).cloned().collect_vec(),
-     input_bitvecs.iter().filter(|bitvec| !bitvec[bit_index]).cloned().collect_vec())
+    input_bitvecs.iter().cloned().partition(|bitvec| bitvec[bit_index])
 }
 
 fn bits_to_decimal(bits: &[bool]) -> i32 {
