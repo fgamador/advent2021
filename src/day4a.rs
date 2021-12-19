@@ -2,13 +2,13 @@ use std::iter;
 use itertools::Itertools;
 
 pub fn day4a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let unmarked_sum: i32 = sum_unmarked_numbers();
+    let unmarked_sum: u32 = sum_unmarked_numbers();
     let winning_number = 5;
     let answer = unmarked_sum * winning_number;
     ("day4a", answer as i32)
 }
 
-fn sum_unmarked_numbers() -> i32 {
+fn sum_unmarked_numbers() -> u32 {
     let marked_cells = (1..=5).zip(iter::repeat(true));
     let unmarked_cells = (6..=25).zip(iter::repeat(false));
     let cells = marked_cells.chain(unmarked_cells).collect_vec();
