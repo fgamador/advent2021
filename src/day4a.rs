@@ -18,10 +18,7 @@ fn sum_unmarked_numbers() -> u32 {
     let cells = row1.chain(rows2to5).collect_vec();
     let board = Board::new(cells);
 
-    board.cells()
-        .filter(|cell| !cell.is_marked)
-        .map(|cell| cell.number)
-        .sum()
+    board.sum_unmarked_numbers()
 }
 
 struct Board {
@@ -35,6 +32,13 @@ impl Board {
 
     fn cells(&self) -> impl Iterator<Item=&Cell> {
         self.cells.iter()
+    }
+
+    fn sum_unmarked_numbers(&self) -> u32 {
+        self.cells.iter()
+            .filter(|cell| !cell.is_marked)
+            .map(|cell| cell.number)
+            .sum()
     }
 }
 
