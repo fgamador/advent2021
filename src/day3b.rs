@@ -19,8 +19,13 @@ fn bitstr_to_bitvec(bitstr: &str) -> Vec<bool> {
 }
 
 fn calc_og_rating(input_bitvecs: &[Vec<bool>]) -> i32 {
-    let og_rating_bits = find_rating_bits(&input_bitvecs, &og_rating_selection_fn);
-    bits_to_decimal(&og_rating_bits)
+    calc_rating(&input_bitvecs, &og_rating_selection_fn)
+}
+
+fn calc_rating<F>(input_bitvecs: &[Vec<bool>], selection_fn: &F) -> i32
+    where F: Fn(usize, usize) -> bool
+{
+    bits_to_decimal(&find_rating_bits(&input_bitvecs, selection_fn))
 }
 
 fn og_rating_selection_fn(true_bitvecs_len: usize, false_bitvecs_len: usize) -> bool {
