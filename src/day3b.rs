@@ -25,7 +25,12 @@ fn calc_og_rating(input_bitvecs: &[Vec<bool>]) -> i32 {
 
 fn find_og_rating_bits(input_bitvecs: &[Vec<bool>]) -> Vec<bool> {
     let selection_fn = |true_bitvecs_len, false_bitvecs_len| true_bitvecs_len >= false_bitvecs_len;
+    find_rating_bits(input_bitvecs, &selection_fn)
+}
 
+fn find_rating_bits<F>(input_bitvecs: &[Vec<bool>], selection_fn: &F) -> Vec<bool>
+    where F: Fn(usize, usize) -> bool
+{
     let mut bit_index = 0;
     let mut chosen_bitvecs = winnow_to_candidate_rating_bitvecs(input_bitvecs, bit_index, selection_fn);
 
