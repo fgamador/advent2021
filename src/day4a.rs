@@ -17,8 +17,7 @@ fn play_boards(boards: &mut Vec<Board>) -> (&Board, u32) {
     for cell_index in 0..=4 {
         boards[0].mark_cell(cell_index);
     }
-    let (winning_board, winning_number) = (&boards[0], 5);
-    (winning_board, winning_number)
+    (&boards[0], 5)
 }
 
 struct Board {
