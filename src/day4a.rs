@@ -3,14 +3,14 @@ use itertools::Itertools;
 
 pub fn day4a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let numbers = vec![1, 2, 3, 4, 5];
-    let mut boards = load_boards(input.skip(1));
+    let mut boards = read_boards(input.skip(1));
     let (winning_board, winning_number) = play_boards(&mut boards, &numbers);
     let winning_score = winning_board.sum_unmarked_numbers();
     let answer = winning_score * winning_number;
     ("day4a", answer as i32)
 }
 
-fn load_boards(_input: impl Iterator<Item=String>) -> Vec<Board> {
+fn read_boards(_input: impl Iterator<Item=String>) -> Vec<Board> {
     vec![Board::new(&(1..=25).collect_vec())]
 }
 
