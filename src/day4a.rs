@@ -12,6 +12,11 @@ pub fn day4a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 
 fn read_boards(mut input: impl Iterator<Item=String>) -> Vec<Board> {
     input.next();
+    let board = read_board(&mut input);
+    vec![board]
+}
+
+fn read_board(input: &mut impl Iterator<Item=String>) -> Board {
     let mut numbers: Vec<u32> = Vec::with_capacity(25);
     for _i in 1..=5 {
         input.next().unwrap()
@@ -20,7 +25,7 @@ fn read_boards(mut input: impl Iterator<Item=String>) -> Vec<Board> {
             .for_each(|num| numbers.push(num));
     }
     let board = Board::new(&numbers);
-    vec![board]
+    board
 }
 
 fn play_boards<'a>(boards: &'a mut Vec<Board>, _numbers: &[u32]) -> (&'a Board, u32) {
