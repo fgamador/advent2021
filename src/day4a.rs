@@ -3,13 +3,18 @@ use itertools::Itertools;
 
 pub fn day4a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let mut boards = vec![Board::new(&(1..=25).collect_vec())];
+    let (winning_board, winning_number) = play_boards(&mut boards);
+    let unmarked_sum: u32 = winning_board.sum_unmarked_numbers();
+    let answer = unmarked_sum * winning_number;
+    ("day4a", answer as i32)
+}
+
+fn play_boards(boards: &mut Vec<Board>) -> (&Board, u32) {
     for cell_index in 0..=4 {
         boards[0].mark_cell(cell_index);
     }
     let (winning_board, winning_number) = (&boards[0], 5);
-    let unmarked_sum: u32 = winning_board.sum_unmarked_numbers();
-    let answer = unmarked_sum * winning_number;
-    ("day4a", answer as i32)
+    (winning_board, winning_number)
 }
 
 struct Board {
