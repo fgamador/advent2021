@@ -10,8 +10,16 @@ pub fn day4a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     ("day4a", answer as i32)
 }
 
-fn read_boards(_input: impl Iterator<Item=String>) -> Vec<Board> {
-    vec![Board::new(&(1..=25).collect_vec())]
+fn read_boards(mut input: impl Iterator<Item=String>) -> Vec<Board> {
+    input.next();
+    let mut numbers: Vec<u32> = Vec::with_capacity(25);
+    for _i in 1..=5 {
+        input.next().unwrap()
+            .split_whitespace()
+            .map(|digits| digits.parse().unwrap())
+            .for_each(|num| numbers.push(num));
+    }
+    vec![Board::new(&numbers)]
 }
 
 fn play_boards<'a>(boards: &'a mut Vec<Board>, _numbers: &[u32]) -> (&'a Board, u32) {
