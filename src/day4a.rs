@@ -107,8 +107,8 @@ mod tests {
     fn play_example_board() {
         let mut boards = vec![Board::new(&(1..=25).collect_vec())];
         let numbers = vec![1, 2, 3, 4, 5];
-        let (_winning_board, winning_number) = play_boards(&mut boards, &numbers);
-        // TODO assert_eq!(*winning_board, boards[0]);
+        let (winning_board, winning_number) = play_boards(&mut boards, &numbers);
+        assert_eq!(winning_board.sum_unmarked_numbers(), (6..=25).sum());
         assert_eq!(winning_number, 5);
     }
 
