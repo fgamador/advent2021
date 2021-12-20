@@ -24,8 +24,7 @@ fn read_board(input: &mut impl Iterator<Item=String>) -> Board {
             .map(|digits| digits.parse().unwrap())
             .for_each(|num| numbers.push(num));
     }
-    let board = Board::new(&numbers);
-    board
+    Board::new(&numbers)
 }
 
 fn play_boards<'a>(boards: &'a mut Vec<Board>, _numbers: &[u32]) -> (&'a Board, u32) {
