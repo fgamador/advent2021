@@ -1,8 +1,8 @@
 use std::vec;
 use itertools::Itertools;
 
-pub fn day4a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let mut boards = load_boards(_input);
+pub fn day4a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
+    let mut boards = load_boards(input.skip(1));
     let (winning_board, winning_number) = play_boards(&mut boards);
     let unmarked_sum: u32 = winning_board.sum_unmarked_numbers();
     let answer = unmarked_sum * winning_number;
