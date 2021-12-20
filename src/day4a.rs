@@ -12,9 +12,8 @@ pub fn day4a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
 
 fn read_boards(mut input: impl Iterator<Item=String>) -> Vec<Board> {
     let mut boards = vec![];
-    input.next();
-    let board = read_board(&mut input);
-    boards.push(board);
+    assert!(input.next().is_some());
+    boards.push(read_board(&mut input));
     boards
 }
 
