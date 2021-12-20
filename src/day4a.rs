@@ -21,6 +21,7 @@ fn play_boards<'a>(boards: &'a mut Vec<Board>, _numbers: &[u32]) -> (&'a Board, 
     (&boards[0], 5)
 }
 
+#[derive(Debug, PartialEq)]
 struct Board {
     cells: Vec<Cell>,
 }
@@ -47,6 +48,7 @@ impl Board {
     }
 }
 
+#[derive(Debug, PartialEq)]
 struct Cell {
     number: u32,
     is_marked: bool,
@@ -62,6 +64,20 @@ impl Cell {
 mod tests {
     use crate::day4a::*;
     use crate::util::to_string_iter;
+
+    #[test]
+    fn read_example_board() {
+        let input = to_string_iter(vec![
+            "",
+            " 1  2  3  4  5",
+            " 6  7  8  9 10",
+            "11 12 13 14 15",
+            "16 17 18 19 20",
+            "21 22 23 24 25",
+        ]);
+        let expected = vec![Board::new(&(1..=25).collect_vec())];
+        assert_eq!(read_boards(input), expected);
+    }
 
     #[test]
     fn score_example_board() {
