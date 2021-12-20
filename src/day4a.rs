@@ -3,7 +3,8 @@ use itertools::Itertools;
 
 pub fn day4a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let mut boards = load_boards(input.skip(1));
-    let (winning_board, winning_number) = play_boards(&mut boards);
+    let numbers = vec![1, 2, 3, 4, 5];
+    let (winning_board, winning_number) = play_boards(&mut boards, &numbers);
     let winning_score = winning_board.sum_unmarked_numbers();
     let answer = winning_score * winning_number;
     ("day4a", answer as i32)
@@ -13,7 +14,7 @@ fn load_boards(_input: impl Iterator<Item=String>) -> Vec<Board> {
     vec![Board::new(&(1..=25).collect_vec())]
 }
 
-fn play_boards(boards: &mut Vec<Board>) -> (&Board, u32) {
+fn play_boards(boards: &mut Vec<Board>, _numbers: &[u32]) -> (&Board, u32) {
     for cell_index in 0..=4 {
         boards[0].mark_cell(cell_index);
     }
