@@ -2,8 +2,8 @@ use std::vec;
 use itertools::Itertools;
 
 pub fn day4a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let mut boards = load_boards(input.skip(1));
     let numbers = vec![1, 2, 3, 4, 5];
+    let mut boards = load_boards(input.skip(1));
     let (winning_board, winning_number) = play_boards(&mut boards, &numbers);
     let winning_score = winning_board.sum_unmarked_numbers();
     let answer = winning_score * winning_number;
