@@ -104,6 +104,15 @@ mod tests {
     }
 
     #[test]
+    fn play_example_board() {
+        let mut boards = vec![Board::new(&(1..=25).collect_vec())];
+        let numbers = vec![1, 2, 3, 4, 5];
+        let (_winning_board, winning_number) = play_boards(&mut boards, &numbers);
+        // TODO assert_eq!(*winning_board, boards[0]);
+        assert_eq!(winning_number, 5);
+    }
+
+    #[test]
     fn score_example_board() {
         let mut board = Board::new(&(11..=35).rev().collect_vec());
         board.mark_cell(0);
