@@ -6,8 +6,7 @@ pub fn day4a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
     for cell_index in 0..=4 {
         boards[0].mark_cell(cell_index);
     }
-    let winning_board = &boards[0];
-    let winning_number = 5;
+    let (winning_board, winning_number) = (&boards[0], 5);
     let unmarked_sum: u32 = winning_board.sum_unmarked_numbers();
     let answer = unmarked_sum * winning_number;
     ("day4a", answer as i32)
