@@ -14,7 +14,7 @@ fn load_boards(_input: impl Iterator<Item=String>) -> Vec<Board> {
     vec![Board::new(&(1..=25).collect_vec())]
 }
 
-fn play_boards(boards: &mut Vec<Board>, _numbers: &[u32]) -> (&Board, u32) {
+fn play_boards<'a>(boards: &'a mut Vec<Board>, _numbers: &[u32]) -> (&'a Board, u32) {
     for cell_index in 0..=4 {
         boards[0].mark_cell(cell_index);
     }
