@@ -2,11 +2,15 @@ use std::vec;
 use itertools::Itertools;
 
 pub fn day4a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let mut boards = vec![Board::new(&(1..=25).collect_vec())];
+    let mut boards = load_boards(_input);
     let (winning_board, winning_number) = play_boards(&mut boards);
     let unmarked_sum: u32 = winning_board.sum_unmarked_numbers();
     let answer = unmarked_sum * winning_number;
     ("day4a", answer as i32)
+}
+
+fn load_boards(_input: impl Iterator<Item=String>) -> Vec<Board> {
+    vec![Board::new(&(1..=25).collect_vec())]
 }
 
 fn play_boards(boards: &mut Vec<Board>) -> (&Board, u32) {
