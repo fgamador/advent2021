@@ -34,7 +34,7 @@ fn read_board(input: &mut impl Iterator<Item=String>) -> Board {
 
 fn play_boards<'a>(boards: &'a mut Vec<Board>, numbers: &[u32]) -> Option<(&'a Board, u32)> {
     for number in numbers {
-        for (board_index, cell_index) in vec![(0, (number - 1) as usize)] {
+        for (board_index, cell_index) in find_boards_containing_number(number) {
             boards[board_index].mark_cell(cell_index);
             if boards[board_index].is_cell_in_fully_marked_row(cell_index) || boards[board_index].is_cell_in_fully_marked_column(cell_index) {
                 return Some((&boards[board_index], 5));
@@ -42,6 +42,10 @@ fn play_boards<'a>(boards: &'a mut Vec<Board>, numbers: &[u32]) -> Option<(&'a B
         }
     }
     None
+}
+
+fn find_boards_containing_number(number: &u32) -> Vec<(usize, usize)> {
+    vec![(0, (number - 1) as usize)]
 }
 
 #[derive(Debug, PartialEq)]
