@@ -35,7 +35,7 @@ fn read_board(input: &mut impl Iterator<Item=String>) -> Board {
 fn play_boards<'a>(boards: &'a mut Vec<Board>, _numbers: &[u32]) -> Option<(&'a Board, u32)> {
     for cell_index in 0..=4 {
         boards[0].mark_cell(cell_index);
-        if boards[0].is_cell_in_fully_marked_row_or_column(cell_index) {
+        if boards[0].is_cell_in_fully_marked_row(cell_index) {
             return Some((&boards[0], 5));
         }
     }
@@ -61,7 +61,7 @@ impl Board {
         self.cells[cell_index].is_marked = true;
     }
 
-    pub fn is_cell_in_fully_marked_row_or_column(&self, cell_index: usize) -> bool {
+    pub fn is_cell_in_fully_marked_row(&self, cell_index: usize) -> bool {
         let row_first_index = (cell_index / 5) * 5;
         (row_first_index..row_first_index + 5).all(|index| self.cells[index].is_marked)
     }
@@ -118,9 +118,9 @@ mod tests {
     fn board_knows_when_cell_is_in_fully_marked_row() {
         let mut board = Board::new(&(1..=25).collect_vec());
         vec![5, 7, 8, 9].into_iter().for_each(|cell_index| board.mark_cell(cell_index));
-        assert!(!board.is_cell_in_fully_marked_row_or_column(7));
+        assert!(!board.is_cell_in_fully_marked_row(7));
         board.mark_cell(6);
-        assert!(board.is_cell_in_fully_marked_row_or_column(7));
+        assert!(board.is_cell_in_fully_marked_row(7));
     }
 
     #[test]
@@ -128,9 +128,9 @@ mod tests {
     fn board_knows_when_cell_is_in_fully_marked_column() {
         let mut board = Board::new(&(1..=25).collect_vec());
         vec![1, 11, 16, 21].into_iter().for_each(|cell_index| board.mark_cell(cell_index));
-        assert!(!board.is_cell_in_fully_marked_row_or_column(7));
+        assert!(!board.is_cell_in_fully_marked_row(7));
         board.mark_cell(6);
-        assert!(board.is_cell_in_fully_marked_row_or_column(7));
+        assert!(board.is_cell_in_fully_marked_row(7));
     }
 
     #[test]
