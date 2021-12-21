@@ -4,10 +4,13 @@ use itertools::Itertools;
 pub fn day4a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let numbers = vec![1, 2, 3, 4, 5];
     let mut boards = read_boards(input.skip(1));
-    let (winning_board, winning_number) = play_boards(&mut boards, &numbers);
-    let winning_score = winning_board.sum_unmarked_numbers();
-    let answer = winning_score * winning_number;
-    ("day4a", answer as i32)
+    if let Some((winning_board, winning_number)) = play_boards(&mut boards, &numbers) {
+        let winning_score = winning_board.sum_unmarked_numbers();
+        let answer = winning_score * winning_number;
+        ("day4a", answer as i32)
+    } else {
+        panic!("No winning board");
+    }
 }
 
 fn read_boards(mut input: impl Iterator<Item=String>) -> Vec<Board> {
@@ -29,11 +32,11 @@ fn read_board(input: &mut impl Iterator<Item=String>) -> Board {
     Board::new(&numbers)
 }
 
-fn play_boards<'a>(boards: &'a mut Vec<Board>, _numbers: &[u32]) -> (&'a Board, u32) {
+fn play_boards<'a>(boards: &'a mut Vec<Board>, _numbers: &[u32]) -> Option<(&'a Board, u32)> {
     for cell_index in 0..=4 {
         boards[0].mark_cell(cell_index);
     }
-    (&boards[0], 5)
+    Some((&boards[0], 5))
 }
 
 #[derive(Debug, PartialEq)]
@@ -107,9 +110,12 @@ mod tests {
     fn play_example_board() {
         let mut boards = vec![Board::new(&(1..=25).collect_vec())];
         let numbers = vec![1, 2, 3, 4, 5];
-        let (winning_board, winning_number) = play_boards(&mut boards, &numbers);
-        assert_eq!(winning_board.sum_unmarked_numbers(), (6..=25).sum());
-        assert_eq!(winning_number, 5);
+        if let Some((winning_board, winning_number)) = play_boards(&mut boards, &numbers) {
+            assert_eq!(winning_board.sum_unmarked_numbers(), (6..=25).sum());
+            assert_eq!(winning_number, 5);
+        } else {
+            panic!("No winning board");
+        }
     }
 
     #[test]
