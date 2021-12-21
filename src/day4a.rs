@@ -35,8 +35,11 @@ fn read_board(input: &mut impl Iterator<Item=String>) -> Board {
 fn play_boards<'a>(boards: &'a mut Vec<Board>, _numbers: &[u32]) -> Option<(&'a Board, u32)> {
     for cell_index in 0..=4 {
         boards[0].mark_cell(cell_index);
+        if boards[0].is_in_fully_marked_row_or_column(cell_index) {
+            return Some((&boards[0], 5));
+        }
     }
-    Some((&boards[0], 5))
+    None
 }
 
 #[derive(Debug, PartialEq)]
@@ -56,6 +59,10 @@ impl Board {
 
     pub fn mark_cell(&mut self, cell_index: usize) {
         self.cells[cell_index].is_marked = true;
+    }
+
+    pub fn is_in_fully_marked_row_or_column(&self, cell_index: usize) -> bool {
+        cell_index == 4
     }
 
     pub fn sum_unmarked_numbers(&self) -> u32 {
