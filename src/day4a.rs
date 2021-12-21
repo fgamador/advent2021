@@ -34,9 +34,10 @@ fn read_board(input: &mut impl Iterator<Item=String>) -> Board {
 
 fn play_boards<'a>(boards: &'a mut Vec<Board>, _numbers: &[u32]) -> Option<(&'a Board, u32)> {
     for cell_index in 0..=4 {
-        boards[0].mark_cell(cell_index);
-        if boards[0].is_cell_in_fully_marked_row(cell_index) || boards[0].is_cell_in_fully_marked_column(cell_index) {
-            return Some((&boards[0], 5));
+        let board_index = 0;
+        boards[board_index].mark_cell(cell_index);
+        if boards[board_index].is_cell_in_fully_marked_row(cell_index) || boards[board_index].is_cell_in_fully_marked_column(cell_index) {
+            return Some((&boards[board_index], 5));
         }
     }
     None
