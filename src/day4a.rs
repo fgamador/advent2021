@@ -62,7 +62,8 @@ impl Board {
     }
 
     pub fn is_cell_in_fully_marked_row_or_column(&self, cell_index: usize) -> bool {
-        cell_index == 4
+        let row_first_index = (cell_index / 5) * 5;
+        (row_first_index..row_first_index + 5).all(|index| self.cells[index].is_marked)
     }
 
     pub fn sum_unmarked_numbers(&self) -> u32 {
@@ -114,12 +115,11 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn board_knows_when_cell_is_in_fully_marked_row() {
         let mut board = Board::new(&(1..=25).collect_vec());
-        vec![6, 8, 9, 10].into_iter().for_each(|cell_index| board.mark_cell(cell_index));
+        vec![5, 7, 8, 9].into_iter().for_each(|cell_index| board.mark_cell(cell_index));
         assert!(!board.is_cell_in_fully_marked_row_or_column(7));
-        board.mark_cell(7);
+        board.mark_cell(6);
         assert!(board.is_cell_in_fully_marked_row_or_column(7));
     }
 
@@ -127,9 +127,9 @@ mod tests {
     #[ignore]
     fn board_knows_when_cell_is_in_fully_marked_column() {
         let mut board = Board::new(&(1..=25).collect_vec());
-        vec![2, 12, 17, 22].into_iter().for_each(|cell_index| board.mark_cell(cell_index));
+        vec![1, 11, 16, 21].into_iter().for_each(|cell_index| board.mark_cell(cell_index));
         assert!(!board.is_cell_in_fully_marked_row_or_column(7));
-        board.mark_cell(7);
+        board.mark_cell(6);
         assert!(board.is_cell_in_fully_marked_row_or_column(7));
     }
 
