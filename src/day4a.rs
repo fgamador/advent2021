@@ -2,7 +2,7 @@ use std::vec;
 use itertools::Itertools;
 
 pub fn day4a(mut input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let numbers = parse_the_numbers(&input.next().unwrap());
+    let numbers = parse_numbers_csv(&input.next().unwrap());
     let mut boards = read_boards(input);
     if let Some((winning_board, winning_number)) = play_boards(&mut boards, &numbers) {
         let winning_score = winning_board.sum_unmarked_numbers();
@@ -13,8 +13,11 @@ pub fn day4a(mut input: impl Iterator<Item=String>) -> (&'static str, i32) {
     }
 }
 
-fn parse_the_numbers(_the_numbers: &str) -> Vec<u32> {
-    vec![1, 2, 3, 4, 5]
+fn parse_numbers_csv(numbers_csv: &str) -> Vec<u32> {
+    numbers_csv
+        .split(",")
+        .map(|digits| digits.parse().unwrap())
+        .collect_vec()
 }
 
 fn read_boards(mut input: impl Iterator<Item=String>) -> Vec<Board> {
@@ -107,7 +110,7 @@ mod tests {
 
     #[test]
     fn parse_example_numbers() {
-        assert_eq!(parse_the_numbers("1,2,3,4,5"), vec![1, 2, 3, 4, 5]);
+        assert_eq!(parse_numbers_csv("7,4,9,5,11"), vec![7, 4, 9, 5, 11]);
     }
 
     #[test]
