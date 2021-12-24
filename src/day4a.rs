@@ -90,8 +90,9 @@ impl Board {
         (row_first_index..row_first_index + 5).all(|index| self.cells[index].is_marked)
     }
 
-    pub fn is_cell_in_fully_marked_column(&self, _cell_index: usize) -> bool {
-        false
+    pub fn is_cell_in_fully_marked_column(&self, cell_index: usize) -> bool {
+        let col_first_index = cell_index % 5;
+        (0..=4).map(|i| col_first_index + i * 5).all(|index| self.cells[index].is_marked)
     }
 
     pub fn sum_unmarked_numbers(&self) -> u32 {
@@ -170,13 +171,12 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn board_knows_when_cell_is_in_fully_marked_column() {
         let mut board = Board::new(&(1..=25).collect_vec());
         vec![1, 11, 16, 21].into_iter().for_each(|cell_index| board.mark_cell(cell_index));
-        assert!(!board.is_cell_in_fully_marked_column(7));
+        assert!(!board.is_cell_in_fully_marked_column(11));
         board.mark_cell(6);
-        assert!(board.is_cell_in_fully_marked_column(7));
+        assert!(board.is_cell_in_fully_marked_column(11));
     }
 
     #[test]
@@ -193,6 +193,18 @@ mod tests {
         if let Some((winning_board, winning_number)) = play_boards(&mut boards, &numbers) {
             assert_eq!(winning_number, 17);
             assert_eq!(winning_board.sum_unmarked_numbers(), (11..=35).sum::<u32>() - (16..=20).sum::<u32>());
+        } else {
+            panic!("No winning board");
+        }
+    }
+
+    #[test]
+    fn play_example_board_with_column_win() {
+        let mut boards = vec![Board::new(&(11..=35).collect_vec())];
+        let numbers = vec![1, 12, 2, 17, 32, 27, 22, 34];
+        if let Some((winning_board, winning_number)) = play_boards(&mut boards, &numbers) {
+            assert_eq!(winning_number, 22);
+            assert_eq!(winning_board.sum_unmarked_numbers(), (11..=35).sum::<u32>() - vec![12, 17, 22, 27, 32].iter().sum::<u32>());
         } else {
             panic!("No winning board");
         }
