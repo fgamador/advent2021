@@ -43,7 +43,7 @@ fn read_board(input: &mut impl Iterator<Item=String>) -> Board {
 fn play_boards<'a>(boards: &'a mut Vec<Board>, numbers: &[u32]) -> Option<(&'a Board, u32)> {
     let cell_indexes = build_cell_indexes(boards);
     for number in numbers {
-        for (board_index, cell_index) in find_boards_containing_number(number, &cell_indexes) {
+        for &(board_index, cell_index) in cell_indexes.get(number).unwrap() {
             boards[board_index].mark_cell(cell_index);
             if boards[board_index].is_cell_in_fully_marked_row(cell_index) || boards[board_index].is_cell_in_fully_marked_column(cell_index) {
                 return Some((&boards[board_index], 5));
@@ -53,15 +53,16 @@ fn play_boards<'a>(boards: &'a mut Vec<Board>, numbers: &[u32]) -> Option<(&'a B
     None
 }
 
-fn build_cell_indexes(_boards: &[Board]) -> HashMap<u32, Vec<(u32, u32)>> {
-    HashMap::new()
+fn build_cell_indexes(boards: &[Board]) -> HashMap<u32, Vec<(usize, usize)>> {
+    let mut cell_indexes = HashMap::new();
+    for (board_index, board) in boards.iter().enumerate() {
+        for (cell_index, cell) in board.cells.iter().enumerate() {
+            let indexes = cell_indexes.entry(cell.number).or_insert(vec![]);
+            indexes.push((board_index, cell_index));
+        }
+    }
+    cell_indexes
 }
-
-fn find_boards_containing_number(number: &u32, _cell_indexes: &CellIndexMap) -> Vec<(usize, usize)> {
-    vec![(0, (number - 1) as usize)]
-}
-
-type CellIndexMap = HashMap<u32, Vec<(u32, u32)>>;
 
 #[derive(Debug, PartialEq)]
 struct Board {
@@ -142,6 +143,19 @@ mod tests {
             Board::new(&(1..=25).rev().collect_vec()),
         ];
         assert_eq!(read_boards(input), expected);
+    }
+
+    #[test]
+    fn build_example_cell_indexes() {
+        let boards = vec![
+            Board::new(&(1..=25).collect_vec()),
+            Board::new(&(11..=35).collect_vec()),
+        ];
+        let cell_indexes = build_cell_indexes(&boards);
+        assert_eq!(cell_indexes.len(), 35);
+        assert_eq!(*cell_indexes.get(&1).unwrap(), vec![(0, 0)]);
+        assert_eq!(*cell_indexes.get(&11).unwrap(), vec![(0, 10), (1, 0)]);
+        assert_eq!(*cell_indexes.get(&35).unwrap(), vec![(1, 24)]);
     }
 
     #[test]
