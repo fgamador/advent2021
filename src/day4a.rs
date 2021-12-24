@@ -106,6 +106,11 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
+    fn parse_example_numbers() {
+        assert_eq!(parse_the_numbers("1,2,3,4,5"), vec![1, 2, 3, 4, 5]);
+    }
+
+    #[test]
     fn read_example_boards() {
         let input = to_string_iter(vec![
             "",
