@@ -41,7 +41,7 @@ fn read_board(input: &mut impl Iterator<Item=String>) -> Board {
 }
 
 fn play_boards<'a>(boards: &'a mut Vec<Board>, numbers: &[u32]) -> Option<(&'a Board, u32)> {
-    let cell_indexes = build_cell_indexes();
+    let cell_indexes = build_cell_indexes(boards);
     for number in numbers {
         for (board_index, cell_index) in find_boards_containing_number(number, &cell_indexes) {
             boards[board_index].mark_cell(cell_index);
@@ -53,7 +53,7 @@ fn play_boards<'a>(boards: &'a mut Vec<Board>, numbers: &[u32]) -> Option<(&'a B
     None
 }
 
-fn build_cell_indexes() -> HashMap<u32, Vec<(u32, u32)>> {
+fn build_cell_indexes(_boards: &[Board]) -> HashMap<u32, Vec<(u32, u32)>> {
     HashMap::new()
 }
 
