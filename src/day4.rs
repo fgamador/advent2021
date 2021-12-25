@@ -15,6 +15,7 @@ pub fn day4a(mut input: impl Iterator<Item=String>) -> (&'static str, i32) {
     }
 }
 
+#[allow(dead_code)]
 pub fn day4b(mut input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let numbers = parse_numbers_csv(&input.next().unwrap());
     let mut boards = read_boards(input);
