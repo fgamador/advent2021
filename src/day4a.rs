@@ -46,8 +46,7 @@ fn play_boards(boards: &mut Vec<Board>, numbers: &[u32]) -> Option<(usize, u32)>
         if let Some(indexes) = cell_indexes.get(&number) {
             for &(board_index, cell_index) in indexes {
                 let board = &mut boards[board_index];
-                board.mark_cell(cell_index);
-                if board.is_cell_in_fully_marked_row(cell_index) || board.is_cell_in_fully_marked_column(cell_index) {
+                if board.play_cell(cell_index) {
                     return Some((board_index, number));
                 }
             }
@@ -80,6 +79,11 @@ impl Board {
                 .map(|&num| Cell::new(num, false))
                 .collect_vec()
         }
+    }
+
+    pub fn play_cell(&mut self, cell_index: usize) -> bool {
+        self.mark_cell(cell_index);
+        self.is_cell_in_fully_marked_row(cell_index) || self.is_cell_in_fully_marked_column(cell_index)
     }
 
     pub fn mark_cell(&mut self, cell_index: usize) {
