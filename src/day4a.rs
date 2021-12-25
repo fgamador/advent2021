@@ -14,6 +14,18 @@ pub fn day4a(mut input: impl Iterator<Item=String>) -> (&'static str, i32) {
     }
 }
 
+#[allow(dead_code)]
+pub fn day4b(mut input: impl Iterator<Item=String>) -> (&'static str, i32) {
+    let numbers = parse_numbers_csv(&input.next().unwrap());
+    let mut boards = read_boards(input);
+    if let Some((winning_board_index, _winning_number)) = play_to_last_winning_board(&mut boards, &numbers) {
+        let winning_score = boards[winning_board_index].sum_unmarked_numbers();
+        ("day4b", winning_score as i32)
+    } else {
+        panic!("No winning board");
+    }
+}
+
 fn parse_numbers_csv(numbers_csv: &str) -> Vec<u32> {
     numbers_csv
         .split(",")
@@ -49,6 +61,18 @@ fn play_to_first_winning_board(boards: &mut Vec<Board>, numbers: &[u32]) -> Opti
         }
     }
     None
+}
+
+fn play_to_last_winning_board(boards: &mut Vec<Board>, numbers: &[u32]) -> Option<(usize, u32)> {
+    let cell_indexes = build_cell_indexes(boards);
+    let mut last_winning_board_index_and_number = None;
+    for &number in numbers {
+        let winning_board_index_and_number = play_number_on_all_boards(number, boards, &cell_indexes);
+        if winning_board_index_and_number != None {
+            last_winning_board_index_and_number = winning_board_index_and_number;
+        }
+    }
+    last_winning_board_index_and_number
 }
 
 fn build_cell_indexes(boards: &[Board]) -> HashMap<u32, Vec<(usize, usize)>> {
