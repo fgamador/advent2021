@@ -108,6 +108,7 @@ fn play_number_on_all_boards(number: u32, boards: &mut Vec<Board>, cell_indexes:
 #[derive(Debug, PartialEq)]
 struct Board {
     cells: Vec<Cell>,
+    bingo: bool,
 }
 
 impl Board {
@@ -116,13 +117,19 @@ impl Board {
         Board {
             cells: numbers.iter()
                 .map(|&num| Cell::new(num, false))
-                .collect_vec()
+                .collect_vec(),
+            bingo: false,
         }
     }
 
     pub fn play_cell(&mut self, cell_index: usize) -> bool {
+        if self.bingo {
+            return false;
+        }
+
         self.mark_cell(cell_index);
-        self.is_cell_in_fully_marked_row(cell_index) || self.is_cell_in_fully_marked_column(cell_index)
+        self.bingo = self.is_cell_in_fully_marked_row(cell_index) || self.is_cell_in_fully_marked_column(cell_index);
+        self.bingo
     }
 
     pub fn mark_cell(&mut self, cell_index: usize) {
@@ -203,6 +210,15 @@ mod tests {
         assert_eq!(*cell_indexes.get(&1).unwrap(), vec![(0, 0)]);
         assert_eq!(*cell_indexes.get(&11).unwrap(), vec![(0, 10), (1, 0)]);
         assert_eq!(*cell_indexes.get(&35).unwrap(), vec![(1, 24)]);
+    }
+
+    #[test]
+    fn board_wins_only_once() {
+        let mut board = Board::new(&(1..=25).collect_vec());
+        (0..=3).for_each(|cell_index| assert!(!board.play_cell(cell_index)));
+        (5..=8).for_each(|cell_index| assert!(!board.play_cell(cell_index)));
+        assert!(board.play_cell(4));
+        assert!(!board.play_cell(9));
     }
 
     #[test]
