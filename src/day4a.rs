@@ -5,8 +5,8 @@ use itertools::Itertools;
 pub fn day4a(mut input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let numbers = parse_numbers_csv(&input.next().unwrap());
     let mut boards = read_boards(input);
-    if let Some((winning_board, winning_number)) = play_boards(&mut boards, &numbers) {
-        let winning_score = winning_board.sum_unmarked_numbers();
+    if let Some((winning_board_index, winning_number)) = play_boards(&mut boards, &numbers) {
+        let winning_score = boards[winning_board_index].sum_unmarked_numbers();
         let answer = winning_score * winning_number;
         ("day4a", answer as i32)
     } else {
@@ -40,7 +40,7 @@ fn read_board(input: &mut impl Iterator<Item=String>) -> Board {
     Board::new(&numbers)
 }
 
-fn play_boards<'a>(boards: &'a mut Vec<Board>, numbers: &[u32]) -> Option<(&'a Board, u32)> {
+fn play_boards(boards: &mut Vec<Board>, numbers: &[u32]) -> Option<(usize, u32)> {
     let cell_indexes = build_cell_indexes(boards);
     for &number in numbers {
         if let Some(indexes) = cell_indexes.get(&number) {
@@ -48,7 +48,7 @@ fn play_boards<'a>(boards: &'a mut Vec<Board>, numbers: &[u32]) -> Option<(&'a B
                 let board = &mut boards[board_index];
                 board.mark_cell(cell_index);
                 if board.is_cell_in_fully_marked_row(cell_index) || board.is_cell_in_fully_marked_column(cell_index) {
-                    return Some((&boards[board_index], number));
+                    return Some((board_index, number));
                 }
             }
         }
@@ -191,9 +191,10 @@ mod tests {
     fn play_example_board_with_row_win() {
         let mut boards = vec![Board::new(&(11..=35).collect_vec())];
         let numbers = vec![1, 16, 2, 18, 20, 19, 17, 22];
-        if let Some((winning_board, winning_number)) = play_boards(&mut boards, &numbers) {
+        if let Some((winning_board_index, winning_number)) = play_boards(&mut boards, &numbers) {
             assert_eq!(winning_number, 17);
-            assert_eq!(winning_board.sum_unmarked_numbers(), (11..=35).sum::<u32>() - (16..=20).sum::<u32>());
+            assert_eq!(boards[winning_board_index].sum_unmarked_numbers(),
+                       (11..=35).sum::<u32>() - (16..=20).sum::<u32>());
         } else {
             panic!("No winning board");
         }
@@ -203,9 +204,10 @@ mod tests {
     fn play_example_board_with_column_win() {
         let mut boards = vec![Board::new(&(11..=35).collect_vec())];
         let numbers = vec![1, 12, 2, 17, 32, 27, 22, 34];
-        if let Some((winning_board, winning_number)) = play_boards(&mut boards, &numbers) {
+        if let Some((winning_board_index, winning_number)) = play_boards(&mut boards, &numbers) {
             assert_eq!(winning_number, 22);
-            assert_eq!(winning_board.sum_unmarked_numbers(), (11..=35).sum::<u32>() - vec![12, 17, 22, 27, 32].iter().sum::<u32>());
+            assert_eq!(boards[winning_board_index].sum_unmarked_numbers(),
+                       (11..=35).sum::<u32>() - vec![12, 17, 22, 27, 32].iter().sum::<u32>());
         } else {
             panic!("No winning board");
         }
