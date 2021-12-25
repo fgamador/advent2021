@@ -45,16 +45,10 @@ fn play_boards(boards: &mut Vec<Board>, numbers: &[u32]) -> Option<(usize, u32)>
     for &number in numbers {
         if let Some(indexes) = cell_indexes.get(&number) {
             for &(board_index, cell_index) in indexes {
-                let winning_board_index_and_number;
                 let board = &mut boards[board_index];
                 board.mark_cell(cell_index);
                 if board.is_cell_in_fully_marked_row(cell_index) || board.is_cell_in_fully_marked_column(cell_index) {
-                    winning_board_index_and_number = Some((board_index, number));
-                } else {
-                    winning_board_index_and_number = None;
-                }
-                if winning_board_index_and_number != None {
-                    return winning_board_index_and_number;
+                    return Some((board_index, number));
                 }
             }
         }
