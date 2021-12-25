@@ -45,8 +45,9 @@ fn play_boards<'a>(boards: &'a mut Vec<Board>, numbers: &[u32]) -> Option<(&'a B
     for &number in numbers {
         if let Some(indexes) = cell_indexes.get(&number) {
             for &(board_index, cell_index) in indexes {
-                boards[board_index].mark_cell(cell_index);
-                if boards[board_index].is_cell_in_fully_marked_row(cell_index) || boards[board_index].is_cell_in_fully_marked_column(cell_index) {
+                let board = &mut boards[board_index];
+                board.mark_cell(cell_index);
+                if board.is_cell_in_fully_marked_row(cell_index) || board.is_cell_in_fully_marked_column(cell_index) {
                     return Some((&boards[board_index], number));
                 }
             }
