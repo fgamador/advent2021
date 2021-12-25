@@ -67,15 +67,13 @@ fn play_to_first_winning_board(boards: &mut Vec<Board>, numbers: &[u32]) -> Opti
 fn play_to_last_winning_board(boards: &mut Vec<Board>, numbers: &[u32]) -> Option<(usize, u32)> {
     let cell_indexes = build_cell_indexes(boards);
     let mut board_indexes_in_play: HashSet<usize> = (0..boards.len()).collect();
-    let mut last_winning_board_index_and_number = None;
     for &number in numbers {
         if let Some((winning_board_index, winning_number)) = play_number_on_all_boards(number, boards, &cell_indexes) {
             if board_indexes_in_play.contains(&winning_board_index) {
                 board_indexes_in_play.remove(&winning_board_index);
-                last_winning_board_index_and_number = Some((winning_board_index, winning_number));
-            }
-            if board_indexes_in_play.is_empty() {
-                return last_winning_board_index_and_number;
+                if board_indexes_in_play.is_empty() {
+                    return Some((winning_board_index, winning_number));
+                }
             }
         }
     }
