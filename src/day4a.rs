@@ -55,8 +55,10 @@ fn build_cell_indexes(boards: &[Board]) -> HashMap<u32, Vec<(usize, usize)>> {
     let mut cell_indexes = HashMap::new();
     for (board_index, board) in boards.iter().enumerate() {
         for (cell_index, cell) in board.cells.iter().enumerate() {
-            let indexes = cell_indexes.entry(cell.number).or_insert(vec![]);
-            indexes.push((board_index, cell_index));
+            cell_indexes
+                .entry(cell.number)
+                .or_insert(vec![])
+                .push((board_index, cell_index));
         }
     }
     cell_indexes
