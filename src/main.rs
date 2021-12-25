@@ -5,10 +5,10 @@ mod day1b;
 mod day2b;
 mod day3a;
 mod day3b;
-mod day4a;
+mod day4;
 
 fn main() {
-    let (day, answer) = day4a::day4a(util::read_input_file());
+    let (day, answer) = day4::day4a(util::read_input_file());
     println!("{} answer: {}", day, answer);
 }
 
