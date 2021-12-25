@@ -2,6 +2,7 @@ use std::collections::{HashMap, HashSet};
 use std::vec;
 use itertools::Itertools;
 
+#[allow(dead_code)]
 pub fn day4a(mut input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let numbers = parse_numbers_csv(&input.next().unwrap());
     let mut boards = read_boards(input);
@@ -14,7 +15,6 @@ pub fn day4a(mut input: impl Iterator<Item=String>) -> (&'static str, i32) {
     }
 }
 
-#[allow(dead_code)]
 pub fn day4b(mut input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let numbers = parse_numbers_csv(&input.next().unwrap());
     let mut boards = read_boards(input);
@@ -311,7 +311,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn example_input_4b() {
         let input = to_string_iter(vec![
             "7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1",
