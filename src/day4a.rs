@@ -43,11 +43,19 @@ fn read_board(input: &mut impl Iterator<Item=String>) -> Board {
 fn play_boards(boards: &mut Vec<Board>, numbers: &[u32]) -> Option<(usize, u32)> {
     let cell_indexes = build_cell_indexes(boards);
     for &number in numbers {
-        if let Some(indexes) = cell_indexes.get(&number) {
-            for &(board_index, cell_index) in indexes {
-                if boards[board_index].play_cell(cell_index) {
-                    return Some((board_index, number));
-                }
+        let winning_board_index_and_number = play_number_on_all_boards(number, boards, &cell_indexes);
+        if winning_board_index_and_number != None {
+            return winning_board_index_and_number;
+        }
+    }
+    None
+}
+
+fn play_number_on_all_boards(number: u32, boards: &mut Vec<Board>, cell_indexes: &HashMap<u32, Vec<(usize, usize)>>) -> Option<(usize, u32)> {
+    if let Some(indexes) = cell_indexes.get(&number) {
+        for &(board_index, cell_index) in indexes {
+            if boards[board_index].play_cell(cell_index) {
+                return Some((board_index, number));
             }
         }
     }
