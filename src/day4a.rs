@@ -45,8 +45,7 @@ fn play_boards(boards: &mut Vec<Board>, numbers: &[u32]) -> Option<(usize, u32)>
     for &number in numbers {
         if let Some(indexes) = cell_indexes.get(&number) {
             for &(board_index, cell_index) in indexes {
-                let board = &mut boards[board_index];
-                if board.play_cell(cell_index) {
+                if boards[board_index].play_cell(cell_index) {
                     return Some((board_index, number));
                 }
             }
