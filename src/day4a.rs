@@ -5,7 +5,7 @@ use itertools::Itertools;
 pub fn day4a(mut input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let numbers = parse_numbers_csv(&input.next().unwrap());
     let mut boards = read_boards(input);
-    if let Some((winning_board_index, winning_number)) = play_boards(&mut boards, &numbers) {
+    if let Some((winning_board_index, winning_number)) = play_to_first_winning_board(&mut boards, &numbers) {
         let winning_score = boards[winning_board_index].sum_unmarked_numbers();
         let answer = winning_score * winning_number;
         ("day4a", answer as i32)
@@ -40,7 +40,7 @@ fn read_board(input: &mut impl Iterator<Item=String>) -> Board {
     Board::new(&numbers)
 }
 
-fn play_boards(boards: &mut Vec<Board>, numbers: &[u32]) -> Option<(usize, u32)> {
+fn play_to_first_winning_board(boards: &mut Vec<Board>, numbers: &[u32]) -> Option<(usize, u32)> {
     let cell_indexes = build_cell_indexes(boards);
     for &number in numbers {
         let winning_board_index_and_number = play_number_on_all_boards(number, boards, &cell_indexes);
@@ -197,14 +197,14 @@ mod tests {
     fn play_missing_number() {
         let mut boards = vec![Board::new(&(1..=25).collect_vec())];
         let numbers = vec![26];
-        assert_eq!(play_boards(&mut boards, &numbers), None);
+        assert_eq!(play_to_first_winning_board(&mut boards, &numbers), None);
     }
 
     #[test]
     fn play_example_board_with_row_win() {
         let mut boards = vec![Board::new(&(11..=35).collect_vec())];
         let numbers = vec![1, 16, 2, 18, 20, 19, 17, 22];
-        if let Some((winning_board_index, winning_number)) = play_boards(&mut boards, &numbers) {
+        if let Some((winning_board_index, winning_number)) = play_to_first_winning_board(&mut boards, &numbers) {
             assert_eq!(winning_number, 17);
             assert_eq!(boards[winning_board_index].sum_unmarked_numbers(),
                        (11..=35).sum::<u32>() - (16..=20).sum::<u32>());
@@ -217,7 +217,7 @@ mod tests {
     fn play_example_board_with_column_win() {
         let mut boards = vec![Board::new(&(11..=35).collect_vec())];
         let numbers = vec![1, 12, 2, 17, 32, 27, 22, 34];
-        if let Some((winning_board_index, winning_number)) = play_boards(&mut boards, &numbers) {
+        if let Some((winning_board_index, winning_number)) = play_to_first_winning_board(&mut boards, &numbers) {
             assert_eq!(winning_number, 22);
             assert_eq!(boards[winning_board_index].sum_unmarked_numbers(),
                        (11..=35).sum::<u32>() - vec![12, 17, 22, 27, 32].iter().sum::<u32>());
