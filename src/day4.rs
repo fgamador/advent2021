@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 use std::vec;
 use itertools::Itertools;
 
@@ -66,16 +66,12 @@ fn play_to_first_winning_board(boards: &mut Vec<Board>, numbers: &[u32]) -> Opti
 
 fn play_to_last_winning_board(boards: &mut Vec<Board>, numbers: &[u32]) -> Option<(usize, u32)> {
     let cell_indexes = build_cell_indexes(boards);
-    let mut board_indexes_in_play: HashSet<usize> = (0..boards.len()).collect();
+    let mut num_boards_in_play = boards.len();
     for &number in numbers {
         let winning_board_indexes = play_number_on_all_boards(number, boards, &cell_indexes);
-        for winning_board_index in winning_board_indexes {
-            if board_indexes_in_play.contains(&winning_board_index) {
-                board_indexes_in_play.remove(&winning_board_index);
-                if board_indexes_in_play.is_empty() {
-                    return Some((winning_board_index, number));
-                }
-            }
+        num_boards_in_play -= winning_board_indexes.len();
+        if num_boards_in_play == 0 {
+            return Some((winning_board_indexes[0], number));
         }
     }
     None
