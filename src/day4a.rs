@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::vec;
 use itertools::Itertools;
 
@@ -19,7 +19,6 @@ pub fn day4b(mut input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let mut boards = read_boards(input);
     if let Some((winning_board_index, winning_number)) = play_to_last_winning_board(&mut boards, &numbers) {
         let winning_score = boards[winning_board_index].sum_unmarked_numbers();
-        println!("Number: {}, score: {}", winning_number, winning_score);
         let answer = winning_score * winning_number;
         ("day4b", answer as i32)
     } else {
@@ -66,14 +65,20 @@ fn play_to_first_winning_board(boards: &mut Vec<Board>, numbers: &[u32]) -> Opti
 
 fn play_to_last_winning_board(boards: &mut Vec<Board>, numbers: &[u32]) -> Option<(usize, u32)> {
     let cell_indexes = build_cell_indexes(boards);
+    let mut board_indexes_in_play: HashSet<usize> = (0..boards.len()).collect();
     let mut last_winning_board_index_and_number = None;
     for &number in numbers {
-        let winning_board_index_and_number = play_number_on_all_boards(number, boards, &cell_indexes);
-        if winning_board_index_and_number != None {
-            last_winning_board_index_and_number = winning_board_index_and_number;
+        if let Some((winning_board_index, winning_number)) = play_number_on_all_boards(number, boards, &cell_indexes) {
+            if board_indexes_in_play.contains(&winning_board_index) {
+                board_indexes_in_play.remove(&winning_board_index);
+                last_winning_board_index_and_number = Some((winning_board_index, winning_number));
+            }
+            if board_indexes_in_play.is_empty() {
+                return last_winning_board_index_and_number;
+            }
         }
     }
-    last_winning_board_index_and_number
+    None
 }
 
 fn build_cell_indexes(boards: &[Board]) -> HashMap<u32, Vec<(usize, usize)>> {
@@ -90,14 +95,15 @@ fn build_cell_indexes(boards: &[Board]) -> HashMap<u32, Vec<(usize, usize)>> {
 }
 
 fn play_number_on_all_boards(number: u32, boards: &mut Vec<Board>, cell_indexes: &HashMap<u32, Vec<(usize, usize)>>) -> Option<(usize, u32)> {
+    let mut winning_board_index_and_number = None;
     if let Some(indexes) = cell_indexes.get(&number) {
         for &(board_index, cell_index) in indexes {
             if boards[board_index].play_cell(cell_index) {
-                return Some((board_index, number));
+                winning_board_index_and_number = Some((board_index, number));
             }
         }
     }
-    None
+    winning_board_index_and_number
 }
 
 #[derive(Debug, PartialEq)]
