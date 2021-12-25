@@ -56,9 +56,8 @@ fn read_board(input: &mut impl Iterator<Item=String>) -> Board {
 fn play_to_first_winning_board(boards: &mut Vec<Board>, numbers: &[u32]) -> Option<(usize, u32)> {
     let cell_indexes = build_cell_indexes(boards);
     for &number in numbers {
-        let winning_board_index_and_number = play_number_on_all_boards(number, boards, &cell_indexes);
-        if winning_board_index_and_number != None {
-            return winning_board_index_and_number;
+        if let Some(winning_board_index) = play_number_on_all_boards(number, boards, &cell_indexes) {
+            return Some((winning_board_index, number));
         }
     }
     None
@@ -68,7 +67,7 @@ fn play_to_last_winning_board(boards: &mut Vec<Board>, numbers: &[u32]) -> Optio
     let cell_indexes = build_cell_indexes(boards);
     let mut board_indexes_in_play: HashSet<usize> = (0..boards.len()).collect();
     for &number in numbers {
-        if let Some((winning_board_index, _winning_number)) = play_number_on_all_boards(number, boards, &cell_indexes) {
+        if let Some(winning_board_index) = play_number_on_all_boards(number, boards, &cell_indexes) {
             if board_indexes_in_play.contains(&winning_board_index) {
                 board_indexes_in_play.remove(&winning_board_index);
                 if board_indexes_in_play.is_empty() {
@@ -93,16 +92,16 @@ fn build_cell_indexes(boards: &[Board]) -> HashMap<u32, Vec<(usize, usize)>> {
     cell_indexes
 }
 
-fn play_number_on_all_boards(number: u32, boards: &mut Vec<Board>, cell_indexes: &HashMap<u32, Vec<(usize, usize)>>) -> Option<(usize, u32)> {
-    let mut winning_board_index_and_number = None;
+fn play_number_on_all_boards(number: u32, boards: &mut Vec<Board>, cell_indexes: &HashMap<u32, Vec<(usize, usize)>>) -> Option<usize> {
+    let mut winning_board_index = None;
     if let Some(indexes) = cell_indexes.get(&number) {
         for &(board_index, cell_index) in indexes {
             if boards[board_index].play_cell(cell_index) {
-                winning_board_index_and_number = Some((board_index, number));
+                winning_board_index = Some(board_index);
             }
         }
     }
-    winning_board_index_and_number
+    winning_board_index
 }
 
 #[derive(Debug, PartialEq)]
