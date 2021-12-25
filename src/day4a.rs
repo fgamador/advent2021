@@ -51,17 +51,6 @@ fn play_boards(boards: &mut Vec<Board>, numbers: &[u32]) -> Option<(usize, u32)>
     None
 }
 
-fn play_number_on_all_boards(number: u32, boards: &mut Vec<Board>, cell_indexes: &HashMap<u32, Vec<(usize, usize)>>) -> Option<(usize, u32)> {
-    if let Some(indexes) = cell_indexes.get(&number) {
-        for &(board_index, cell_index) in indexes {
-            if boards[board_index].play_cell(cell_index) {
-                return Some((board_index, number));
-            }
-        }
-    }
-    None
-}
-
 fn build_cell_indexes(boards: &[Board]) -> HashMap<u32, Vec<(usize, usize)>> {
     let mut cell_indexes = HashMap::new();
     for (board_index, board) in boards.iter().enumerate() {
@@ -71,6 +60,17 @@ fn build_cell_indexes(boards: &[Board]) -> HashMap<u32, Vec<(usize, usize)>> {
         }
     }
     cell_indexes
+}
+
+fn play_number_on_all_boards(number: u32, boards: &mut Vec<Board>, cell_indexes: &HashMap<u32, Vec<(usize, usize)>>) -> Option<(usize, u32)> {
+    if let Some(indexes) = cell_indexes.get(&number) {
+        for &(board_index, cell_index) in indexes {
+            if boards[board_index].play_cell(cell_index) {
+                return Some((board_index, number));
+            }
+        }
+    }
+    None
 }
 
 #[derive(Debug, PartialEq)]
