@@ -1,23 +1,24 @@
 pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let vent_cells = VentCells::new();
+    let mut vent_cells = VentCells::new();
     let answer = vent_cells.get_dangerous_vent_cell_count();
     ("day5a", answer as i32)
 }
 
 struct VentCells {
+    cell_counts: CellValueCounts,
 }
 
 impl VentCells {
     pub fn new() -> Self {
         VentCells {
+            cell_counts: CellValueCounts::new(),
         }
     }
 
-    pub fn get_dangerous_vent_cell_count(&self) -> u32 {
-        let mut cell_counts = CellValueCounts::new();
+    pub fn get_dangerous_vent_cell_count(&mut self) -> u32 {
         vec![1, 1, 1, 2].into_iter().for_each(|cell_value|
-            cell_counts.add_cell_value(cell_value));
-        cell_counts.get_dangerous_cell_value_count()
+            self.cell_counts.add_cell_value(cell_value));
+        self.cell_counts.get_dangerous_cell_value_count()
     }
 }
 
