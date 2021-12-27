@@ -12,15 +12,13 @@ struct VentCells {
 }
 
 impl VentCells {
-    pub fn add_line_segment(&mut self, _line_segment: ((i32, i32), (i32, i32))) {
-    }
-}
-
-impl VentCells {
     pub fn new() -> Self {
         VentCells {
             cell_counts: CellValueCounts::new(),
         }
+    }
+
+    pub fn add_line_segment(&mut self, _line_segment: ((i32, i32), (i32, i32))) {
     }
 
     pub fn get_dangerous_vent_cell_count(&mut self) -> u32 {
