@@ -1,21 +1,21 @@
 pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let mut cell_counts = CellCounts::new();
+    let mut cell_counts = CellValueCounts::new();
     vec![1, 1, 1, 2].into_iter().for_each(|cell_value|
         cell_counts.add_cell_value(cell_value));
-    let answer = cell_counts.get_dangerous_cell_count();
+    let answer = cell_counts.get_dangerous_cell_value_count();
     ("day5a", answer as i32)
 }
 
-struct CellCounts();
+struct CellValueCounts();
 
-impl CellCounts {
+impl CellValueCounts {
     pub fn new() -> Self {
-        CellCounts {}
+        CellValueCounts {}
     }
 
     pub fn add_cell_value(&mut self, _value: u16) {}
 
-    pub fn get_dangerous_cell_count(&self) -> i32 {
+    pub fn get_dangerous_cell_value_count(&self) -> i32 {
         1
     }
 }
@@ -27,10 +27,10 @@ mod tests {
 
     #[test]
     fn track_example_cell_value_counts() {
-        let mut cell_counts = CellCounts::new();
+        let mut cell_counts = CellValueCounts::new();
         vec![1, 1, 1, 2].into_iter().for_each(|cell_value|
             cell_counts.add_cell_value(cell_value));
-        assert_eq!(cell_counts.get_dangerous_cell_count(), 1);
+        assert_eq!(cell_counts.get_dangerous_cell_value_count(), 1);
     }
 
     #[test]
