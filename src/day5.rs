@@ -1,5 +1,7 @@
 pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let cell_counts = CellCounts::new();
+    let mut cell_counts = CellCounts::new();
+    vec![1, 1, 1, 2].into_iter().for_each(|cell_value|
+        cell_counts.add_cell_value(cell_value));
     let answer = cell_counts.get_dangerous_cell_count();
     ("day5a", answer as i32)
 }
@@ -10,6 +12,8 @@ impl CellCounts {
     pub fn new() -> Self {
         CellCounts {}
     }
+
+    pub fn add_cell_value(&mut self, _value: u16) {}
 
     pub fn get_dangerous_cell_count(&self) -> i32 {
         1
