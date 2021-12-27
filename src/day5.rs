@@ -26,7 +26,7 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
-    fn track_example_cell_value_counts() {
+    fn simple_cell_value_counts() {
         let mut cell_counts = CellValueCounts::new();
         vec![1, 1, 1, 2].into_iter().for_each(|cell_value|
             cell_counts.add_cell_value(cell_value));
