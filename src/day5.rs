@@ -18,7 +18,7 @@ impl CellValueCounts {
     }
 
     pub fn add_cell_value(&mut self, value: u16) {
-        if value > 1 {
+        if value == 2 {
             self.dangerous_cell_value_count += 1;
         }
     }
@@ -39,6 +39,14 @@ mod tests {
         vec![1, 1].into_iter().for_each(|cell_value|
             cell_counts.add_cell_value(cell_value));
         assert_eq!(cell_counts.get_dangerous_cell_value_count(), 0);
+    }
+
+    #[test]
+    fn dangerous_cells_are_counted_only_once() {
+        let mut cell_counts = CellValueCounts::new();
+        vec![1, 1, 2, 2, 3, 3].into_iter().for_each(|cell_value|
+            cell_counts.add_cell_value(cell_value));
+        assert_eq!(cell_counts.get_dangerous_cell_value_count(), 2);
     }
 
     #[test]
