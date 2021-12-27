@@ -1,11 +1,19 @@
 pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let mut vent_cells = VentCells::new();
+    for line_segment in vec![((0,1), (1,1)), ((1,1), (1,0))] {
+        vent_cells.add_line_segment(line_segment);
+    }
     let answer = vent_cells.get_dangerous_vent_cell_count();
     ("day5a", answer as i32)
 }
 
 struct VentCells {
     cell_counts: CellValueCounts,
+}
+
+impl VentCells {
+    pub fn add_line_segment(&mut self, _line_segment: ((i32, i32), (i32, i32))) {
+    }
 }
 
 impl VentCells {
