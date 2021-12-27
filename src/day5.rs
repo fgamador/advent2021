@@ -6,17 +6,25 @@ pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
     ("day5a", answer as i32)
 }
 
-struct CellValueCounts();
+struct CellValueCounts {
+    dangerous_cell_value_count: u32,
+}
 
 impl CellValueCounts {
     pub fn new() -> Self {
-        CellValueCounts {}
+        CellValueCounts {
+            dangerous_cell_value_count: 0,
+        }
     }
 
-    pub fn add_cell_value(&mut self, _value: u16) {}
+    pub fn add_cell_value(&mut self, value: u16) {
+        if value > 1 {
+            self.dangerous_cell_value_count += 1;
+        }
+    }
 
-    pub fn get_dangerous_cell_value_count(&self) -> i32 {
-        1
+    pub fn get_dangerous_cell_value_count(&self) -> u32 {
+        self.dangerous_cell_value_count
     }
 }
 
@@ -24,6 +32,14 @@ impl CellValueCounts {
 mod tests {
     use crate::day5::*;
     use crate::util::to_string_iter;
+
+    #[test]
+    fn cell_value_counts_of_1_are_not_dangerous() {
+        let mut cell_counts = CellValueCounts::new();
+        vec![1, 1].into_iter().for_each(|cell_value|
+            cell_counts.add_cell_value(cell_value));
+        assert_eq!(cell_counts.get_dangerous_cell_value_count(), 0);
+    }
 
     #[test]
     fn simple_cell_value_counts() {
