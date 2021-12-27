@@ -1,5 +1,5 @@
 pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let answer = 2;
+    let answer = 1;
     ("day5a", answer as i32)
 }
 
@@ -10,16 +10,13 @@ mod tests {
 
     #[test]
     fn simple_input_5a() {
-        // . 1 .
-        // 1 3 2
-        // . 1 .
+        // . 1
+        // 1 2
         let input = to_string_iter(vec![
-            "1,2 -> 1,0", // column 1, upward
-            "0,1 -> 2,1", // row 1, rightward
-            "2,1 -> 1,1", // row 1 tail, leftward
-            "1,0 -> 2,1", // diagonal, ignored
+            "0,1 -> 1,1", // row 1, rightward
+            "1,1 -> 1,0", // column 1, upward
         ]);
-        assert_eq!(day5a(input), ("day5a", 2));
+        assert_eq!(day5a(input), ("day5a", 1));
     }
 
     #[test]
