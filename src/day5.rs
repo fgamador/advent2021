@@ -1,10 +1,19 @@
 pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let answer = get_dangerous_cell_count();
+    let cell_counts = CellCounts::new();
+    let answer = cell_counts.get_dangerous_cell_count();
     ("day5a", answer as i32)
 }
 
-fn get_dangerous_cell_count() -> i32 {
-    1
+struct CellCounts();
+
+impl CellCounts {
+    pub fn new() -> Self {
+        CellCounts {}
+    }
+
+    pub fn get_dangerous_cell_count(&self) -> i32 {
+        1
+    }
 }
 
 #[cfg(test)]
