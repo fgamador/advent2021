@@ -1,9 +1,13 @@
 pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
+    let answer = get_dangerous_vent_cell_count();
+    ("day5a", answer as i32)
+}
+
+fn get_dangerous_vent_cell_count() -> u32 {
     let mut cell_counts = CellValueCounts::new();
     vec![1, 1, 1, 2].into_iter().for_each(|cell_value|
         cell_counts.add_cell_value(cell_value));
-    let answer = cell_counts.get_dangerous_cell_value_count();
-    ("day5a", answer as i32)
+    cell_counts.get_dangerous_cell_value_count()
 }
 
 struct CellValueCounts {
@@ -19,6 +23,7 @@ impl CellValueCounts {
 
     pub fn add_cell_value(&mut self, value: u16) {
         if value == 2 {
+            // If value > 2, it was already counted when value == 2.
             self.dangerous_cell_value_count += 1;
         }
     }
