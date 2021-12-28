@@ -4,15 +4,19 @@ pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
     ("day5a", answer as i32)
 }
 
-struct LocationGrid {}
+struct LocationGrid {
+    num_dangerous_locs: u32,
+}
 
 impl LocationGrid {
     pub fn new() -> Self {
-        LocationGrid {}
+        LocationGrid {
+            num_dangerous_locs: 1,
+        }
     }
 
-    fn num_dangerous_locs(&self) -> i32 {
-        1
+    fn num_dangerous_locs(&self) -> u32 {
+        self.num_dangerous_locs
     }
 }
 
