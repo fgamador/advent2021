@@ -1,84 +1,12 @@
 pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let mut vent_cells = VentCells::new();
-    for line_segment in vec![((0,1), (1,1)), ((1,1), (1,0))] {
-        vent_cells.add_line_segment(line_segment);
-    }
-    let answer = vent_cells.get_dangerous_vent_cell_count();
+    let answer = 1;
     ("day5a", answer as i32)
-}
-
-struct VentCells {
-    cell_counts: CellValueCounts,
-}
-
-impl VentCells {
-    pub fn new() -> Self {
-        VentCells {
-            cell_counts: CellValueCounts::new(),
-        }
-    }
-
-    pub fn add_line_segment(&mut self, _line_segment: ((i32, i32), (i32, i32))) {
-    }
-
-    pub fn get_dangerous_vent_cell_count(&mut self) -> u32 {
-        vec![1, 1, 1, 2].into_iter().for_each(|cell_value|
-            self.cell_counts.add_cell_value(cell_value));
-        self.cell_counts.get_dangerous_cell_value_count()
-    }
-}
-
-struct CellValueCounts {
-    dangerous_cell_value_count: u32,
-}
-
-impl CellValueCounts {
-    pub fn new() -> Self {
-        CellValueCounts {
-            dangerous_cell_value_count: 0,
-        }
-    }
-
-    pub fn add_cell_value(&mut self, value: u16) {
-        if value == 2 {
-            // If value > 2, it was already counted when value == 2.
-            self.dangerous_cell_value_count += 1;
-        }
-    }
-
-    pub fn get_dangerous_cell_value_count(&self) -> u32 {
-        self.dangerous_cell_value_count
-    }
 }
 
 #[cfg(test)]
 mod tests {
     use crate::day5::*;
     use crate::util::to_string_iter;
-
-    #[test]
-    fn cell_value_counts_of_1_are_not_dangerous() {
-        let mut cell_counts = CellValueCounts::new();
-        vec![1, 1].into_iter().for_each(|cell_value|
-            cell_counts.add_cell_value(cell_value));
-        assert_eq!(cell_counts.get_dangerous_cell_value_count(), 0);
-    }
-
-    #[test]
-    fn dangerous_cells_are_counted_only_once() {
-        let mut cell_counts = CellValueCounts::new();
-        vec![1, 1, 2, 2, 3, 3].into_iter().for_each(|cell_value|
-            cell_counts.add_cell_value(cell_value));
-        assert_eq!(cell_counts.get_dangerous_cell_value_count(), 2);
-    }
-
-    #[test]
-    fn simple_cell_value_counts() {
-        let mut cell_counts = CellValueCounts::new();
-        vec![1, 1, 1, 2].into_iter().for_each(|cell_value|
-            cell_counts.add_cell_value(cell_value));
-        assert_eq!(cell_counts.get_dangerous_cell_value_count(), 1);
-    }
 
     #[test]
     fn simple_input_5a() {
