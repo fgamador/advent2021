@@ -1,5 +1,7 @@
 pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let loc_grid = LocationGrid::new();
+    let mut loc_grid = LocationGrid::new();
+    loc_grid.add_vent_line(LineSegment(Loc(0, 1), Loc(1, 1)));
+    loc_grid.add_vent_line(LineSegment(Loc(1, 1), Loc(1, 0)));
     let answer = loc_grid.num_dangerous_locs();
     ("day5a", answer as i32)
 }
@@ -15,10 +17,16 @@ impl LocationGrid {
         }
     }
 
-    fn num_dangerous_locs(&self) -> u32 {
+    pub fn add_vent_line(&mut self, _vent_line: LineSegment) {}
+
+    pub fn num_dangerous_locs(&self) -> u32 {
         self.num_dangerous_locs
     }
 }
+
+struct LineSegment(Loc, Loc);
+
+struct Loc(u32, u32);
 
 #[cfg(test)]
 mod tests {
