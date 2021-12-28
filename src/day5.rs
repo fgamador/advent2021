@@ -7,18 +7,33 @@ pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
 }
 
 struct LocationGrid {
+    rows: Vec<Vec<u16>>,
+    num_dangerous_locs: u32,
 }
 
 impl LocationGrid {
     pub fn new() -> Self {
         LocationGrid {
+            rows: vec![vec![0, 0], vec![0, 0]],
+            num_dangerous_locs: 0,
         }
     }
 
-    pub fn add_vent_line(&mut self, _vent_line: LineSegment) {}
+    pub fn add_vent_line(&mut self, vent_line: LineSegment) {
+        self.add_vent(&vent_line.0);
+        self.add_vent(&vent_line.1);
+    }
+
+    fn add_vent(&mut self, loc: &Loc) {
+        let cell = &mut self.rows[loc.1 as usize][loc.0 as usize];
+        *cell += 1;
+        if *cell == 2 {
+            self.num_dangerous_locs += 1;
+        }
+    }
 
     pub fn num_dangerous_locs(&self) -> u32 {
-        1
+        self.num_dangerous_locs
     }
 }
 
@@ -33,6 +48,8 @@ mod tests {
 
     #[test]
     fn location_grid_counts_dangerous_locs_for_simple_input_5a() {
+        // . 1
+        // 1 2
         let mut loc_grid = LocationGrid::new();
         loc_grid.add_vent_line(LineSegment(Loc(0, 1), Loc(1, 1)));
         loc_grid.add_vent_line(LineSegment(Loc(1, 1), Loc(1, 0)));
