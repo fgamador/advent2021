@@ -34,6 +34,14 @@ mod tests {
     use crate::util::to_string_iter;
 
     #[test]
+    fn location_grid_counts_dangerous_locs_for_simple_input() {
+        let mut loc_grid = LocationGrid::new();
+        loc_grid.add_vent_line(LineSegment(Loc(0, 1), Loc(1, 1)));
+        loc_grid.add_vent_line(LineSegment(Loc(1, 1), Loc(1, 0)));
+        assert_eq!(loc_grid.num_dangerous_locs(), 1);
+    }
+
+    #[test]
     fn simple_input_5a() {
         // . 1
         // 1 2
