@@ -1,5 +1,5 @@
 pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let loc_grid = LocationGrid {};
+    let loc_grid = LocationGrid::new();
     let answer = loc_grid.num_dangerous_locs();
     ("day5a", answer as i32)
 }
@@ -7,6 +7,10 @@ pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
 struct LocationGrid {}
 
 impl LocationGrid {
+    pub fn new() -> Self {
+        LocationGrid {}
+    }
+
     fn num_dangerous_locs(&self) -> i32 {
         1
     }
