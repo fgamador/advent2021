@@ -1,6 +1,10 @@
 pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
-    let answer = 1;
+    let answer = num_dangerous_locs();
     ("day5a", answer as i32)
+}
+
+fn num_dangerous_locs() -> i32 {
+    1
 }
 
 #[cfg(test)]
