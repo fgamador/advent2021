@@ -1,7 +1,11 @@
 pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let mut loc_grid = LocationGrid::new();
-    loc_grid.add_vent_line(LineSegment(Loc(0, 1), Loc(1, 1)));
-    loc_grid.add_vent_line(LineSegment(Loc(1, 1), Loc(1, 0)));
+    vec![
+        LineSegment(Loc(0, 1), Loc(1, 1)),
+        LineSegment(Loc(1, 1), Loc(1, 0)),
+    ]
+        .into_iter()
+        .for_each(|vent_line| loc_grid.add_vent_line(vent_line));
     let answer = loc_grid.num_dangerous_locs();
     ("day5a", answer as i32)
 }
