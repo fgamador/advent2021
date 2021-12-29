@@ -45,14 +45,24 @@ impl LocationGrid {
     }
 }
 
+#[derive(Debug, PartialEq)]
 struct LineSegment(Loc, Loc);
 
+#[derive(Debug, PartialEq)]
 struct Loc(u32, u32);
 
 #[cfg(test)]
 mod tests {
     use crate::day5::*;
     use crate::util::to_string_iter;
+
+    #[test]
+    fn parse_example_input_line() {
+        assert_eq!(
+            parse_input_line(0, "0,1 -> 1,1"),
+            LineSegment(Loc(0, 1), Loc(1, 1))
+        );
+    }
 
     #[test]
     fn location_grid_counts_dangerous_locs_for_simple_input_5a() {
