@@ -1,7 +1,7 @@
 pub fn day5a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let mut loc_grid = LocationGrid::new();
-    input.enumerate()
-        .map(|(_index, line)| parse_input_line(&line))
+    input
+        .map(|line| parse_input_line(&line))
         .for_each(|vent_line| loc_grid.add_vent_line(vent_line));
     let answer = loc_grid.num_dangerous_locs();
     ("day5a", answer as i32)
