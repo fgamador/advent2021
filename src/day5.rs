@@ -62,8 +62,8 @@ mod tests {
     #[test]
     fn parse_example_input_line() {
         assert_eq!(
-            parse_input_line("0,1 -> 1,1"),
-            LineSegment(Loc(0, 1), Loc(1, 1))
+            parse_input_line("957,596 -> 35,182"),
+            LineSegment(Loc(957, 596), Loc(35, 182))
         );
     }
 
