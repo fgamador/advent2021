@@ -1,10 +1,12 @@
-pub fn day5a(_input: impl Iterator<Item=String>) -> (&'static str, i32) {
+pub fn day5a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let mut loc_grid = LocationGrid::new();
-    vec![
-        LineSegment(Loc(0, 1), Loc(1, 1)),
-        LineSegment(Loc(1, 1), Loc(1, 0)),
-    ]
-        .into_iter()
+    input.enumerate()
+        .map(|(index, _line)| {
+            match index {
+                0 => LineSegment(Loc(0, 1), Loc(1, 1)),
+                _ => LineSegment(Loc(1, 1), Loc(1, 0)),
+            }
+        })
         .for_each(|vent_line| loc_grid.add_vent_line(vent_line));
     let answer = loc_grid.num_dangerous_locs();
     ("day5a", answer as i32)
