@@ -7,11 +7,14 @@ pub fn day5a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     ("day5a", answer as i32)
 }
 
-fn parse_input_line(index: usize, _line: &str) -> LineSegment {
-    match index {
-        0 => LineSegment(Loc(0, 1), Loc(1, 1)),
-        _ => LineSegment(Loc(1, 1), Loc(1, 0)),
-    }
+fn parse_input_line(_index: usize, line: &str) -> LineSegment {
+    let mut nums = line
+        .split(" -> ")
+        .map(|loc_str| loc_str.split(","))
+        .flatten()
+        .map(|num_str| num_str.parse::<u32>().unwrap());
+    LineSegment(Loc(nums.next().unwrap(), nums.next().unwrap()),
+                Loc(nums.next().unwrap(), nums.next().unwrap()))
 }
 
 struct LocationGrid {
