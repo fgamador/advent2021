@@ -1,13 +1,13 @@
 pub fn day5a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let mut loc_grid = LocationGrid::new();
     input.enumerate()
-        .map(|(index, line)| parse_input_line(index, &line))
+        .map(|(_index, line)| parse_input_line(&line))
         .for_each(|vent_line| loc_grid.add_vent_line(vent_line));
     let answer = loc_grid.num_dangerous_locs();
     ("day5a", answer as i32)
 }
 
-fn parse_input_line(_index: usize, line: &str) -> LineSegment {
+fn parse_input_line(line: &str) -> LineSegment {
     let mut nums = line
         .split(" -> ")
         .map(|loc_str| loc_str.split(","))
@@ -62,7 +62,7 @@ mod tests {
     #[test]
     fn parse_example_input_line() {
         assert_eq!(
-            parse_input_line(0, "0,1 -> 1,1"),
+            parse_input_line("0,1 -> 1,1"),
             LineSegment(Loc(0, 1), Loc(1, 1))
         );
     }
