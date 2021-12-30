@@ -25,7 +25,7 @@ struct LocationGrid {
 impl LocationGrid {
     pub fn new() -> Self {
         LocationGrid {
-            rows: vec![vec![0, 0], vec![0, 0]],
+            rows: vec![],
             num_dangerous_locs: 0,
         }
     }
