@@ -31,8 +31,14 @@ impl LocationGrid {
     }
 
     pub fn add_vent_line(&mut self, vent_line: LineSegment) {
-        self.add_vent(&vent_line.0);
-        self.add_vent(&vent_line.1);
+        if vent_line.0.1 == vent_line.1.1 {
+            let row_index = vent_line.0.1;
+            (vent_line.0.0..=vent_line.1.0).for_each(
+                |col_index| self.add_vent(&Loc(col_index, row_index)));
+        } else {
+            self.add_vent(&vent_line.0);
+            self.add_vent(&vent_line.1);
+        }
     }
 
     fn add_vent(&mut self, loc: &Loc) {
@@ -109,6 +115,14 @@ mod tests {
         loc_grid.add_vent_line(LineSegment(Loc(0, 0), Loc(0, 1)));
         loc_grid.add_vent_line(LineSegment(Loc(2, 2), Loc(2, 3)));
         assert_eq!(loc_grid.num_dangerous_locs(), 2);
+    }
+
+    #[test]
+    fn location_grid_adds_long_row() {
+        let mut loc_grid = LocationGrid::new();
+        loc_grid.add_vent_line(LineSegment(Loc(0, 0), Loc(5, 0)));
+        loc_grid.add_vent_line(LineSegment(Loc(2, 1), Loc(2, 0)));
+        assert_eq!(loc_grid.num_dangerous_locs(), 1);
     }
 
     #[test]
