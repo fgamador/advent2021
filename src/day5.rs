@@ -36,6 +36,8 @@ impl LocationGrid {
     }
 
     fn add_vent(&mut self, loc: &Loc) {
+        self.rows.resize((loc.1 + 1) as usize, vec![]);
+        self.rows[loc.1 as usize].resize((loc.0 + 1) as usize, 0);
         let cell = &mut self.rows[loc.1 as usize][loc.0 as usize];
         *cell += 1;
         if *cell == 2 {
@@ -74,6 +76,14 @@ mod tests {
         let mut loc_grid = LocationGrid::new();
         loc_grid.add_vent_line(LineSegment(Loc(0, 1), Loc(1, 1)));
         loc_grid.add_vent_line(LineSegment(Loc(1, 1), Loc(1, 0)));
+        assert_eq!(loc_grid.num_dangerous_locs(), 1);
+    }
+
+    #[test]
+    fn location_grid_expands_as_needed() {
+        let mut loc_grid = LocationGrid::new();
+        loc_grid.add_vent_line(LineSegment(Loc(900, 901), Loc(901, 901)));
+        loc_grid.add_vent_line(LineSegment(Loc(901, 901), Loc(901, 900)));
         assert_eq!(loc_grid.num_dangerous_locs(), 1);
     }
 
