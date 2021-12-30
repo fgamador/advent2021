@@ -38,14 +38,8 @@ impl LocationGrid {
     fn add_vent(&mut self, loc: &Loc) {
         let row_index = loc.1 as usize;
         let col_index = loc.0 as usize;
-
         self.expand_grid_if_needed(row_index, col_index);
-
-        let cell = &mut self.rows[row_index][col_index];
-        *cell += 1;
-        if *cell == 2 {
-            self.num_dangerous_locs += 1;
-        }
+        self.increment_vent_count(row_index, col_index)
     }
 
     fn expand_grid_if_needed(&mut self, row_index: usize, col_index: usize) {
@@ -55,6 +49,14 @@ impl LocationGrid {
         let row = &mut self.rows[row_index];
         if row.len() < col_index + 1 {
             row.resize(col_index + 1, 0);
+        }
+    }
+
+    fn increment_vent_count(&mut self, row_index: usize, col_index: usize) {
+        let cell = &mut self.rows[row_index][col_index];
+        *cell += 1;
+        if *cell == 2 {
+            self.num_dangerous_locs += 1;
         }
     }
 
