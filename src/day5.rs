@@ -36,13 +36,13 @@ impl LocationGrid {
     }
 
     fn add_vent(&mut self, loc: &Loc) {
-        if self.rows.len() < (loc.1 + 1) as usize {
-            self.rows.resize((loc.1 + 1) as usize, vec![]);
+        if self.rows.len() < (loc.1 as usize) + 1 {
+            self.rows.resize((loc.1 as usize) + 1, vec![]);
         }
 
         let row = &mut self.rows[loc.1 as usize];
-        if row.len() < (loc.0 + 1) as usize {
-            row.resize((loc.0 + 1) as usize, 0);
+        if row.len() < (loc.0 as usize) + 1 {
+            row.resize((loc.0 as usize) + 1, 0);
         }
 
         let cell = &mut row[loc.0 as usize];
