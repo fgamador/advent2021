@@ -47,7 +47,7 @@ impl LocationGrid {
             row.resize(col_index + 1, 0);
         }
 
-        let cell = &mut row[col_index];
+        let cell = &mut self.rows[row_index][col_index];
         *cell += 1;
         if *cell == 2 {
             self.num_dangerous_locs += 1;
