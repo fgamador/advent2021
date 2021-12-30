@@ -39,10 +39,13 @@ impl LocationGrid {
         if self.rows.len() < (loc.1 + 1) as usize {
             self.rows.resize((loc.1 + 1) as usize, vec![]);
         }
-        if self.rows[loc.1 as usize].len() < (loc.0 + 1) as usize {
-            self.rows[loc.1 as usize].resize((loc.0 + 1) as usize, 0);
+
+        let row = &mut self.rows[loc.1 as usize];
+        if row.len() < (loc.0 + 1) as usize {
+            row.resize((loc.0 + 1) as usize, 0);
         }
-        let cell = &mut self.rows[loc.1 as usize][loc.0 as usize];
+
+        let cell = &mut row[loc.0 as usize];
         *cell += 1;
         if *cell == 2 {
             self.num_dangerous_locs += 1;
