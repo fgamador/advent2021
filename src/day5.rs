@@ -8,6 +8,7 @@ pub fn day5a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     ("day5a", answer as i32)
 }
 
+#[allow(dead_code)]
 pub fn day5b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let mut loc_grid = LocationGrid::new();
     input
