@@ -50,7 +50,7 @@ impl LocationGrid {
     }
 
     pub fn add_vent_line(&mut self, vent_line: LineSegment) {
-        if vent_line.0.x != vent_line.1.x && vent_line.0.y != vent_line.1.y {
+        if vent_line.is_diagonal() {
             let locs = vent_line.diagonal_line_segment_locs();
             locs.for_each(|loc| self.add_vent(&loc));
         } else {
@@ -102,19 +102,23 @@ impl LocationGrid {
 struct LineSegment(Loc, Loc);
 
 impl LineSegment {
-    fn horizontal_line_segment_locs(&self) -> impl Iterator<Item=Loc> {
+    pub fn is_diagonal(&self) -> bool {
+        self.0.x != self.1.x && self.0.y != self.1.y
+    }
+
+    pub fn horizontal_line_segment_locs(&self) -> impl Iterator<Item=Loc> {
         let y = self.0.y;
         increasing_inclusive_range(self.0.x, self.1.x)
             .map(move |x| Loc::new(x, y))
     }
 
-    fn vertical_line_segment_locs(&self) -> impl Iterator<Item=Loc> {
+    pub fn vertical_line_segment_locs(&self) -> impl Iterator<Item=Loc> {
         let x = self.0.x;
         increasing_inclusive_range(self.0.y, self.1.y)
             .map(move |y| Loc::new(x, y))
     }
 
-    fn diagonal_line_segment_locs(&self) -> impl Iterator<Item=Loc> {
+    pub fn diagonal_line_segment_locs(&self) -> impl Iterator<Item=Loc> {
         increasing_inclusive_range(self.0.x, self.1.x)
             .zip(increasing_inclusive_range(self.0.y, self.1.y))
             .map(|(x, y)| Loc::new(x, y))
