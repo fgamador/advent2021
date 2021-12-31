@@ -111,7 +111,7 @@ impl LineSegment {
     }
 
     pub fn is_diagonal(&self) -> bool {
-        self.0.x != self.1.x && self.0.y != self.1.y
+        !(self.0.x == self.1.x) && !(self.0.y == self.1.y)
     }
 
     pub fn horizontal_line_segment_locs(&self) -> impl Iterator<Item=Loc> {
