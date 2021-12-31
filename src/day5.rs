@@ -31,9 +31,9 @@ impl LocationGrid {
     }
 
     pub fn add_vent_line(&mut self, vent_line: LineSegment) {
-        if vent_line.0.1 == vent_line.1.1 {
-            let row_index = vent_line.0.1;
-            (vent_line.0.0..=vent_line.1.0).for_each(
+        if vent_line.0.y == vent_line.1.y {
+            let row_index = vent_line.0.y;
+            (vent_line.0.x..=vent_line.1.x).for_each(
                 |col_index| self.add_vent(&Loc::new(col_index, row_index)));
         } else {
             self.add_vent(&vent_line.0);
@@ -42,8 +42,8 @@ impl LocationGrid {
     }
 
     fn add_vent(&mut self, loc: &Loc) {
-        let row_index = loc.1 as usize;
-        let col_index = loc.0 as usize;
+        let row_index = loc.y as usize;
+        let col_index = loc.x as usize;
         self.expand_grid_if_needed(row_index, col_index);
         self.increment_vent_count(row_index, col_index)
     }
@@ -75,11 +75,14 @@ impl LocationGrid {
 struct LineSegment(Loc, Loc);
 
 #[derive(Debug, PartialEq)]
-struct Loc(u32, u32);
+struct Loc {
+    pub x: u32,
+    pub y: u32,
+}
 
 impl Loc {
     pub fn new(x: u32, y: u32) -> Self {
-        Loc(x, y)
+        Loc { x, y }
     }
 }
 
