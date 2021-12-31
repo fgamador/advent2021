@@ -9,6 +9,15 @@ pub fn day5a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     ("day5a", answer as i32)
 }
 
+pub fn day5b(input: impl Iterator<Item=String>) -> (&'static str, i32) {
+    let mut loc_grid = LocationGrid::new();
+    input
+        .map(|line| parse_input_line(&line))
+        .for_each(|vent_line| loc_grid.add_vent_line(vent_line));
+    let answer = loc_grid.num_dangerous_locs();
+    ("day5b", answer as i32)
+}
+
 fn parse_input_line(line: &str) -> LineSegment {
     let mut nums = line
         .split(" -> ")
@@ -224,5 +233,23 @@ mod tests {
             "5,5 -> 8,2",
         ]);
         assert_eq!(day5a(input), ("day5a", 5));
+    }
+
+    #[test]
+    #[ignore]
+    fn example_input_5b() {
+        let input = to_string_iter(vec![
+            "0,9 -> 5,9",
+            "8,0 -> 0,8",
+            "9,4 -> 3,4",
+            "2,2 -> 2,1",
+            "7,0 -> 7,4",
+            "6,4 -> 2,0",
+            "0,9 -> 2,9",
+            "3,4 -> 1,4",
+            "0,0 -> 8,8",
+            "5,5 -> 8,2",
+        ]);
+        assert_eq!(day5b(input), ("day5b", 12));
     }
 }
