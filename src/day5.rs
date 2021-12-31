@@ -28,24 +28,6 @@ fn parse_input_line(line: &str) -> LineSegment {
                 Loc::new(nums.next().unwrap(), nums.next().unwrap()))
 }
 
-fn horizontal_line_segment_locs(vent_line: &LineSegment) -> impl Iterator<Item=Loc> {
-    let y = vent_line.0.y;
-    increasing_inclusive_range(vent_line.0.x, vent_line.1.x)
-        .map(move |x| Loc::new(x, y))
-}
-
-fn vertical_line_segment_locs(vent_line: &LineSegment) -> impl Iterator<Item=Loc> {
-    let x = vent_line.0.x;
-    increasing_inclusive_range(vent_line.0.y, vent_line.1.y)
-        .map(move |y| Loc::new(x, y))
-}
-
-fn diagonal_line_segment_locs(vent_line: &LineSegment) -> impl Iterator<Item=Loc> {
-    increasing_inclusive_range(vent_line.0.x, vent_line.1.x)
-        .zip(increasing_inclusive_range(vent_line.0.y, vent_line.1.y))
-        .map(|(x, y)| Loc::new(x, y))
-}
-
 fn increasing_inclusive_range(v1: u32, v2: u32) -> RangeInclusive<u32> {
     if v1 <= v2 {
         v1..=v2
@@ -71,17 +53,17 @@ impl LocationGrid {
         if vent_line.0.x == vent_line.1.x || vent_line.0.y == vent_line.1.y {
             self.add_non_diagonal_vent_line(vent_line);
         } else {
-            let locs = diagonal_line_segment_locs(&vent_line);
+            let locs = vent_line.diagonal_line_segment_locs();
             locs.for_each(|loc| self.add_vent(&loc));
         }
     }
 
     pub fn add_non_diagonal_vent_line(&mut self, vent_line: LineSegment) {
         if vent_line.0.y == vent_line.1.y {
-            let locs = horizontal_line_segment_locs(&vent_line);
+            let locs = vent_line.horizontal_line_segment_locs();
             locs.for_each(|loc| self.add_vent(&loc));
         } else if vent_line.0.x == vent_line.1.x {
-            let locs = vertical_line_segment_locs(&vent_line);
+            let locs = vent_line.vertical_line_segment_locs();
             locs.for_each(|loc| self.add_vent(&loc));
         }
     }
@@ -118,6 +100,26 @@ impl LocationGrid {
 
 #[derive(Debug, PartialEq)]
 struct LineSegment(Loc, Loc);
+
+impl LineSegment {
+    fn horizontal_line_segment_locs(&self) -> impl Iterator<Item=Loc> {
+        let y = self.0.y;
+        increasing_inclusive_range(self.0.x, self.1.x)
+            .map(move |x| Loc::new(x, y))
+    }
+
+    fn vertical_line_segment_locs(&self) -> impl Iterator<Item=Loc> {
+        let x = self.0.x;
+        increasing_inclusive_range(self.0.y, self.1.y)
+            .map(move |y| Loc::new(x, y))
+    }
+
+    fn diagonal_line_segment_locs(&self) -> impl Iterator<Item=Loc> {
+        increasing_inclusive_range(self.0.x, self.1.x)
+            .zip(increasing_inclusive_range(self.0.y, self.1.y))
+            .map(|(x, y)| Loc::new(x, y))
+    }
+}
 
 #[derive(Debug, PartialEq)]
 struct Loc {
