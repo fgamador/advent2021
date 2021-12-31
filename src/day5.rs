@@ -46,8 +46,7 @@ impl LocationGrid {
         } else if vent_line.0.x == vent_line.1.x {
             self.add_vent_column(&vent_line);
         } else {
-            self.add_vent(&vent_line.0);
-            self.add_vent(&vent_line.1);
+            // ignore diagonals
         }
     }
 
@@ -178,6 +177,14 @@ mod tests {
         loc_grid.add_vent_line(LineSegment(Loc::new(0, 5), Loc::new(0, 0)));
         loc_grid.add_vent_line(LineSegment(Loc::new(0, 2), Loc::new(1, 2)));
         assert_eq!(loc_grid.num_dangerous_locs(), 1);
+    }
+
+    #[test]
+    fn location_grid_ignores_diagonal() {
+        let mut loc_grid = LocationGrid::new();
+        loc_grid.add_vent_line(LineSegment(Loc::new(0, 0), Loc::new(0, 1)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(0, 0), Loc::new(1, 1)));
+        assert_eq!(loc_grid.num_dangerous_locs(), 0);
     }
 
     #[test]
