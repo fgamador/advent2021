@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 pub fn day5a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let mut loc_grid = LocationGrid::new();
     input
