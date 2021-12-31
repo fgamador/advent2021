@@ -59,10 +59,10 @@ impl LocationGrid {
     }
 
     pub fn add_non_diagonal_vent_line(&mut self, vent_line: LineSegment) {
-        if vent_line.0.y == vent_line.1.y {
+        if vent_line.is_horizontal() {
             let locs = vent_line.horizontal_line_segment_locs();
             locs.for_each(|loc| self.add_vent(&loc));
-        } else if vent_line.0.x == vent_line.1.x {
+        } else if vent_line.is_vertical() {
             let locs = vent_line.vertical_line_segment_locs();
             locs.for_each(|loc| self.add_vent(&loc));
         }
@@ -102,6 +102,14 @@ impl LocationGrid {
 struct LineSegment(Loc, Loc);
 
 impl LineSegment {
+    pub fn is_horizontal(&self) -> bool {
+        self.0.y == self.1.y
+    }
+
+    pub fn is_vertical(&self) -> bool {
+        self.0.x == self.1.x
+    }
+
     pub fn is_diagonal(&self) -> bool {
         self.0.x != self.1.x && self.0.y != self.1.y
     }
