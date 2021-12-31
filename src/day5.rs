@@ -13,8 +13,8 @@ fn parse_input_line(line: &str) -> LineSegment {
         .map(|loc_str| loc_str.split(","))
         .flatten()
         .map(|num_str| num_str.parse::<u32>().unwrap());
-    LineSegment(Loc(nums.next().unwrap(), nums.next().unwrap()),
-                Loc(nums.next().unwrap(), nums.next().unwrap()))
+    LineSegment(Loc::new(nums.next().unwrap(), nums.next().unwrap()),
+                Loc::new(nums.next().unwrap(), nums.next().unwrap()))
 }
 
 struct LocationGrid {
@@ -34,7 +34,7 @@ impl LocationGrid {
         if vent_line.0.1 == vent_line.1.1 {
             let row_index = vent_line.0.1;
             (vent_line.0.0..=vent_line.1.0).for_each(
-                |col_index| self.add_vent(&Loc(col_index, row_index)));
+                |col_index| self.add_vent(&Loc::new(col_index, row_index)));
         } else {
             self.add_vent(&vent_line.0);
             self.add_vent(&vent_line.1);
@@ -77,6 +77,12 @@ struct LineSegment(Loc, Loc);
 #[derive(Debug, PartialEq)]
 struct Loc(u32, u32);
 
+impl Loc {
+    pub fn new(x: u32, y: u32) -> Self {
+        Loc(x, y)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use crate::day5::*;
@@ -86,7 +92,7 @@ mod tests {
     fn parse_example_input_line() {
         assert_eq!(
             parse_input_line("957,596 -> 35,182"),
-            LineSegment(Loc(957, 596), Loc(35, 182))
+            LineSegment(Loc::new(957, 596), Loc::new(35, 182))
         );
     }
 
@@ -95,33 +101,33 @@ mod tests {
         // . 1
         // 1 2
         let mut loc_grid = LocationGrid::new();
-        loc_grid.add_vent_line(LineSegment(Loc(0, 1), Loc(1, 1)));
-        loc_grid.add_vent_line(LineSegment(Loc(1, 1), Loc(1, 0)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(0, 1), Loc::new(1, 1)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(1, 1), Loc::new(1, 0)));
         assert_eq!(loc_grid.num_dangerous_locs(), 1);
     }
 
     #[test]
     fn location_grid_expands_as_needed() {
         let mut loc_grid = LocationGrid::new();
-        loc_grid.add_vent_line(LineSegment(Loc(900, 901), Loc(901, 901)));
-        loc_grid.add_vent_line(LineSegment(Loc(901, 901), Loc(901, 900)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(900, 901), Loc::new(901, 901)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(901, 901), Loc::new(901, 900)));
         assert_eq!(loc_grid.num_dangerous_locs(), 1);
     }
 
     #[test]
     fn location_grid_does_not_shrink() {
         let mut loc_grid = LocationGrid::new();
-        loc_grid.add_vent_line(LineSegment(Loc(2, 2), Loc(2, 3)));
-        loc_grid.add_vent_line(LineSegment(Loc(0, 0), Loc(0, 1)));
-        loc_grid.add_vent_line(LineSegment(Loc(2, 2), Loc(2, 3)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(2, 2), Loc::new(2, 3)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(0, 0), Loc::new(0, 1)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(2, 2), Loc::new(2, 3)));
         assert_eq!(loc_grid.num_dangerous_locs(), 2);
     }
 
     #[test]
     fn location_grid_adds_long_row() {
         let mut loc_grid = LocationGrid::new();
-        loc_grid.add_vent_line(LineSegment(Loc(0, 0), Loc(5, 0)));
-        loc_grid.add_vent_line(LineSegment(Loc(2, 1), Loc(2, 0)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(0, 0), Loc::new(5, 0)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(2, 1), Loc::new(2, 0)));
         assert_eq!(loc_grid.num_dangerous_locs(), 1);
     }
 
