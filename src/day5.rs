@@ -43,6 +43,8 @@ impl LocationGrid {
     pub fn add_vent_line(&mut self, vent_line: LineSegment) {
         if vent_line.0.y == vent_line.1.y {
             self.add_vent_row(&vent_line);
+        } else if vent_line.0.x == vent_line.1.x {
+            self.add_vent_column(&vent_line);
         } else {
             self.add_vent(&vent_line.0);
             self.add_vent(&vent_line.1);
@@ -53,6 +55,12 @@ impl LocationGrid {
         let y = vent_line.0.y;
         increasing_inclusive_range(vent_line.0.x, vent_line.1.x)
             .for_each(|x| self.add_vent(&Loc::new(x, y)));
+    }
+
+    fn add_vent_column(&mut self, vent_line: &LineSegment) {
+        let x = vent_line.0.x;
+        increasing_inclusive_range(vent_line.0.y, vent_line.1.y)
+            .for_each(|y| self.add_vent(&Loc::new(x, y)));
     }
 
     fn add_vent(&mut self, loc: &Loc) {
@@ -144,7 +152,7 @@ mod tests {
     fn location_grid_adds_long_row() {
         let mut loc_grid = LocationGrid::new();
         loc_grid.add_vent_line(LineSegment(Loc::new(0, 0), Loc::new(5, 0)));
-        loc_grid.add_vent_line(LineSegment(Loc::new(2, 1), Loc::new(2, 0)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(2, 0), Loc::new(2, 1)));
         assert_eq!(loc_grid.num_dangerous_locs(), 1);
     }
 
@@ -152,7 +160,23 @@ mod tests {
     fn location_grid_adds_long_row_reversed() {
         let mut loc_grid = LocationGrid::new();
         loc_grid.add_vent_line(LineSegment(Loc::new(5, 0), Loc::new(0, 0)));
-        loc_grid.add_vent_line(LineSegment(Loc::new(2, 1), Loc::new(2, 0)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(2, 0), Loc::new(2, 1)));
+        assert_eq!(loc_grid.num_dangerous_locs(), 1);
+    }
+
+    #[test]
+    fn location_grid_adds_long_column() {
+        let mut loc_grid = LocationGrid::new();
+        loc_grid.add_vent_line(LineSegment(Loc::new(0, 0), Loc::new(0, 5)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(0, 2), Loc::new(1, 2)));
+        assert_eq!(loc_grid.num_dangerous_locs(), 1);
+    }
+
+    #[test]
+    fn location_grid_adds_long_column_reversed() {
+        let mut loc_grid = LocationGrid::new();
+        loc_grid.add_vent_line(LineSegment(Loc::new(0, 5), Loc::new(0, 0)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(0, 2), Loc::new(1, 2)));
         assert_eq!(loc_grid.num_dangerous_locs(), 1);
     }
 
