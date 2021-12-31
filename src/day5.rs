@@ -53,8 +53,7 @@ impl LocationGrid {
         if vent_line.0.x == vent_line.1.x || vent_line.0.y == vent_line.1.y {
             self.add_non_diagonal_vent_line(vent_line);
         } else {
-            self.add_vent(&vent_line.0);
-            self.add_vent(&vent_line.1);
+            self.add_vent_diagonal(&vent_line);
         }
     }
 
@@ -76,6 +75,12 @@ impl LocationGrid {
         let x = vent_line.0.x;
         increasing_inclusive_range(vent_line.0.y, vent_line.1.y)
             .for_each(|y| self.add_vent(&Loc::new(x, y)));
+    }
+
+    fn add_vent_diagonal(&mut self, vent_line: &LineSegment) {
+        increasing_inclusive_range(vent_line.0.x, vent_line.1.x)
+            .zip(increasing_inclusive_range(vent_line.0.y, vent_line.1.y))
+            .for_each(|(x, y)| self.add_vent(&Loc::new(x, y)));
     }
 
     fn add_vent(&mut self, loc: &Loc) {
@@ -217,6 +222,14 @@ mod tests {
         let mut loc_grid = LocationGrid::new();
         loc_grid.add_vent_line(LineSegment(Loc::new(0, 0), Loc::new(0, 1)));
         loc_grid.add_vent_line(LineSegment(Loc::new(0, 0), Loc::new(1, 1)));
+        assert_eq!(loc_grid.num_dangerous_locs(), 1);
+    }
+
+    #[test]
+    fn location_grid_5b_adds_long_decreasing_diagonal() {
+        let mut loc_grid = LocationGrid::new();
+        loc_grid.add_vent_line(LineSegment(Loc::new(5, 5), Loc::new(0, 0)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(0, 2), Loc::new(5, 2)));
         assert_eq!(loc_grid.num_dangerous_locs(), 1);
     }
 
