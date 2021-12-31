@@ -1,3 +1,5 @@
+use std::ops::RangeInclusive;
+
 pub fn day5a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let mut loc_grid = LocationGrid::new();
     input
@@ -15,6 +17,14 @@ fn parse_input_line(line: &str) -> LineSegment {
         .map(|num_str| num_str.parse::<u32>().unwrap());
     LineSegment(Loc::new(nums.next().unwrap(), nums.next().unwrap()),
                 Loc::new(nums.next().unwrap(), nums.next().unwrap()))
+}
+
+fn increasing_inclusive_range(v1: u32, v2: u32) -> RangeInclusive<u32> {
+    if v1 <= v2 {
+        v1..=v2
+    } else {
+        v2..=v1
+    }
 }
 
 struct LocationGrid {
@@ -43,11 +53,7 @@ impl LocationGrid {
         let y = vent_line.0.y;
         let v1 = vent_line.0.x;
         let v2 = vent_line.1.x;
-        if v1 <= v2 {
-            v1..=v2
-        } else {
-            v2..=v1
-        }
+        increasing_inclusive_range(v1, v2)
             .for_each(|x| self.add_vent(&Loc::new(x, y)));
     }
 
