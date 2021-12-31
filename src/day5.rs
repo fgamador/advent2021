@@ -32,13 +32,17 @@ impl LocationGrid {
 
     pub fn add_vent_line(&mut self, vent_line: LineSegment) {
         if vent_line.0.y == vent_line.1.y {
-            let y = vent_line.0.y;
-            (vent_line.0.x..=vent_line.1.x)
-                .for_each(|x| self.add_vent(&Loc::new(x, y)));
+            self.add_vent_row(&vent_line);
         } else {
             self.add_vent(&vent_line.0);
             self.add_vent(&vent_line.1);
         }
+    }
+
+    fn add_vent_row(&mut self, vent_line: &LineSegment) {
+        let y = vent_line.0.y;
+        (vent_line.0.x..=vent_line.1.x)
+            .for_each(|x| self.add_vent(&Loc::new(x, y)));
     }
 
     fn add_vent(&mut self, loc: &Loc) {
