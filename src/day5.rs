@@ -71,28 +71,19 @@ impl LocationGrid {
         if vent_line.0.x == vent_line.1.x || vent_line.0.y == vent_line.1.y {
             self.add_non_diagonal_vent_line(vent_line);
         } else {
-            self.add_vent_diagonal(&vent_line);
+            let vent_line_argument = &vent_line;
+            diagonal_line_segment_locs(vent_line_argument).for_each(|loc| self.add_vent(&loc));
         }
     }
 
     pub fn add_non_diagonal_vent_line(&mut self, vent_line: LineSegment) {
         if vent_line.0.y == vent_line.1.y {
-            self.add_vent_row(&vent_line);
+            let vent_line_argument = &vent_line;
+            horizontal_line_segment_locs(vent_line_argument).for_each(|loc| self.add_vent(&loc));
         } else if vent_line.0.x == vent_line.1.x {
-            self.add_vent_column(&vent_line);
+            let vent_line_argument = &vent_line;
+            vertical_line_segment_locs(vent_line_argument).for_each(|loc| self.add_vent(&loc));
         }
-    }
-
-    fn add_vent_row(&mut self, vent_line: &LineSegment) {
-        horizontal_line_segment_locs(vent_line).for_each(|loc| self.add_vent(&loc));
-    }
-
-    fn add_vent_column(&mut self, vent_line: &LineSegment) {
-        vertical_line_segment_locs(vent_line).for_each(|loc| self.add_vent(&loc));
-    }
-
-    fn add_vent_diagonal(&mut self, vent_line: &LineSegment) {
-        diagonal_line_segment_locs(vent_line).for_each(|loc| self.add_vent(&loc));
     }
 
     fn add_vent(&mut self, loc: &Loc) {
