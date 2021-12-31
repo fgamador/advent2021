@@ -208,7 +208,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn example_input_5a() {
         let input = to_string_iter(vec![
             "0,9 -> 5,9",
