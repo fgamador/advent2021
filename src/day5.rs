@@ -191,10 +191,10 @@ mod tests {
     }
 
     #[test]
-    fn location_grid_ignores_diagonal() {
+    fn location_grid_5a_ignores_diagonal() {
         let mut loc_grid = LocationGrid::new();
-        loc_grid.add_vent_line(LineSegment(Loc::new(0, 0), Loc::new(0, 1)));
-        loc_grid.add_vent_line(LineSegment(Loc::new(0, 0), Loc::new(1, 1)));
+        loc_grid.add_non_diagonal_vent_line(LineSegment(Loc::new(0, 0), Loc::new(0, 1)));
+        loc_grid.add_non_diagonal_vent_line(LineSegment(Loc::new(0, 0), Loc::new(1, 1)));
         assert_eq!(loc_grid.num_dangerous_locs(), 0);
     }
 
