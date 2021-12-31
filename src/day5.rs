@@ -51,9 +51,7 @@ impl LocationGrid {
 
     fn add_vent_row(&mut self, vent_line: &LineSegment) {
         let y = vent_line.0.y;
-        let v1 = vent_line.0.x;
-        let v2 = vent_line.1.x;
-        increasing_inclusive_range(v1, v2)
+        increasing_inclusive_range(vent_line.0.x, vent_line.1.x)
             .for_each(|x| self.add_vent(&Loc::new(x, y)));
     }
 
