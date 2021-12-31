@@ -71,15 +71,18 @@ impl LocationGrid {
         if vent_line.0.x == vent_line.1.x || vent_line.0.y == vent_line.1.y {
             self.add_non_diagonal_vent_line(vent_line);
         } else {
-            diagonal_line_segment_locs(&vent_line).for_each(|loc| self.add_vent(&loc));
+            let locs = diagonal_line_segment_locs(&vent_line);
+            locs.for_each(|loc| self.add_vent(&loc));
         }
     }
 
     pub fn add_non_diagonal_vent_line(&mut self, vent_line: LineSegment) {
         if vent_line.0.y == vent_line.1.y {
-            horizontal_line_segment_locs(&vent_line).for_each(|loc| self.add_vent(&loc));
+            let locs = horizontal_line_segment_locs(&vent_line);
+            locs.for_each(|loc| self.add_vent(&loc));
         } else if vent_line.0.x == vent_line.1.x {
-            vertical_line_segment_locs(&vent_line).for_each(|loc| self.add_vent(&loc));
+            let locs = vertical_line_segment_locs(&vent_line);
+            locs.for_each(|loc| self.add_vent(&loc));
         }
     }
 
