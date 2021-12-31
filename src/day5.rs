@@ -50,11 +50,11 @@ impl LocationGrid {
     }
 
     pub fn add_vent_line(&mut self, vent_line: LineSegment) {
-        if vent_line.0.x == vent_line.1.x || vent_line.0.y == vent_line.1.y {
-            self.add_non_diagonal_vent_line(vent_line);
-        } else {
+        if vent_line.0.x != vent_line.1.x && vent_line.0.y != vent_line.1.y {
             let locs = vent_line.diagonal_line_segment_locs();
             locs.for_each(|loc| self.add_vent(&loc));
+        } else {
+            self.add_non_diagonal_vent_line(vent_line);
         }
     }
 
