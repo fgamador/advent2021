@@ -1,5 +1,3 @@
-use std::ops::RangeInclusive;
-
 pub fn day5a(input: impl Iterator<Item=String>) -> (&'static str, i32) {
     let mut loc_grid = LocationGrid::new();
     input
@@ -28,11 +26,11 @@ fn parse_input_line(line: &str) -> LineSegment {
                 Loc::new(nums.next().unwrap(), nums.next().unwrap()))
 }
 
-fn increasing_inclusive_range(v1: u32, v2: u32) -> RangeInclusive<u32> {
+fn from_to(v1: u32, v2: u32) -> Box<dyn Iterator<Item=u32>> {
     if v1 <= v2 {
-        v1..=v2
+        Box::new(v1..=v2)
     } else {
-        v2..=v1
+        Box::new((v2..=v1).rev())
     }
 }
 
@@ -116,19 +114,19 @@ impl LineSegment {
 
     pub fn horizontal_line_segment_locs(&self) -> impl Iterator<Item=Loc> {
         let y = self.0.y;
-        increasing_inclusive_range(self.0.x, self.1.x)
+        from_to(self.0.x, self.1.x)
             .map(move |x| Loc::new(x, y))
     }
 
     pub fn vertical_line_segment_locs(&self) -> impl Iterator<Item=Loc> {
         let x = self.0.x;
-        increasing_inclusive_range(self.0.y, self.1.y)
+        from_to(self.0.y, self.1.y)
             .map(move |y| Loc::new(x, y))
     }
 
     pub fn diagonal_line_segment_locs(&self) -> impl Iterator<Item=Loc> {
-        increasing_inclusive_range(self.0.x, self.1.x)
-            .zip(increasing_inclusive_range(self.0.y, self.1.y))
+        from_to(self.0.x, self.1.x)
+            .zip(from_to(self.0.y, self.1.y))
             .map(|(x, y)| Loc::new(x, y))
     }
 }
@@ -279,7 +277,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn example_input_5b() {
         let input = to_string_iter(vec![
             "0,9 -> 5,9",
