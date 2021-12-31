@@ -41,12 +41,14 @@ impl LocationGrid {
     }
 
     pub fn add_vent_line(&mut self, vent_line: LineSegment) {
+        self.add_non_diagonal_vent_line(vent_line);
+    }
+
+    pub fn add_non_diagonal_vent_line(&mut self, vent_line: LineSegment) {
         if vent_line.0.y == vent_line.1.y {
             self.add_vent_row(&vent_line);
         } else if vent_line.0.x == vent_line.1.x {
             self.add_vent_column(&vent_line);
-        } else {
-            // ignore diagonals
         }
     }
 
