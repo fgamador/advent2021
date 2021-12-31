@@ -28,6 +28,12 @@ fn parse_input_line(line: &str) -> LineSegment {
                 Loc::new(nums.next().unwrap(), nums.next().unwrap()))
 }
 
+fn horizontal_line_segment_locs(vent_line: &LineSegment) -> impl Iterator<Item=Loc> {
+    let y = vent_line.0.y;
+    increasing_inclusive_range(vent_line.0.x, vent_line.1.x)
+        .map(move |x| Loc::new(x, y))
+}
+
 fn increasing_inclusive_range(v1: u32, v2: u32) -> RangeInclusive<u32> {
     if v1 <= v2 {
         v1..=v2
@@ -66,10 +72,7 @@ impl LocationGrid {
     }
 
     fn add_vent_row(&mut self, vent_line: &LineSegment) {
-        let y = vent_line.0.y;
-        increasing_inclusive_range(vent_line.0.x, vent_line.1.x)
-            .map(|x| Loc::new(x, y))
-            .for_each(|loc| self.add_vent(&loc));
+        horizontal_line_segment_locs(vent_line).for_each(|loc| self.add_vent(&loc));
     }
 
     fn add_vent_column(&mut self, vent_line: &LineSegment) {
