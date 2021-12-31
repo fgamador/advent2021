@@ -131,6 +131,15 @@ mod tests {
     }
 
     #[test]
+    fn location_grid_counts_each_dangerous_loc_only_once() {
+        let mut loc_grid = LocationGrid::new();
+        loc_grid.add_vent_line(LineSegment(Loc::new(0, 1), Loc::new(2, 1)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(1, 0), Loc::new(1, 1)));
+        loc_grid.add_vent_line(LineSegment(Loc::new(1, 1), Loc::new(1, 2)));
+        assert_eq!(loc_grid.num_dangerous_locs(), 1);
+    }
+
+    #[test]
     fn location_grid_expands_as_needed() {
         let mut loc_grid = LocationGrid::new();
         loc_grid.add_vent_line(LineSegment(Loc::new(900, 901), Loc::new(901, 901)));
